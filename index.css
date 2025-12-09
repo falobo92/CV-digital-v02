@@ -1,0 +1,564 @@
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   FELIPE LOBO BORIC - CV NEO-BRUTALISTA
+   Custom Styles
+======================================== */
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+html,
+:host {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: 'JetBrains Mono', 'Space Mono', monospace;
+    background-color: #FFFDF5;
+    color: #0D0D0D;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent layout shift from scrollbar */
+html {
+    overflow-y: scroll;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+    outline: 4px solid #FF4D00;
+    outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+    background: #FFD500;
+    color: #0D0D0D;
+}
+
+/* Smooth transitions for all interactive elements */
+a, button {
+    transition: all 0.15s ease;
+}
+
+/* Custom scrollbar - Webkit browsers */
+::-webkit-scrollbar {
+    width: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1E3A5F;
+    border: 3px solid #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FF4D00;
+}
+
+/* Firefox scrollbar - Solo para Firefox, Safari no lo soporta */
+@supports (scrollbar-width: thin) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #1E3A5F #FFFDF5;
+    }
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(var(--rotation, 0deg));
+    }
+    50% {
+        transform: translateY(-15px) rotate(var(--rotation, 0deg));
+    }
+}
+
+/* Typing cursor effect */
+.typing::after {
+    content: '_';
+    animation: blink 0.8s step-end infinite;
+    color: currentColor;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Neo-brutalista button effects */
+.brutal-btn {
+    position: relative;
+    transition: all 0.08s ease;
+}
+
+.brutal-btn:hover {
+    transform: translate(-2px, -2px);
+}
+
+.brutal-btn:active {
+    transform: translate(4px, 4px) !important;
+    box-shadow: 2px 2px 0px 0px #0D0D0D !important;
+}
+
+/* Card hover effects */
+.brutal-card {
+    transition: all 0.2s ease;
+}
+
+.brutal-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 10px 10px 0px 0px #0D0D0D;
+}
+
+/* Timeline styles */
+.timeline-dot {
+    position: relative;
+}
+
+.timeline-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.2;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.1;
+    }
+}
+
+/* Shimmer animation for timeline */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.animate-shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Glow effect for timeline nodes */
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+    }
+    50% {
+        box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+    }
+}
+
+.timeline-glow {
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Timeline connector animation */
+@keyframes draw-line {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Smooth card entrance */
+@keyframes card-enter {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.timeline-card-enter {
+    animation: card-enter 0.6s ease-out forwards;
+}
+
+/* Node bounce effect */
+@keyframes node-bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.timeline-node-active {
+    animation: node-bounce 0.5s ease-out;
+}
+
+/* Gradient text for timeline */
+.gradient-text-timeline {
+    background: linear-gradient(135deg, #00B4D8 0%, #1E3A5F 50%, #FF4D00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Timeline progress bar glow */
+.timeline-progress-glow {
+    position: relative;
+}
+
+.timeline-progress-glow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(8px);
+    opacity: 0.6;
+    z-index: -1;
+}
+
+/* Magnetic hover effect for cards */
+.magnetic-hover {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.magnetic-hover:hover {
+    transform: translateY(-4px) scale(1.01);
+}
+
+/* Stagger reveal for timeline items - controlled by React */
+.timeline-item-animated {
+    opacity: 0;
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+.timeline-item-animated:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item-animated:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item-animated:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item-animated:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item-animated:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item-animated:nth-child(6) { animation-delay: 0.6s; }
+
+/* Gradient animation for evolution timeline */
+@keyframes gradient-x {
+    0%, 100% {
+        background-position: 0% 50%;
+        background-size: 200% 100%;
+    }
+    50% {
+        background-position: 100% 50%;
+        background-size: 200% 100%;
+    }
+}
+
+.animate-gradient-x {
+    background-size: 200% 100%;
+    animation: gradient-x 4s ease infinite;
+}
+
+/* Bounce horizontal for arrow */
+@keyframes bounce-x {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+.animate-bounce-x {
+    animation: bounce-x 1.5s ease-in-out infinite;
+}
+
+/* Orbit animation for decorative elements */
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translateX(30px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(30px) rotate(-360deg);
+    }
+}
+
+.animate-orbit {
+    animation: orbit 8s linear infinite;
+}
+
+/* Scale pulse for nodes */
+@keyframes scale-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-scale-pulse {
+    animation: scale-pulse 2s ease-in-out infinite;
+}
+
+/* Glow effect */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    }
+    50% {
+        box-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+    }
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Tech tag tooltip */
+.tech-tag {
+    position: relative;
+}
+
+.tech-tag .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.2s ease;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.tech-tag:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+}
+
+/* Stagger animations for lists */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Form input focus states */
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #1E3A5F !important;
+    box-shadow: 4px 4px 0px 0px #1E3A5F;
+}
+
+/* Error state for form fields */
+.input-error {
+    border-color: #FF2D2D !important;
+    background-color: #FFF5F5;
+}
+
+/* Success animations */
+.success-checkmark {
+    animation: checkmark 0.5s ease-in-out;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Grid pattern background */
+.bg-grid {
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.06) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(0,0,0,0.06) 2px, transparent 2px);
+    background-size: 40px 40px;
+}
+
+/* Brutalist image effects */
+.brutal-image {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.brutal-image:hover {
+    transform: translate(-4px, -4px);
+}
+
+.brutal-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Grayscale effect with hover */
+.brutal-image img.grayscale {
+    filter: grayscale(100%) contrast(1.2);
+    transition: filter 0.3s ease;
+}
+
+.brutal-image:hover img.grayscale {
+    filter: grayscale(0%) contrast(1.1);
+}
+
+/* Diagonal pattern */
+.bg-diagonal {
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(0,0,0,0.03) 8px,
+        rgba(0,0,0,0.03) 16px
+    );
+}
+
+/* Backdrop filter support for Safari */
+@supports (backdrop-filter: blur(4px)) or (-webkit-backdrop-filter: blur(4px)) {
+    .backdrop-blur-sm {
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    * {
+        box-shadow: none !important;
+        border-color: #000 !important;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --border-width: 4px;
+    }
+    
+    * {
+        border-width: var(--border-width) !important;
+    }
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    html {
+        scroll-padding-top: 70px;
+    }
+    
+    .brutal-btn:active {
+        transform: translate(2px, 2px) !important;
+    }
+}
+
+/* Loading skeleton animation */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 25%,
+        #e0e0e0 50%,
+        #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
