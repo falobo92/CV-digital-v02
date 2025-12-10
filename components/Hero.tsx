@@ -44,8 +44,8 @@ const Hero: React.FC = () => {
                     </div>
 
                     <h1 className="font-display text-6xl sm:text-7xl lg:text-[7.5rem] leading-[0.85] mb-8 text-ink uppercase tracking-tight">
-                        CONSTRUCCIÓN
-                        <span className="block text-eng-blue">
+                        <span className="bg-accent-yellow text-ink px-2 inline-block transform -skew-x-6">CONSTRUCCIÓN</span>
+                        <span className="block text-eng-blue mt-2">
                             & GESTIÓN
                         </span>
                     </h1>
@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
                 {/* Right Column - The "Smart Brutalist" Image */}
                 <div className="relative flex justify-center lg:justify-end">
                     {/* Image Container - Tactile & Solid */}
-                    <div className="relative group hover-glitch cursor-crosshair">
+                    <div className="relative group cursor-crosshair">
 
                         {/* Shadow Block (Static) */}
                         <div className="absolute top-4 left-4 w-full h-full bg-ink z-0"></div>

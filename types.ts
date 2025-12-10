@@ -28,6 +28,7 @@ export interface ProjectItem {
     subtitle: string;
     year: string;
     category: string;
+    image?: string;
     challenge: string;
     results: string[];
     tags: string[];

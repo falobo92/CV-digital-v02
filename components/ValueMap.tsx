@@ -65,24 +65,45 @@ const ValueMap: React.FC = () => {
                 </div>
 
                 {/* Competencies - Visual Overhaul (Tags/Specs) */}
-                <div className="bg-ink p-8 md:p-12 border-4 border-ink">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10 border-b border-gray-700 pb-6">
-                        <h3 className="font-display text-3xl uppercase text-white">Dominio Técnico</h3>
-                        <div className="font-mono text-xs text-term-green flex items-center gap-2">
+                {/* Competencies - Visual Overhaul (System Specs) */}
+                <div className="bg-ink p-8 md:p-12 border-4 border-ink relative overflow-hidden">
+                    {/* Background Tech Deco */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 border-b border-gray-800 pb-8 relative z-10">
+                        <div>
+                            <h3 className="font-display text-4xl uppercase text-white mb-2">Dominio Técnico</h3>
+                            <p className="font-mono text-gray-400 text-sm">ESPECIFICACIONES DEL SISTEMA PROFESIONAL</p>
+                        </div>
+                        <div className="font-mono text-xs text-term-green flex items-center gap-3 border border-term-green/30 px-4 py-2 bg-term-green/10">
                             <span className="w-2 h-2 bg-term-green rounded-full animate-pulse"></span>
-                            VERIFIED SKILLS
+                            SYSTEM_STATUS: OPERATIONAL
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
                         {COMPETENCIES.map((comp, idx) => (
-                            <span key={idx} className="group relative inline-flex">
-                                <span className="bg-gray-800 text-gray-300 border border-gray-600 px-4 py-2 font-mono text-sm font-bold uppercase tracking-tight group-hover:bg-white group-hover:text-ink group-hover:border-white transition-all duration-200 cursor-default">
+                            <div key={idx} className="group bg-gray-900 border border-gray-700 p-4 hover:border-digital-cyan hover:bg-gray-800 transition-all duration-300 relative overflow-hidden">
+                                {/* Hover Glow */}
+                                <div className="absolute inset-0 bg-digital-cyan/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+
+                                <div className="flex justify-between items-start mb-3">
+                                    <span className="font-mono text-[10px] text-gray-500">SPEC_0{idx + 1}</span>
+                                    <i className="fa-solid fa-check text-term-green text-xs opacity-50 group-hover:opacity-100"></i>
+                                </div>
+
+                                <h4 className="font-mono text-sm font-bold text-gray-200 uppercase mb-4 tracking-tight group-hover:text-white group-hover:translate-x-1 transition-transform">
                                     {comp}
-                                </span>
-                                {/* Decorative corner on hover */}
-                                <span className="absolute -top-1 -right-1 w-2 h-2 bg-accent-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                            </span>
+                                </h4>
+
+                                {/* Fake 'Load' Bar for visual tech feel */}
+                                <div className="w-full h-1 bg-gray-800 mt-auto">
+                                    <div
+                                        className="h-full bg-digital-cyan/50 group-hover:bg-digital-cyan transition-all duration-500"
+                                        style={{ width: `${Math.floor(Math.random() * 40) + 60}%` }}
+                                    ></div>
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </div>

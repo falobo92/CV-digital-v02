@@ -62,51 +62,67 @@ const Projects: React.FC = () => {
                             <span className="text-xs border-2 border-cream px-3 py-1 font-mono">{currentProject.year}</span>
                         </div>
 
-                        <div className="p-8 md:p-12 flex-grow grid grid-cols-1 lg:grid-cols-2 gap-12">
-                            {/* Left Col: Info */}
-                            <div className="flex flex-col">
-                                <h3 className="text-4xl md:text-5xl font-display leading-none mb-4 uppercase">{currentProject.title}</h3>
-                                <div className="text-eng-blue font-bold text-xl mb-8">{currentProject.subtitle}</div>
+                        <div className="p-8 md:p-12 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-12">
+                            {/* Left Col: Image (Visual Dominance) */}
+                            <div className="lg:col-span-5 flex flex-col h-full">
+                                <div className="relative w-full h-full min-h-[300px] border-4 border-ink overflow-hidden group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white">
+                                    {/* Paper Texture Overlay */}
+                                    <div className="absolute inset-0 bg-[#f4f1ea] opacity-20 pointer-events-none z-10 mix-blend-multiply"></div>
 
-                                {/* Challenge */}
-                                <div className="mb-8">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <i className="fa-solid fa-crosshairs text-xl text-eng-blue"></i>
-                                        <p className="font-bold text-sm uppercase tracking-wide border-b-4 border-accent-yellow pb-1">EL DESAFÍO</p>
+                                    {/* The Image */}
+                                    {currentProject.image && (
+                                        <img
+                                            src={currentProject.image}
+                                            alt={currentProject.title}
+                                            className="w-full h-full object-cover filter grayscale-[50%] contrast-110 brightness-100 transition-all duration-500 group-hover/image:grayscale-0 group-hover/image:scale-105"
+                                        />
+                                    )}
+
+                                    {/* Technical Marker Overlay */}
+                                    <div className="absolute bottom-4 left-4 z-20 bg-white border-2 border-ink px-2 py-1 font-mono text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                                        IMG_REF: {currentProject.id.toUpperCase()}
                                     </div>
-                                    <p className="text-base leading-relaxed text-gray-700 font-mono">
-                                        {currentProject.challenge}
-                                    </p>
                                 </div>
                             </div>
 
-                            {/* Right Col: Results & Tags */}
-                            <div className="flex flex-col h-full">
-                                {/* Results */}
-                                <div className="mb-8 flex-grow">
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <i className="fa-solid fa-trophy text-xl text-safety-orange"></i>
-                                        <p className="font-bold text-sm uppercase tracking-wide border-b-4 border-term-green pb-1">RESULTADOS</p>
+                            {/* Right Col: Info & Details */}
+                            <div className="lg:col-span-7 flex flex-col justify-center">
+                                <div className="flex flex-col">
+                                    <h3 className="text-4xl md:text-5xl font-display leading-none mb-4 uppercase">{currentProject.title}</h3>
+                                    <div className="text-eng-blue font-bold text-xl mb-8 flex items-center gap-2">
+                                        <span className="w-12 h-1 bg-eng-blue inline-block"></span>
+                                        {currentProject.subtitle}
                                     </div>
-                                    <ul className="space-y-4">
-                                        {currentProject.results.map((res, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-base text-gray-700">
-                                                <i className="fa-solid fa-check text-term-green mt-1"></i>
-                                                <span className="font-mono">{res}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
 
-                                {/* Tags */}
-                                <div className="pt-6 border-t-4 border-gray-100 mt-auto">
-                                    <div className="flex flex-wrap gap-2">
+                                    {/* Challenge */}
+                                    <div className="mb-8 bg-white border-l-4 border-accent-yellow pl-6 py-2">
+                                        <p className="font-bold text-sm uppercase tracking-wide text-gray-500 mb-2">EL DESAFÍO</p>
+                                        <p className="text-base leading-relaxed text-gray-800 font-mono">
+                                            {currentProject.challenge}
+                                        </p>
+                                    </div>
+
+                                    {/* Results */}
+                                    <div className="mb-8">
+                                        <p className="font-bold text-sm uppercase tracking-wide text-gray-500 mb-4 border-b-2 border-gray-200 inline-block">RESULTADOS CLAVE</p>
+                                        <ul className="space-y-3">
+                                            {currentProject.results.map((res, i) => (
+                                                <li key={i} className="flex items-start gap-3 text-base text-gray-700">
+                                                    <i className="fa-solid fa-square-check text-term-green mt-1 text-lg"></i>
+                                                    <span className="font-mono leading-tight">{res}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Tags */}
+                                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t-2 border-dashed border-gray-300">
                                         {currentProject.tags.map(tag => (
                                             <span
                                                 key={tag}
-                                                className="text-xs font-bold px-3 py-2 border-4 border-ink bg-cream uppercase font-mono hover:bg-accent-yellow transition-colors"
+                                                className="text-xs font-bold px-3 py-1 bg-gray-100 text-gray-600 uppercase font-mono border border-gray-300"
                                             >
-                                                {tag}
+                                                #{tag}
                                             </span>
                                         ))}
                                     </div>

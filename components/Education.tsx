@@ -8,62 +8,57 @@ const Education: React.FC = () => {
             <SectionDivider text="ACADEMIC  ///  CONTINUOUS LEARNING  ///  SKILLS" theme="light" direction="left" />
             {/* Background Grid */}
             <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
-            <div className="max-w-[1400px] mx-auto px-8 pt-20">
+            <div className="max-w-[1600px] mx-auto px-12 py-24">
                 {/* Header */}
                 <h2 className="text-5xl md:text-6xl lg:text-7xl font-display mb-20 text-center uppercase tracking-tight">
                     FORMACIÓN
                 </h2>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 max-w-[1200px] mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-[1400px] mx-auto">
                     {/* Education */}
                     <div>
-                        <h3 className="font-display text-2xl border-b-6 border-eng-blue inline-block pb-2 mb-10 uppercase flex items-center gap-3">
+                        <h3 className="font-display text-2xl border-b-6 border-eng-blue inline-block pb-2 mb-12 uppercase flex items-center gap-3">
                             <i className="fa-solid fa-graduation-cap"></i>
                             EDUCACIÓN
                         </h3>
 
-                        <div className="space-y-8">
+                        <div className="space-y-10">
                             {EDUCATION.map((edu) => (
                                 <article
                                     key={edu.id}
-                                    className="bg-cream border-4 border-ink p-8 shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all"
+                                    className="bg-cream border-4 border-ink p-10 shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all relative group"
                                 >
-                                    {/* Distinction */}
+                                    {/* Distinction Badge */}
                                     {edu.distinction && (
-                                        <div className="inline-flex items-center gap-2 bg-accent-yellow text-ink px-4 py-2 text-xs font-bold border-4 border-ink mb-5 shadow-brutal-sm uppercase">
-                                            <i className="fa-solid fa-award"></i>
+                                        <div className="absolute -top-4 -right-4 bg-accent-yellow text-ink px-4 py-2 text-xs font-bold border-4 border-ink shadow-brutal-sm uppercase transform rotate-2 group-hover:rotate-0 transition-transform">
+                                            <i className="fa-solid fa-award mr-2"></i>
                                             {edu.distinction}
                                         </div>
                                     )}
 
                                     {/* Institution */}
-                                    <div className="font-mono text-sm text-gray-600 mb-2 flex items-center gap-2">
-                                        <i className="fa-solid fa-building-columns"></i>
+                                    <div className="font-mono text-sm text-gray-500 mb-2 flex items-center gap-2 font-bold tracking-wider uppercase">
+                                        <i className="fa-solid fa-building-columns text-eng-blue"></i>
                                         {edu.institution}
                                     </div>
 
                                     {/* Degree */}
-                                    <div className="font-display text-xl md:text-2xl mb-3 uppercase">
+                                    <h4 className="font-display text-3xl mb-4 uppercase leading-none text-ink">
                                         {edu.degree}
-                                    </div>
+                                    </h4>
 
                                     {/* Period */}
-                                    <div className="inline-block bg-ink text-cream px-4 py-2 text-xs font-bold border-4 border-ink uppercase mb-5">
-                                        <i className="fa-solid fa-calendar mr-2"></i>
+                                    <div className="inline-block bg-ink text-cream px-4 py-2 text-xs font-bold font-mono uppercase mb-6">
                                         {edu.period}
                                     </div>
 
                                     {/* Details */}
                                     {edu.details && edu.details.length > 0 && (
-                                        <div className="mt-5 pt-5 border-t-4 border-gray-200">
-                                            <div className="font-bold text-xs uppercase text-gray-500 mb-3 flex items-center gap-2">
-                                                <i className="fa-solid fa-book-open"></i>
-                                                Especialización:
-                                            </div>
-                                            <ul className="space-y-2">
+                                        <div className="pt-6 border-t-2 border-dashed border-gray-300">
+                                            <ul className="space-y-3">
                                                 {edu.details.map((detail, idx) => (
-                                                    <li key={idx} className="text-sm font-mono text-gray-700 flex items-start gap-3">
-                                                        <i className="fa-solid fa-caret-right text-eng-blue mt-1"></i>
+                                                    <li key={idx} className="text-sm font-mono text-gray-700 flex items-start gap-3 leading-relaxed">
+                                                        <i className="fa-solid fa-caret-right text-safety-orange mt-1"></i>
                                                         {detail}
                                                     </li>
                                                 ))}
@@ -75,66 +70,79 @@ const Education: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Languages */}
-                    <div>
-                        <h3 className="font-display text-2xl border-b-6 border-safety-orange inline-block pb-2 mb-10 uppercase flex items-center gap-3">
-                            <i className="fa-solid fa-globe"></i>
-                            IDIOMAS
-                        </h3>
+                    {/* Languages & Continuous Learning */}
+                    <div className="space-y-16">
+                        {/* Languages */}
+                        <div>
+                            <h3 className="font-display text-2xl border-b-6 border-safety-orange inline-block pb-2 mb-12 uppercase flex items-center gap-3">
+                                <i className="fa-solid fa-globe"></i>
+                                IDIOMAS
+                            </h3>
 
-                        <div className="space-y-6">
-                            {/* Spanish */}
-                            <div className="bg-eng-blue border-4 border-ink p-8 shadow-brutal text-cream">
-                                <div className="flex justify-between items-center mb-5">
-                                    <span className="font-display text-2xl uppercase">ESPAÑOL</span>
-                                    <span className="bg-accent-yellow text-ink px-5 py-2 font-bold text-sm border-4 border-ink uppercase">
-                                        NATIVO
-                                    </span>
+                            <div className="space-y-8">
+                                {/* Spanish */}
+                                <div className="bg-eng-blue border-4 border-ink p-8 shadow-brutal text-cream relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-4 opacity-10">
+                                        <i className="fa-solid fa-comments text-8xl"></i>
+                                    </div>
+                                    <div className="flex justify-between items-end mb-4 relative z-10">
+                                        <span className="font-display text-3xl uppercase">ESPAÑOL</span>
+                                        <span className="font-mono text-xs font-bold bg-accent-yellow text-ink px-3 py-1">NATIVO</span>
+                                    </div>
+                                    <div className="h-4 bg-ink/30 w-full mb-1">
+                                        <div className="h-full bg-term-green w-full"></div>
+                                    </div>
                                 </div>
-                                <div className="h-5 bg-ink border-4 border-cream relative overflow-hidden">
-                                    <div className="h-full bg-term-green w-full"></div>
-                                </div>
-                                <div className="text-right text-xs mt-2 font-mono opacity-80">100%</div>
-                            </div>
 
-                            {/* English */}
-                            <div className="bg-cream border-4 border-ink p-8 shadow-brutal">
-                                <div className="flex justify-between items-center mb-5">
-                                    <span className="font-display text-2xl uppercase">INGLÉS</span>
-                                    <span className="bg-digital-cyan text-ink px-5 py-2 font-bold text-sm border-4 border-ink uppercase">
-                                        INTERMEDIO
-                                    </span>
-                                </div>
-                                <div className="h-5 bg-gray-200 border-4 border-ink relative overflow-hidden">
-                                    <div className="h-full bg-eng-blue w-[65%]"></div>
-                                </div>
-                                <div className="text-right text-xs mt-2 font-mono text-gray-600">65%</div>
+                                {/* English */}
+                                <div className="bg-white border-4 border-ink p-8 shadow-brutal relative">
+                                    <div className="flex justify-between items-end mb-4">
+                                        <span className="font-display text-3xl uppercase">INGLÉS</span>
+                                        <span className="font-mono text-xs font-bold bg-digital-cyan text-ink px-3 py-1">INTERMEDIO (B2)</span>
+                                    </div>
+                                    <div className="h-4 bg-gray-100 border border-gray-300 w-full mb-4">
+                                        <div className="h-full bg-eng-blue w-[65%] relative">
+                                            <div className="absolute -right-2 -top-1 w-4 h-6 bg-ink"></div>
+                                        </div>
+                                    </div>
 
-                                <div className="mt-5 pt-5 border-t-4 border-gray-200">
-                                    <p className="text-sm font-mono text-gray-600 flex items-start gap-2">
-                                        <i className="fa-solid fa-circle-info mt-1"></i>
-                                        Manejo de documentación técnica, normativas internacionales y comunicación en contextos de proyectos multinacionales.
+                                    <p className="font-mono text-sm text-gray-600 leading-relaxed border-l-4 border-gray-200 pl-4">
+                                        Capacidad para lectura de documentación técnica, normativas internacionales (ASTM/ISO) y comunicación efectiva en entornos de proyecto.
                                     </p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Continuous Learning */}
-                        <div className="mt-8 bg-ink text-cream border-4 border-ink p-8 shadow-brutal relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-20 h-20 bg-safety-orange border-l-4 border-b-4 border-ink flex items-center justify-center">
-                                <i className="fa-solid fa-lightbulb text-2xl text-cream"></i>
+                        <div className="bg-ink text-cream border-4 border-ink p-10 shadow-brutal relative overflow-hidden">
+                            <div className="absolute -right-10 -bottom-10 text-gray-800 opacity-20 transform -rotate-12">
+                                <i className="fa-solid fa-microchip text-9xl"></i>
                             </div>
-                            <h4 className="font-display text-xl mb-4 text-accent-yellow uppercase flex items-center gap-3">
-                                <i className="fa-solid fa-rocket"></i>
-                                APRENDIZAJE CONTINUO
+
+                            <h4 className="font-display text-2xl mb-6 text-accent-yellow uppercase flex items-center gap-3 relative z-10">
+                                <i className="fa-solid fa-rotate"></i>
+                                ACTUALIZACIÓN CONSTANTE
                             </h4>
-                            <p className="font-mono text-sm leading-relaxed opacity-90">
-                                Formación constante en tecnologías de automatización, metodologías ágiles y herramientas de gestión de datos. Enfoque en aplicar nuevas tecnologías a los desafíos reales de la industria de la construcción.
+
+                            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="border border-gray-700 p-4 bg-white/5">
+                                    <div className="text-xs font-mono text-digital-cyan mb-2">LAST_UPDATE</div>
+                                    <div className="font-bold">Automatización con Power Platform</div>
+                                </div>
+                                <div className="border border-gray-700 p-4 bg-white/5">
+                                    <div className="text-xs font-mono text-digital-cyan mb-2">IN_PROGRESS</div>
+                                    <div className="font-bold">Análisis de Datos con Python</div>
+                                </div>
+                            </div>
+
+                            <p className="font-mono text-sm leading-relaxed text-gray-400 mt-6 border-t border-gray-800 pt-6">
+                                "La tecnología en construcción no es el fin, es el medio para reducir la incertidumbre y controlar los costos."
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </section>
     );
 };

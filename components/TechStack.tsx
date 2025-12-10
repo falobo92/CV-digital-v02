@@ -97,26 +97,26 @@ const TechStack: React.FC = () => {
                         </div>
 
                         {/* Tech Grid */}
-                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2">
                             {filteredTech.map((tech) => {
                                 const cat = TECH_CATEGORIES.find(c => c.id === tech.category);
                                 return (
                                     <button
                                         key={tech.key}
                                         onClick={() => setActiveTech(tech)}
-                                        className={`aspect-square relative flex flex-col items-center justify-center p-3 border-2 transition-all duration-200 group ${activeTech?.key === tech.key
+                                        className={`aspect-square relative flex flex-col items-center justify-center p-2 border transition-all duration-200 group ${activeTech?.key === tech.key
                                             ? getSelectionStyle(tech)
                                             : 'bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-600 hover:bg-gray-800 hover:text-gray-300'
                                             }`}
                                     >
                                         {/* Category Indicator Dot */}
-                                        <div className={`absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-${cat?.color} opacity-50 group-hover:opacity-100`}></div>
+                                        <div className={`absolute top-1 right-1 w-1 h-1 rounded-full bg-${cat?.color} opacity-50 group-hover:opacity-100`}></div>
 
                                         {/* Main Icon */}
-                                        <div className={`text-4xl mb-3 transition-colors flex items-center justify-center ${activeTech?.key === tech.key ? 'text-white' : 'text-gray-600 group-hover:text-gray-400'}`}>
+                                        <div className={`text-2xl mb-1 transition-colors flex items-center justify-center ${activeTech?.key === tech.key ? 'text-white' : 'text-gray-600 group-hover:text-gray-400'}`}>
                                             <i className={tech.icon}></i>
                                         </div>
-                                        <div className="font-mono text-[9px] sm:text-[10px] font-bold uppercase truncate w-full text-center tracking-tight leading-tight">
+                                        <div className="font-mono text-[8px] font-bold uppercase truncate w-full text-center tracking-tight leading-none">
                                             {tech.name}
                                         </div>
                                     </button>

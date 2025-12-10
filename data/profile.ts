@@ -71,14 +71,14 @@ export const PROFILE = {
 
     // Competencias principales
     competencies: [
-        'Gestión integral de proyectos de edificación e infraestructura: oficina técnica, control de gestión y supervisión de terreno.',
-        'Diseño e implementación de sistemas de gestión documental en Microsoft 365 y SharePoint para proyectos complejos.',
-        'Desarrollo de automatizaciones con Python y Power Automate para consolidación de datos y generación de reportabilidad.',
-        'Aplicación de metodologías Lean Construction y Last Planner System para mejora de planificación y cumplimiento.',
-        'Experiencia en tramitación ambiental SEIA: elaboración de EIA, adendas y coordinación con el Servicio de Evaluación Ambiental.',
-        'Implementación de planificación BIM 4D con Synchro para visualización de secuencias constructivas.',
-        'Coordinación de proyectos de transformación digital asegurando plazos, alcance y objetivos.',
-        'Investigación y evaluación de nuevas soluciones digitales, metodologías y buenas prácticas para el sector construcción.'
+        'Gestión Técnica de Proyectos: Dirección integral en oficina técnica y terreno, equilibrando el control de costos, plazos y calidad en proyectos de edificación e infraestructura crítica.',
+        'Arquitectura de Información (CDE): Diseño y despliegue de Entornos Comunes de Datos (CDE) en SharePoint/M365, garantizando la integridad, seguridad y accesibilidad de la información técnica.',
+        'Automatización de Procesos (RPA): Desarrollo de scripts en Python y flujos en Power Automate para eliminar tareas repetitivas, reducir el error humano y acelerar la reportabilidad.',
+        'Lean Construction & Planificación: Implementación práctica de Last Planner System para optimizar la confiabilidad del plan semanal y fomentar una cultura colaborativa en obra.',
+        'Gestión Ambiental Estratégica: Coordinación técnica en el marco del SEIA, asegurando la trazabilidad rigurosa de expedientes, adendas y cumplimiento normativo ante la autoridad.',
+        'Coordinación Digital BIM 4D: Integración de modelos tridimensionales con la programación (Synchro), anticipando conflictos constructivos antes de llegar a terreno.',
+        'Liderazgo en Transformación Digital: Capacidad para traducir necesidades operativas de la construcción en soluciones tecnológicas, gestionando la adopción y el cambio cultural en los equipos.',
+        'Innovación Aplicada: Evaluación continua de tecnologías emergentes (Low-Code, IA) para resolver problemáticas reales de la industria, evitando la digitalización por mera tendencia.'
     ],
 
     // Intereses y enfoque
@@ -93,30 +93,30 @@ export const PROFILE = {
     // Herramientas y tecnologías
     tools: {
         development: [
-            { name: 'Python', icon: 'fa-brands fa-python', description: 'Automatización y ETL', reason: 'Scripts para procesar metadatos, consolidar bases de datos y generar reportes y dashboards a partir de información de SharePoint y Excel.' },
-            { name: 'HTML5 / CSS / JS', icon: 'fa-brands fa-js', description: 'Desarrollo Web', reason: 'Desarrollo de vistas ligeras y paneles de consulta para equipos técnicos y de gestión.' },
-            { name: 'JSON & APIs', icon: 'fa-solid fa-code', description: 'Intercambio de Datos', reason: 'Lectura y transformación de archivos JSON exportados desde M365 y otras plataformas para su uso en análisis y reportabilidad.' },
-            { name: 'Power Automate', icon: 'fa-solid fa-bolt', description: 'Flujos de Trabajo', reason: 'Flujos de aprobación, notificaciones y envío de correos automáticos según cambios en listas y bibliotecas de SharePoint.' }
+            { name: 'Python', icon: 'fa-brands fa-python', description: 'Ingeniería de Datos & ETL', reason: 'Desarrollo de scripts para limpieza de datos, automatización de reportes complejos y conexión de silos de información (SharePoint/Excel) hacia tableros de control.' },
+            { name: 'HTML5 / CSS / JS', icon: 'fa-brands fa-js', description: 'Front-end Ligero', reason: 'Creación de interfaces web ágiles y personalizadas para facilitar la consulta de datos técnicos a equipos no digitales.' },
+            { name: 'JSON & APIs', icon: 'fa-solid fa-code', description: 'Interoperabilidad', reason: 'Gestión del intercambio de datos estructurados entre plataformas M365 y herramientas de análisis, asegurando la integridad de la información.' },
+            { name: 'Power Automate', icon: 'fa-solid fa-bolt', description: 'Orquestación de Flujos', reason: 'Automatización de procesos de negocio: aprobaciones, notificaciones críticas y enrutamiento de documentos sin intervención manual.' }
         ],
         microsoft365: [
-            { name: 'SharePoint / M365', icon: 'fa-brands fa-microsoft', description: 'Gestión Documental (CDE)', reason: 'Arquitectura funcional de sitios, listas y bibliotecas; definición de permisos, vistas y estructuras de carpetas para proyectos complejos.' },
-            { name: 'Power BI', icon: 'fa-solid fa-chart-column', description: 'Business Intelligence', reason: 'Cuadros de mando gerenciales para control de avance físico-financiero y desviaciones de presupuesto.' },
-            { name: 'Excel + Power Query', icon: 'fa-solid fa-file-excel', description: 'Análisis de Datos', reason: 'Estructuración de bases de datos, análisis de costos y cubicaciones para apoyo a oficina técnica.' }
+            { name: 'SharePoint / M365', icon: 'fa-brands fa-microsoft', description: 'Entorno Común de Datos', reason: 'Arquitectura de la información: diseño de sitios y bibliotecas con gobernanza clara de permisos y metadatos para proyectos de gran envergadura.' },
+            { name: 'Power BI', icon: 'fa-solid fa-chart-column', description: 'Business Intelligence', reason: 'Transformación de datos operativos en dashboards gerenciales para el monitoreo de KPIs financieros, de avance y calidad.' },
+            { name: 'Excel + Power Query', icon: 'fa-solid fa-file-excel', description: 'Modelado de Datos', reason: 'Estandarización de planillas complejas y cubicaciones, permitiendo análisis rápidos y confiables para la oficina técnica.' }
         ],
         construction: [
-            { name: 'Synchro 4D', icon: 'fa-solid fa-layer-group', description: 'Planificación BIM 4D', reason: 'Planificación de obra, secuencias constructivas y análisis de escenarios para anticipar conflictos en terreno.' },
-            { name: 'MS Project', icon: 'fa-solid fa-calendar-check', description: 'Programación de Obra', reason: 'Planificación de obra y seguimiento de secuencias constructivas para el control de plazos.' },
-            { name: 'QGIS', icon: 'fa-solid fa-map-location-dot', description: 'SIG & Territorio', reason: 'Apoyo a análisis territorial, revisión de áreas de influencia y generación de insumos georreferenciados para equipos ambientales.' },
-            { name: 'AutoCAD / Presto', icon: 'fa-solid fa-ruler-combined', description: 'Oficina Técnica', reason: 'Estructuración de bases de datos, análisis de costos y cubicaciones para apoyo a oficina técnica.' }
+            { name: 'Synchro 4D', icon: 'fa-solid fa-layer-group', description: 'Simulación Constructiva', reason: 'Vinculación del cronograma al modelo BIM para validar visualmente la estrategia de ejecución y detectar riesgos espaciales.' },
+            { name: 'MS Project', icon: 'fa-solid fa-calendar-check', description: 'Control de Cronograma', reason: 'Gestión tradicional de plazos, análisis de ruta crítica y seguimiento de desviaciones en la programación maestra.' },
+            { name: 'QGIS', icon: 'fa-solid fa-map-location-dot', description: 'Inteligencia Territorial', reason: 'Análisis espacial de áreas de influencia y cruce de variables geográficas para apoyar la gestión ambiental y de permisos.' },
+            { name: 'AutoCAD / Presto', icon: 'fa-solid fa-ruler-combined', description: 'Ingeniería de Costos', reason: 'Base técnica para el estudio de propuestas, control de presupuestos y gestión de subcontratos.' }
         ],
         methodologies: [
-            { name: 'Last Planner System', icon: 'fa-solid fa-list-check', description: 'Planificación Lean', reason: 'Planificación y seguimiento de actividades mejorando el cumplimiento del plan semanal y la coordinación entre partidas.' },
-            { name: 'BIM Management', icon: 'fa-solid fa-cubes', description: 'Coord. Digital', reason: 'Integración de modelos para anticipar interferencias y optimizar la secuencia constructiva.' },
-            { name: 'Gestión Documental', icon: 'fa-solid fa-folder-tree', description: 'Control de Información', reason: 'Diseño y administración de sistemas de gestión documental asegurando trazabilidad y orden.' }
+            { name: 'Last Planner System', icon: 'fa-solid fa-list-check', description: 'Planificación Colaborativa', reason: 'Gestión de compromisos semanales para aumentar la confiabilidad del flujo de trabajo y reducir la variabilidad en terreno.' },
+            { name: 'BIM Management', icon: 'fa-solid fa-cubes', description: 'Coordinación Virtual', reason: 'Gestión de la información de modelos para asegurar que la construcción digital preceda y facilite la construcción física.' },
+            { name: 'Gestión Documental', icon: 'fa-solid fa-folder-tree', description: 'Control de Activos de Info.', reason: 'Implementación de estándares ISO y buenas prácticas para garantizar que la documentación sea auditable y accesible.' }
         ],
         emerging: [
-            { name: 'Inteligencia Artificial', icon: 'fa-solid fa-microchip', description: 'Análisis Predictivo', reason: 'Exploración de herramientas de IA para optimizar procesos de gestión y análisis de datos.' },
-            { name: 'No-Code Tools', icon: 'fa-solid fa-laptop-code', description: 'Desarrollo Ágil', reason: 'Creación rápida de soluciones digitales para resolver problemáticas específicas de obra.' }
+            { name: 'Inteligencia Artificial', icon: 'fa-solid fa-microchip', description: 'Asistencia Analítica', reason: 'Exploración de modelos para optimizar la redacción técnica, análisis de patrones en datos de obra y soporte a la decisión.' },
+            { name: 'No-Code Tools', icon: 'fa-solid fa-laptop-code', description: 'Prototipado Rápido', reason: 'Desarrollo ágil de micro-soluciones para resolver "dolores" específicos de la obra sin depender de grandes desarrollos de software.' }
         ]
     },
 
@@ -217,55 +217,74 @@ export const PROJECTS = [
         subtitle: 'CRAMSA S.A.',
         year: '2021 — Actual',
         category: 'GESTIÓN DOCUMENTAL SEIA',
-        challenge: 'Coordinar la elaboración del Estudio de Impacto Ambiental de un proyecto de desalinización, gestionando miles de documentos técnicos entre más de 15 consultoras especializadas.',
+        image: '/images/projects/cramsa_sketch.jpg',
+        challenge: 'Orquestar la gestión de información para un Estudio de Impacto Ambiental de alta complejidad, centralizando y validando el flujo documental técnico entre más de 15 consultoras especializadas y el equipo titular.',
         results: [
-            'Ecosistema colaborativo en Microsoft 365 con trazabilidad completa desde elaboración hasta envío a autoridad.',
-            'Herramientas Python para reportes automáticos con semáforos, brechas y tiempos de respuesta.',
-            'Eliminación de reprocesos y mejora significativa en auditorías internas.'
+            'Implementación exitosa de un CDE en Microsoft 365, garantizando 100% de trazabilidad en el ciclo de vida documental.',
+            'Desarrollo de analítica automatizada (Python) para monitoreo de entregables en tiempo real, reduciendo tiempos de gestión.',
+            'Optimización de auditorías internas gracias a la estructuración rigurosa de metadatos y evidencias.'
         ],
         tags: ['SharePoint', 'Python', 'Power Automate', 'SEIA', 'JSON']
     },
     {
         id: 'p2',
-        title: 'ALONSO SQUARE',
-        subtitle: 'Constructora CNB Ltda.',
-        year: '2019 — 2021',
-        category: 'PLANIFICACIÓN BIM 4D',
-        challenge: 'Integrar modelo BIM con programa de obra para un edificio residencial de 18 pisos, anticipando interferencias constructivas y optimizando la secuencia de hormigonado.',
-        results: [
-            'Primera implementación de Synchro 4D en la empresa.',
-            'Detección temprana de conflictos geométricos entre especialidades.',
-            'Proyecciones de cierre y control de avance visual para reportes al mandante.'
-        ],
-        tags: ['Synchro 4D', 'BIM', 'Control de Costos', 'MS Project']
-    },
-    {
-        id: 'p3',
         title: 'GIANT MAGELLAN TELESCOPE',
         subtitle: 'WSP Chile',
         year: '2019',
         category: 'CONTROL DOCUMENTAL INTERNACIONAL',
-        challenge: 'Gestionar documentación técnica de obras civiles para uno de los proyectos astronómicos más importantes del mundo, bajo estándares internacionales de calidad.',
+        image: '/images/projects/gmt_sketch.jpg',
+        challenge: 'Asegurar la integridad documental en las obras civiles de uno de los proyectos astronómicos más relevantes a nivel mundial, cumpliendo con exigentes estándares internacionales de calidad y auditoría.',
         results: [
-            'Trazabilidad total de planos, RFIs y registros de obra.',
-            'Línea base documental consolidada para auditorías.',
-            'Apoyo efectivo a inspección técnica en condiciones exigentes.'
+            'Consolidación de una línea base documental robusta para auditorías y control de cambios.',
+            'Gestión impecable de RFIs y planos, facilitando la labor de la inspección técnica en un entorno de alta complejidad.',
+            'Aporte a la cultura de calidad mediante un control riguroso de registros de campo.'
         ],
         tags: ['Control Documental', 'Estándares Internacionales', 'Calidad', 'Inspección']
     },
     {
+        id: 'p3',
+        title: 'ALONSO SQUARE',
+        subtitle: 'Constructora CNB Ltda.',
+        year: '2019 — 2021',
+        category: 'PLANIFICACIÓN BIM 4D',
+        image: '/images/projects/alonso_sketch.jpg',
+        challenge: 'Modernizar el control de un proyecto de edificación en altura (18 pisos) mediante la integración del modelo BIM con el programa de obra, buscando mitigar riesgos en la secuencia de hormigonado e instalaciones.',
+        results: [
+            'Liderazgo en la primera implementación de Synchro 4D en la compañía, estableciendo un nuevo estándar de control.',
+            'Detección preventiva de conflictos geométricos y logísticos, evitando paralizaciones en terreno.',
+            'Mejora en la comunicación con el mandante mediante reportes visuales de avance y proyecciones de cierre precisas.'
+        ],
+        tags: ['Synchro 4D', 'BIM', 'Control de Costos', 'MS Project']
+    },
+    {
         id: 'p4',
-        title: 'EDIFICACIÓN RESIDENCIAL',
+        title: 'LAS VIOLETAS',
         subtitle: 'Constructora FGS S.A.',
         year: '2015 — 2018',
         category: 'LEAN CONSTRUCTION',
-        challenge: 'Mejorar el cumplimiento de programas de obra mediante Last Planner System y coordinación efectiva de subcontratos.',
+        image: '/images/projects/las_violetas_sketch.jpg',
+        challenge: 'Elevar los estándares de productividad y cumplimiento en obra mediante la adopción de metodologías Lean, gestionando una red compleja de subcontratos de terminaciones.',
         results: [
-            'Mejora sostenida del PPC mediante planificación colaborativa.',
-            'Coordinación efectiva de subcontratos de terminaciones.',
-            'Reducción de retrabajos mediante seguimiento sistemático.'
+            'Incremento sostenido del PPC (Porcentaje de Plan Cumplido) a través de la metodología Last Planner System.',
+            'Reducción significativa de retrabajos gracias a un seguimiento sistemático y colaborativo en terreno.',
+            'Coordinación eficiente de partidas críticas, asegurando la continuidad operacional.'
         ],
         tags: ['Last Planner', 'Lean', 'Subcontratos', 'Terreno']
+    },
+    {
+        id: 'p5',
+        title: 'SEMINARIO',
+        subtitle: 'Constructora FGS S.A.',
+        year: '2015 — 2018',
+        category: 'GESTIÓN DE OBRA',
+        image: '/images/projects/seminario_sketch.jpg',
+        challenge: 'Optimización de la gestión de terreno en proyecto inmobiliario de alta densidad, asegurando el cumplimiento de hitos contractuales y estándares de calidad.',
+        results: [
+            'Supervisión rigurosa de terminaciones y entrega a propietarios, minimizando observaciones de postventa.',
+            'Control de avance físico y financiero, reportando directamente a la administración de obra.',
+            'Gestión proactiva de seguridad y medio ambiente en un entorno urbano denso.'
+        ],
+        tags: ['Gestión de Obra', 'Calidad', 'Seguridad', 'Avance Físico']
     }
 ];
 
@@ -273,7 +292,7 @@ export const PROJECTS = [
 export const TIMELINE = [
     {
         year: '2014',
-        label: 'Título PUC',
+        label: 'Título Profesional',
         description: 'Constructor Civil',
         icon: 'fa-solid fa-graduation-cap',
         color: 'bg-eng-blue'
@@ -316,4 +335,3 @@ export const TECH_CATEGORIES = [
     { id: 'methodologies', title: 'METODOLOGÍAS', icon: 'fa-solid fa-sitemap' },
     { id: 'emerging', title: 'TECNOLOGÍAS EMERGENTES', icon: 'fa-solid fa-rocket' }
 ];
-

@@ -22,7 +22,6 @@ html,
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
-    zoom: 125%;
 }
 
 body {
@@ -386,96 +385,4 @@ button {
     /* Hardware acceleration helpers */
     transform: translateZ(0);
     backface-visibility: hidden;
-}
-
-/* Irregular Glitch Effect for Profile Image */
-/* HIGH SATURATION, SUBTLE MOVEMENT, FAST STABILIZATION (1.5s) */
-@keyframes irregular-flicker {
-    0% {
-        transform: translate(0, 0);
-        filter: grayscale(100%);
-    }
-
-    /* Rapid random bursts */
-    5% {
-        transform: translate(1px, -1px);
-        filter: sepia(1) saturate(20) hue-rotate(-50deg) contrast(1.2);
-    }
-
-    /* Red */
-    10% {
-        transform: translate(-1px, 1px);
-        filter: grayscale(100%);
-    }
-
-    15% {
-        transform: translate(-2px, 0);
-        filter: sepia(1) saturate(15) hue-rotate(280deg) contrast(1.2);
-    }
-
-    /* Magenta */
-    20% {
-        transform: translate(0, 0);
-        filter: grayscale(100%);
-    }
-
-    25% {
-        transform: translate(1px, 1px);
-        filter: sepia(1) saturate(20) hue-rotate(180deg) contrast(1.2);
-    }
-
-    /* Blue */
-    30% {
-        transform: translate(-1px, -1px);
-        filter: grayscale(100%);
-    }
-
-    35% {
-        transform: translate(2px, 0);
-        filter: sepia(1) saturate(15) hue-rotate(130deg) contrast(1.2);
-    }
-
-    /* Cyan */
-    40% {
-        transform: translate(0, 0);
-        filter: grayscale(100%);
-    }
-
-    /* Chaos burst */
-    45% {
-        transform: translate(-1px, 1px);
-        filter: sepia(1) saturate(25) hue-rotate(-50deg);
-    }
-
-    50% {
-        transform: translate(1px, -2px);
-        filter: sepia(1) saturate(20) hue-rotate(280deg);
-    }
-
-    55% {
-        transform: translate(0, 0);
-        filter: grayscale(100%);
-    }
-
-    /* Final small glitches before stability */
-    70% {
-        transform: translate(1px, 0);
-        filter: sepia(1) saturate(15) hue-rotate(180deg);
-    }
-
-    75% {
-        transform: translate(0, 0);
-        filter: grayscale(100%);
-    }
-
-    100% {
-        transform: translate(0, 0);
-        filter: grayscale(0%) contrast(1.0);
-        opacity: 1;
-    }
-}
-
-.hover-glitch:hover img {
-    /* 1.5s duration, single shot, stops at stable state */
-    animation: irregular-flicker 1.5s steps(1) forwards;
 }
