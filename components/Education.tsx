@@ -1,10 +1,14 @@
 import React from 'react';
 import { EDUCATION } from '../constants';
+import SectionDivider from './ui/SectionDivider';
 
 const Education: React.FC = () => {
     return (
-        <section id="educacion" className="py-24 lg:py-32 border-b-6 border-ink bg-white">
-            <div className="max-w-[1400px] mx-auto px-8">
+        <section id="educacion" className="border-b-6 border-ink bg-white relative overflow-hidden pb-24 lg:pb-32">
+            <SectionDivider text="ACADEMIC  ///  CONTINUOUS LEARNING  ///  SKILLS" theme="light" direction="left" />
+            {/* Background Grid */}
+            <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
+            <div className="max-w-[1400px] mx-auto px-8 pt-20">
                 {/* Header */}
                 <h2 className="text-5xl md:text-6xl lg:text-7xl font-display mb-20 text-center uppercase tracking-tight">
                     FORMACIÓN
@@ -17,10 +21,10 @@ const Education: React.FC = () => {
                             <i className="fa-solid fa-graduation-cap"></i>
                             EDUCACIÓN
                         </h3>
-                        
+
                         <div className="space-y-8">
                             {EDUCATION.map((edu) => (
-                                <article 
+                                <article
                                     key={edu.id}
                                     className="bg-cream border-4 border-ink p-8 shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all"
                                 >
@@ -31,24 +35,24 @@ const Education: React.FC = () => {
                                             {edu.distinction}
                                         </div>
                                     )}
-                                    
+
                                     {/* Institution */}
                                     <div className="font-mono text-sm text-gray-600 mb-2 flex items-center gap-2">
                                         <i className="fa-solid fa-building-columns"></i>
                                         {edu.institution}
                                     </div>
-                                    
+
                                     {/* Degree */}
                                     <div className="font-display text-xl md:text-2xl mb-3 uppercase">
                                         {edu.degree}
                                     </div>
-                                    
+
                                     {/* Period */}
                                     <div className="inline-block bg-ink text-cream px-4 py-2 text-xs font-bold border-4 border-ink uppercase mb-5">
                                         <i className="fa-solid fa-calendar mr-2"></i>
                                         {edu.period}
                                     </div>
-                                    
+
                                     {/* Details */}
                                     {edu.details && edu.details.length > 0 && (
                                         <div className="mt-5 pt-5 border-t-4 border-gray-200">
@@ -77,7 +81,7 @@ const Education: React.FC = () => {
                             <i className="fa-solid fa-globe"></i>
                             IDIOMAS
                         </h3>
-                        
+
                         <div className="space-y-6">
                             {/* Spanish */}
                             <div className="bg-eng-blue border-4 border-ink p-8 shadow-brutal text-cream">
@@ -105,7 +109,7 @@ const Education: React.FC = () => {
                                     <div className="h-full bg-eng-blue w-[65%]"></div>
                                 </div>
                                 <div className="text-right text-xs mt-2 font-mono text-gray-600">65%</div>
-                                
+
                                 <div className="mt-5 pt-5 border-t-4 border-gray-200">
                                     <p className="text-sm font-mono text-gray-600 flex items-start gap-2">
                                         <i className="fa-solid fa-circle-info mt-1"></i>

@@ -17,6 +17,8 @@ export interface TechStackItem {
     key: string;
     name: string;
     description: string;
+    icon: string;
+    reason?: string;
     category: 'dev' | 'm365' | 'construction' | 'data' | 'emerging';
 }
 

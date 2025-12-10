@@ -10,19 +10,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'cream': '#FFFDF5',
-        'cream-dark': '#F5F0E6',
-        'ink': '#0D0D0D',
-        'ink-light': '#1A1A1A',
-        'eng-blue': '#1E3A5F',
-        'eng-blue-light': '#2A4A73',
-        'safety-orange': '#FF4D00',
-        'safety-orange-light': '#FF6B2C',
-        'accent-yellow': '#FFD500',
-        'accent-yellow-light': '#FFE14D',
-        'digital-cyan': '#00B4D8',
-        'term-green': '#00FF66',
-        'alert-red': '#FF2D2D',
+        'cream': '#F5F5F0',       // Slightly cleaner white/stone
+        'cream-dark': '#E0E0DB',
+        'ink': '#0A0A0A',         // Jet Black
+        'ink-light': '#1F1F1F',
+
+        // Accents - "International Style" (Professional, High Contrast)
+        'eng-blue': '#002147',    // Deep Navy (Professional, Architecture)
+        'eng-blue-light': '#003366',
+        'magenta': '#FF00FF', // New highlight color
+
+        'safety-orange': '#FF5722', // Deep Industrial Orange (High vis but not neon)
+        'safety-orange-light': '#FF7043',
+
+        'accent-yellow': '#FFC107', // Warning Amber (Standard signal color)
+        'accent-yellow-light': '#FFD54F',
+
+        'digital-cyan': '#607D8B',  // Slate Blue Grey (Structural steel, no longer cyan)
+        'term-green': '#43A047',    // Safety Green (Standard signal green)
+        'alert-red': '#D32F2F',     // Engineering Red (Standard signal red)
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', '"Space Mono"', 'monospace'],
@@ -45,8 +51,19 @@ module.exports = {
         'float': 'float 6s ease-in-out infinite',
         'slide-up': 'slideUp 0.5s ease-out forwards',
         'fade-in': 'fadeIn 0.4s ease-out forwards',
+        'glitch': 'glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite',
+        'marquee': 'marquee 20s linear infinite',
+        'scan': 'scan 2s linear infinite',
       },
       keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        scan: {
+          '0%': { top: '-100%' },
+          '100%': { top: '200%' },
+        },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-12px)' },
@@ -58,6 +75,14 @@ module.exports = {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        glitch: {
+          '0%': { transform: 'translate(0)' },
+          '20%': { transform: 'translate(-3px, 3px)' },
+          '40%': { transform: 'translate(-3px, -3px)' },
+          '60%': { transform: 'translate(3px, 3px)' },
+          '80%': { transform: 'translate(3px, -3px)' },
+          '100%': { transform: 'translate(0)' },
         },
       }
     }

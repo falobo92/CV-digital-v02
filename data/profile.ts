@@ -11,11 +11,11 @@ export const PROFILE = {
         full: 'Felipe Lobo Boric',
         initials: 'FLB'
     },
-    
+
     // Título profesional
     title: 'Constructor Civil',
     subtitle: 'Transformación Digital y Gestión de Proyectos',
-    
+
     // Contacto
     contact: {
         email: 'felipealonso.lobo@gmail.com',
@@ -30,7 +30,7 @@ export const PROFILE = {
             availability: 'Presencial / Híbrido'
         }
     },
-    
+
     // Educación
     education: {
         degree: 'Construcción Civil',
@@ -44,7 +44,7 @@ export const PROFILE = {
             'Física de la construcción'
         ]
     },
-    
+
     // Cursos adicionales
     courses: [
         {
@@ -53,22 +53,22 @@ export const PROFILE = {
             year: 2022
         }
     ],
-    
+
     // Idiomas
     languages: [
         { name: 'Español', level: 'Nativo', percentage: 100 },
         { name: 'Inglés', level: 'Intermedio', percentage: 65, note: 'Documentación técnica y normativa internacional' }
     ],
-    
+
     // Años de experiencia
     yearsExperience: 9,
-    
+
     // Resumen profesional
-    summary: `Constructor Civil de la Pontificia Universidad Católica de Chile con más de nueve años de experiencia en edificación e infraestructura. He trabajado en oficina técnica, terreno y control documental, integrando la gestión de obra con sistemas digitales para ordenar la información, asegurar trazabilidad y mejorar la calidad de los datos. Especialista en diseñar sistemas de gestión documental en Microsoft 365 y desarrollar automatizaciones con Python que transforman datos dispersos en reportes accionables para la toma de decisiones.`,
-    
+    summary: `Constructor Civil de la Pontificia Universidad Católica de Chile, con más de nueve años de experiencia en edificación e infraestructura. He trabajado en oficina técnica, terreno y control documental, integrando la gestión de obra con sistemas digitales para ordenar la información, asegurar trazabilidad y mejorar la calidad de los datos. Desarrollador de automatizaciones en Python y entornos Microsoft 365, con foco en convertir datos dispersos en tableros y reportes accionables para la dirección de proyectos.`,
+
     // Objetivo profesional
     objective: `Diseñar y coordinar la ejecución de estrategias de transformación digital para la industria de la construcción, asegurando la implementación de proyectos de digitalización, soluciones tecnológicas y adopción de nuevas prácticas. Experiencia en levantar y documentar procesos, identificar oportunidades de incorporación tecnológica, y promover la adopción de soluciones mediante capacitaciones y acompañamiento a equipos.`,
-    
+
     // Competencias principales
     competencies: [
         'Gestión integral de proyectos de edificación e infraestructura: oficina técnica, control de gestión y supervisión de terreno.',
@@ -80,7 +80,7 @@ export const PROFILE = {
         'Coordinación de proyectos de transformación digital asegurando plazos, alcance y objetivos.',
         'Investigación y evaluación de nuevas soluciones digitales, metodologías y buenas prácticas para el sector construcción.'
     ],
-    
+
     // Intereses y enfoque
     interests: [
         'Exploración constante de nuevas herramientas y tecnologías emergentes',
@@ -89,39 +89,37 @@ export const PROFILE = {
         'Systems Thinking y diseño de servicios',
         'Metodologías ágiles y Product Discovery'
     ],
-    
+
     // Herramientas y tecnologías
     tools: {
         development: [
-            { name: 'Python', description: 'Automatización, procesamiento de datos, generación de reportes desde SharePoint y Excel' },
-            { name: 'HTML / CSS / JavaScript', description: 'Desarrollo de interfaces web, paneles de consulta y dashboards' },
-            { name: 'JSON y APIs', description: 'Procesamiento de datos exportados desde Microsoft 365 y otras plataformas' },
-            { name: 'Power Automate', description: 'Flujos de trabajo automatizados, aprobaciones y notificaciones' },
-            { name: 'Visual Studio Code / Cursor', description: 'Entornos de desarrollo para scripts y soluciones locales' }
+            { name: 'Python', icon: 'fa-brands fa-python', description: 'Automatización y ETL', reason: 'Scripts para procesar metadatos, consolidar bases de datos y generar reportes y dashboards a partir de información de SharePoint y Excel.' },
+            { name: 'HTML5 / CSS / JS', icon: 'fa-brands fa-js', description: 'Desarrollo Web', reason: 'Desarrollo de vistas ligeras y paneles de consulta para equipos técnicos y de gestión.' },
+            { name: 'JSON & APIs', icon: 'fa-solid fa-code', description: 'Intercambio de Datos', reason: 'Lectura y transformación de archivos JSON exportados desde M365 y otras plataformas para su uso en análisis y reportabilidad.' },
+            { name: 'Power Automate', icon: 'fa-solid fa-bolt', description: 'Flujos de Trabajo', reason: 'Flujos de aprobación, notificaciones y envío de correos automáticos según cambios en listas y bibliotecas de SharePoint.' }
         ],
         microsoft365: [
-            { name: 'SharePoint Online', description: 'Arquitectura de sitios, bibliotecas documentales, metadatos y permisos' },
-            { name: 'Excel + Power Query', description: 'Modelado de datos, consolidación y análisis para oficina técnica' },
-            { name: 'MS Project', description: 'Control de hitos, rutas críticas y programación de obra' }
+            { name: 'SharePoint / M365', icon: 'fa-brands fa-microsoft', description: 'Gestión Documental (CDE)', reason: 'Arquitectura funcional de sitios, listas y bibliotecas; definición de permisos, vistas y estructuras de carpetas para proyectos complejos.' },
+            { name: 'Power BI', icon: 'fa-solid fa-chart-column', description: 'Business Intelligence', reason: 'Cuadros de mando gerenciales para control de avance físico-financiero y desviaciones de presupuesto.' },
+            { name: 'Excel + Power Query', icon: 'fa-solid fa-file-excel', description: 'Análisis de Datos', reason: 'Estructuración de bases de datos, análisis de costos y cubicaciones para apoyo a oficina técnica.' }
         ],
         construction: [
-            { name: 'Synchro 4D', description: 'Planificación visual y simulación de secuencias constructivas (BIM 4D)' },
-            { name: 'AutoCAD', description: 'Revisión de planos técnicos y documentación' },
-            { name: 'QGIS', description: 'Análisis territorial y generación de insumos georreferenciados' },
-            { name: 'Presto', description: 'Presupuestos y cubicaciones' }
+            { name: 'Synchro 4D', icon: 'fa-solid fa-layer-group', description: 'Planificación BIM 4D', reason: 'Planificación de obra, secuencias constructivas y análisis de escenarios para anticipar conflictos en terreno.' },
+            { name: 'MS Project', icon: 'fa-solid fa-calendar-check', description: 'Programación de Obra', reason: 'Planificación de obra y seguimiento de secuencias constructivas para el control de plazos.' },
+            { name: 'QGIS', icon: 'fa-solid fa-map-location-dot', description: 'SIG & Territorio', reason: 'Apoyo a análisis territorial, revisión de áreas de influencia y generación de insumos georreferenciados para equipos ambientales.' },
+            { name: 'AutoCAD / Presto', icon: 'fa-solid fa-ruler-combined', description: 'Oficina Técnica', reason: 'Estructuración de bases de datos, análisis de costos y cubicaciones para apoyo a oficina técnica.' }
         ],
         methodologies: [
-            { name: 'Last Planner System', description: 'Planificación colaborativa y mejora del PPC' },
-            { name: 'Lean Construction', description: 'Eliminación de desperdicios y mejora continua' },
-            { name: 'Metodologías Ágiles', description: 'Iteraciones cortas, retrospectivas y tableros de progreso' }
+            { name: 'Last Planner System', icon: 'fa-solid fa-list-check', description: 'Planificación Lean', reason: 'Planificación y seguimiento de actividades mejorando el cumplimiento del plan semanal y la coordinación entre partidas.' },
+            { name: 'BIM Management', icon: 'fa-solid fa-cubes', description: 'Coord. Digital', reason: 'Integración de modelos para anticipar interferencias y optimizar la secuencia constructiva.' },
+            { name: 'Gestión Documental', icon: 'fa-solid fa-folder-tree', description: 'Control de Información', reason: 'Diseño y administración de sistemas de gestión documental asegurando trazabilidad y orden.' }
         ],
         emerging: [
-            { name: 'Inteligencia Artificial', description: 'Aplicación en procesos complejos de gestión y análisis' },
-            { name: 'No-Code/Low-Code', description: 'Exploración de plataformas para desarrollo ágil' },
-            { name: 'Figma / Notion', description: 'Herramientas colaborativas de diseño y documentación' }
+            { name: 'Inteligencia Artificial', icon: 'fa-solid fa-microchip', description: 'Análisis Predictivo', reason: 'Exploración de herramientas de IA para optimizar procesos de gestión y análisis de datos.' },
+            { name: 'No-Code Tools', icon: 'fa-solid fa-laptop-code', description: 'Desarrollo Ágil', reason: 'Creación rápida de soluciones digitales para resolver problemáticas específicas de obra.' }
         ]
     },
-    
+
     // Referencias profesionales
     references: [
         {
@@ -273,36 +271,36 @@ export const PROJECTS = [
 
 // Timeline de evolución profesional
 export const TIMELINE = [
-    { 
-        year: '2014', 
+    {
+        year: '2014',
         label: 'Título PUC',
         description: 'Constructor Civil',
         icon: 'fa-solid fa-graduation-cap',
         color: 'bg-eng-blue'
     },
-    { 
-        year: '2015', 
+    {
+        year: '2015',
         label: 'Terreno & Obra',
         description: 'Constructora FGS',
         icon: 'fa-solid fa-helmet-safety',
         color: 'bg-safety-orange'
     },
-    { 
-        year: '2019', 
+    {
+        year: '2019',
         label: 'Oficina Técnica',
         description: 'BIM 4D & Control',
         icon: 'fa-solid fa-cube',
         color: 'bg-digital-cyan'
     },
-    { 
-        year: '2021', 
+    {
+        year: '2021',
         label: 'Transformación Digital',
         description: 'SharePoint & Python',
         icon: 'fa-solid fa-microchip',
         color: 'bg-accent-yellow'
     },
-    { 
-        year: '2025', 
+    {
+        year: '2025',
         label: 'Data-Driven PM',
         description: 'IA & Automatización',
         icon: 'fa-solid fa-robot',

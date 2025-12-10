@@ -16,6 +16,8 @@ export const TECH_STACK: TechStackItem[] = [
         key: `dev-${idx}`,
         name: tool.name,
         description: tool.description,
+        reason: tool.reason,
+        icon: tool.icon,
         category: 'dev' as const
     })),
     // Ecosistema M365
@@ -23,6 +25,8 @@ export const TECH_STACK: TechStackItem[] = [
         key: `m365-${idx}`,
         name: tool.name,
         description: tool.description,
+        reason: tool.reason,
+        icon: tool.icon,
         category: 'm365' as const
     })),
     // Gestión y construcción
@@ -30,6 +34,8 @@ export const TECH_STACK: TechStackItem[] = [
         key: `construction-${idx}`,
         name: tool.name,
         description: tool.description,
+        reason: tool.reason,
+        icon: tool.icon,
         category: 'construction' as const
     })),
     // Metodologías
@@ -37,6 +43,8 @@ export const TECH_STACK: TechStackItem[] = [
         key: `data-${idx}`,
         name: tool.name,
         description: tool.description,
+        reason: tool.reason,
+        icon: tool.icon,
         category: 'data' as const
     })),
     // Tecnologías emergentes
@@ -44,6 +52,8 @@ export const TECH_STACK: TechStackItem[] = [
         key: `emerging-${idx}`,
         name: tool.name,
         description: tool.description,
+        reason: tool.reason,
+        icon: tool.icon,
         category: 'emerging' as const
     }))
 ];
