@@ -1,502 +1,437 @@
 import { jsPDF } from 'jspdf';
-
-// ================= DATOS =================
-const DATA = {
-    header: {
-        name: 'FELIPE LOBO BORIC',
-        title: 'CONSTRUCTOR CIVIL UC',
-        sub: 'DIGITAL // PROYECTOS // DOCUMENTAL',
-        id: 'REF: FLB-2025'
-    },
-    contact: {
-        phone: '+56 9 9871 4263',
-        email: 'felipealonso.lobo@gmail.com',
-        location: 'Santiago, Chile',
-        linkedin: 'felipealonsolobo'
-    },
-    summary:
-        'Constructor Civil UC con más de nueve años de experiencia en edificación e infraestructura. ' +
-        'Especialista en integrar la gestión de obra con sistemas digitales para asegurar trazabilidad y calidad de datos. ' +
-        'Experiencia en Oficina Técnica, Terreno y Control Documental en proyectos complejos. ' +
-        'Desarrollador de automatizaciones (Python, M365) para convertir datos dispersos en reportabilidad accionable.',
-    skills: {
-        hard: [
-            'Gestión de proyectos',
-            'Sistemas documentales (EDMS)',
-            'Last Planner System',
-            'Evaluación Ambiental (SEIA)',
-            'Coordinación de especialidades',
-            'Control de costos'
-        ],
-        software: [
-            'SharePoint / M365',
-            'Python / Automatización',
-            'Synchro 4D / MS Project',
-            'HTML / CSS / JavaScript',
-            'Power Automate / APIs',
-            'AutoCAD / QGIS / Presto'
-        ]
-    },
-    experience: [
-        {
-            company: 'CRAMSA S.A.',
-            role: 'CONTROL DOCUMENTAL Y TRANSFORMACIÓN DIGITAL',
-            period: '2021 — HOY',
-            desc: [
-                'Diseño e implementación del sistema de gestión documental del EIA (Proyecto Aguas Marítimas) en SharePoint/M365.',
-                'Desarrollo de scripts en Python y soluciones web para generar tableros de seguimiento y alertas automáticas.',
-                'Coordinación de especialidades para Adendas y respuestas al SEA, estandarizando procedimientos.'
-            ]
-        },
-        {
-            company: 'CONSTRUCTORA CNB LTDA.',
-            role: 'JEFE DE OFICINA TÉCNICA',
-            period: '2019 — 2021',
-            desc: [
-                'Oficina técnica del edificio Alonso Square. Gestión de RDI, control de cambios y coordinación técnica.',
-                'Implementación de planificación 4D con Synchro, integrando BIM para anticipar interferencias.',
-                'Control de costos, estados de pago y valorizaciones con proyecciones de cierre.'
-            ]
-        },
-        {
-            company: 'WSP CHILE',
-            role: 'INSPECTOR TÉCNICO',
-            period: '2019',
-            desc: [
-                'Gestión documental para el proyecto Giant Magellan Telescope (GMT) bajo estándares internacionales.',
-                'Inspección técnica en revisión de avances y registros de calidad en entorno bilingüe.',
-                'Mantenimiento de línea base documental para auditorías del proyecto.'
-            ]
-        },
-        {
-            company: 'CONSTRUCTORA FGS S.A.',
-            role: 'CONTROL DE GESTIÓN Y TERRENO',
-            period: '2015 — 2018',
-            desc: [
-                'Planificación mediante Last Planner System, mejorando el cumplimiento del plan semanal.',
-                'Supervisión de terminaciones y obra gruesa, coordinando subcontratos.',
-                'Gestión administrativa de contratos desde licitación hasta cierre.'
-            ]
-        }
-    ],
-    education: [
-        {
-            inst: 'PONTIFICIA UNIVERSIDAD CATÓLICA DE CHILE',
-            title: 'CONSTRUCTOR CIVIL',
-            year: '2014',
-            detail: 'Dos Votos de Distinción. Mención en Tecnologías del Hormigón.'
-        },
-        {
-            inst: 'UNIVERSIDAD DE LOS ANDES',
-            title: 'MARCO LEGAL DESALINIZACIÓN',
-            year: '2022',
-            detail: 'Normativa hídrica y tramitación de proyectos estratégicos.'
-        }
-    ],
-    references: [
-        { name: 'R. GLADE C.', cargo: 'Gerente General, Tractebel', contact: '+56 9 7829 2391' },
-        { name: 'A. NAVARRO V.', cargo: 'Gerente Proyectos, WSP', contact: '+56 9 7768 2114' },
-        { name: 'R. GUTIÉRREZ J.', cargo: 'Gerente Proyectos, FGS', contact: '+56 9 7191 0419' }
-    ]
-};
+import { PROFILE, EXPERIENCES, PROJECTS } from '../data/profile';
 
 // ================= CONFIGURACIÓN NEO-BRUTALISTA =================
 const CFG = {
-    page: { w: 215.9, h: 279.4 },
-    margin: { top: 10, bot: 10, left: 8, right: 8 },
-    sidebar: { width: 62 },
+    page: { w: 215.9, h: 279.4 }, // Carta
+    margin: { top: 15, bot: 15, left: 10, right: 10 },
+    sidebar: { width: 70 },
     colors: {
         cream: [255, 253, 245] as [number, number, number],
-        ink: [10, 10, 10] as [number, number, number],
-        sidebarBg: [15, 15, 15] as [number, number, number],
-        textLight: [240, 240, 240] as [number, number, number],
-        orange: [255, 77, 0] as [number, number, number],
-        blue: [0, 100, 255] as [number, number, number],
-        yellow: [255, 213, 0] as [number, number, number],
-        grey: [100, 100, 100] as [number, number, number],
-        white: [255, 255, 255] as [number, number, number]
+        ink: [15, 15, 15] as [number, number, number], // Almost black, softer
+        sidebarBg: [20, 20, 20] as [number, number, number],
+        textLight: [230, 230, 230] as [number, number, number],
+        orange: [255, 77, 0] as [number, number, number], // Safety Orange
+        blue: [0, 80, 255] as [number, number, number],   // Eng Blue
+        cyan: [0, 240, 255] as [number, number, number],  // Digital Cyan
+        yellow: [255, 213, 0] as [number, number, number], // Accent Yellow
+        grey: [90, 90, 90] as [number, number, number],
+        lightGrey: [200, 200, 200] as [number, number, number]
     },
     fonts: {
-        main: 'helvetica',
-        mono: 'courier'
+        head: 'helvetica',
+        body: 'courier'
     },
-    border: { thick: 1.2, medium: 0.6, thin: 0.3 }
+    border: { thick: 1.0, medium: 0.5, thin: 0.2 }
 };
 
 export function generateCV() {
-    const doc = new jsPDF({ unit: 'mm', format: 'letter' });
+    console.log("Starting CV Generation...");
+    try {
+        const doc = new jsPDF({ unit: 'mm', format: 'letter' });
+        console.log("jsPDF instance created");
 
-    let cursorY = CFG.margin.top;
-    const mainX = CFG.sidebar.width + 6;
-    const mainW = CFG.page.w - CFG.sidebar.width - CFG.margin.right - 6;
+        let cursorY = CFG.margin.top;
+        const mainX = CFG.sidebar.width + 10;
+        const mainW = CFG.page.w - CFG.sidebar.width - CFG.margin.right - 10;
 
-    // ================= ICONOS VECTORIALES (Estilo FontAwesome) =================
-    const drawIcon = (type: string, x: number, y: number, size: number, color: [number, number, number]) => {
-        doc.setDrawColor(...color);
-        doc.setFillColor(...color);
-        doc.setLineWidth(0.4);
+        // ================= HELPERS GEOMÉTRICOS =================
 
-        const s = size;
-        const cx = x + s / 2;
-        const cy = y + s / 2;
-
-        if (type === 'location') {
-            // Pin de ubicación (fa-map-marker-alt)
-            doc.circle(cx, cy - s * 0.15, s * 0.25, 'F');
-            doc.triangle(cx - s * 0.2, cy, cx + s * 0.2, cy, cx, cy + s * 0.4, 'F');
-        } else if (type === 'phone') {
-            // Teléfono (fa-phone)
-            doc.setLineWidth(0.5);
-            doc.rect(x + s * 0.2, y, s * 0.6, s, 'S');
+        // Dibuja un "bloque brutalista" (rectángulo con sombra sólida)
+        const drawBrutalBlock = (x: number, y: number, w: number, h: number, color: [number, number, number], textColor?: [number, number, number], text?: string, fontSize: number = 8) => {
+            // Sombra
+            doc.setFillColor(...CFG.colors.ink);
+            doc.rect(x + 1, y + 1, w, h, 'F');
+            // Bloque
             doc.setFillColor(...color);
-            doc.circle(cx, y + s * 0.85, s * 0.08, 'F');
-        } else if (type === 'email') {
-            // Sobre (fa-envelope)
-            doc.rect(x, y + s * 0.15, s, s * 0.7, 'S');
-            doc.line(x, y + s * 0.15, cx, cy + s * 0.1);
-            doc.line(x + s, y + s * 0.15, cx, cy + s * 0.1);
-        } else if (type === 'linkedin') {
-            // LinkedIn (fa-linkedin)
-            doc.setFont(CFG.fonts.main, 'bold');
-            doc.setFontSize(s * 2.5);
-            doc.setTextColor(...color);
-            doc.text('in', x, y + s * 0.9);
-        } else if (type === 'briefcase') {
-            // Maletín (fa-briefcase)
-            doc.rect(x, y + s * 0.25, s, s * 0.65, 'S');
-            doc.rect(x + s * 0.3, y, s * 0.4, s * 0.3, 'S');
-        } else if (type === 'graduation') {
-            // Birrete (fa-graduation-cap)
-            doc.line(x, cy, cx, y);
-            doc.line(cx, y, x + s, cy);
-            doc.rect(x + s * 0.2, cy, s * 0.6, s * 0.4, 'F');
-        } else if (type === 'users') {
-            // Usuarios (fa-users)
-            doc.circle(cx - s * 0.25, y + s * 0.25, s * 0.2, 'F');
-            doc.circle(cx + s * 0.25, y + s * 0.25, s * 0.2, 'F');
-            doc.circle(cx - s * 0.25, y + s * 0.7, s * 0.25, 'F');
-            doc.circle(cx + s * 0.25, y + s * 0.7, s * 0.25, 'F');
-        } else if (type === 'code') {
-            // Código (fa-code)
-            doc.setLineWidth(0.5);
-            doc.line(x, cy, x + s * 0.3, y);
-            doc.line(x, cy, x + s * 0.3, y + s);
-            doc.line(x + s, cy, x + s * 0.7, y);
-            doc.line(x + s, cy, x + s * 0.7, y + s);
-        } else if (type === 'tools') {
-            // Herramientas (fa-tools)
-            doc.setLineWidth(0.5);
-            doc.line(x, y + s, x + s * 0.4, y + s * 0.6);
-            doc.line(x + s * 0.6, y + s * 0.4, x + s, y);
-            doc.rect(x + s * 0.35, y + s * 0.35, s * 0.3, s * 0.3, 'S');
-        }
-    };
+            doc.setDrawColor(...CFG.colors.ink);
+            doc.setLineWidth(CFG.border.medium);
+            doc.rect(x, y, w, h, 'FD');
 
-    // ================= SIDEBAR =================
-    const drawSidebar = () => {
-        const sbW = CFG.sidebar.width;
-        const sbX = 6;
-        const sbTextW = sbW - 14;
-
-        // Fondo negro
-        doc.setFillColor(...CFG.colors.sidebarBg);
-        doc.rect(0, 0, sbW, CFG.page.h, 'F');
-
-        // Borde naranja derecho
-        doc.setFillColor(...CFG.colors.orange);
-        doc.rect(sbW - 2.5, 0, 2.5, CFG.page.h, 'F');
-
-        // ID técnico vertical
-        doc.setTextColor(40, 40, 40);
-        doc.setFont(CFG.fonts.mono, 'bold');
-        doc.setFontSize(5);
-        doc.text(DATA.header.id, 3, CFG.page.h - 6, { angle: 90 });
-
-        let sbY = CFG.margin.top + 6;
-
-        // ===== NOMBRE =====
-        doc.setFont(CFG.fonts.main, 'bold');
-        doc.setFontSize(22);
-        
-        const nameParts = DATA.header.name.split(' ');
-        nameParts.forEach((part, idx) => {
-            if (idx === nameParts.length - 1) {
-                doc.setTextColor(...CFG.colors.orange);
-            } else {
-                doc.setTextColor(...CFG.colors.white);
+            if (text && textColor) {
+                doc.setFont(CFG.fonts.head, 'bold');
+                doc.setFontSize(fontSize);
+                doc.setTextColor(...textColor);
+                doc.text(text, x + w / 2, y + h / 2 + fontSize / 3.5, { align: 'center' });
             }
-            doc.text(part, sbX, sbY);
-            sbY += 8;
-        });
-
-        sbY += 2;
-
-        // Línea amarilla
-        doc.setFillColor(...CFG.colors.yellow);
-        doc.rect(sbX, sbY, 16, 2.5, 'F');
-        sbY += 10;
-
-        // ===== CONTACTO =====
-        const contactItems = [
-            { icon: 'location', val: DATA.contact.location },
-            { icon: 'phone', val: DATA.contact.phone },
-            { icon: 'email', val: DATA.contact.email },
-            { icon: 'linkedin', val: DATA.contact.linkedin }
-        ];
-
-        contactItems.forEach(item => {
-            drawIcon(item.icon, sbX, sbY - 1, 3.5, CFG.colors.orange);
-            doc.setFont(CFG.fonts.main, 'normal');
-            doc.setFontSize(7);
-            doc.setTextColor(...CFG.colors.textLight);
-            const lines = doc.splitTextToSize(item.val, sbTextW - 6);
-            doc.text(lines, sbX + 6, sbY + 2);
-            sbY += lines.length * 3.5 + 4;
-        });
-
-        sbY += 6;
-
-        // ===== SKILLS =====
-        const renderSkillBlock = (title: string, items: string[], icon: string, accentColor: [number, number, number]) => {
-            // Header con icono
-            drawIcon(icon, sbX, sbY - 1, 3, accentColor);
-            doc.setFillColor(...accentColor);
-            doc.rect(sbX + 5, sbY - 2, sbTextW - 5, 4.5, 'F');
-            doc.setFont(CFG.fonts.mono, 'bold');
-            doc.setFontSize(6);
-            doc.setTextColor(...CFG.colors.ink);
-            doc.text(title, sbX + 7, sbY + 1);
-            sbY += 6;
-
-            // Items compactos
-            items.forEach(item => {
-                doc.setFont(CFG.fonts.main, 'normal');
-                doc.setFontSize(6.5);
-                doc.setTextColor(210, 210, 210);
-                const lines = doc.splitTextToSize(item, sbTextW);
-                doc.text(lines, sbX, sbY);
-                sbY += lines.length * 3 + 1;
-            });
-            sbY += 4;
         };
 
-        renderSkillBlock('COMPETENCIAS', DATA.skills.hard, 'tools', CFG.colors.orange);
-        renderSkillBlock('TECNOLOGÍAS', DATA.skills.software, 'code', CFG.colors.blue);
-    };
+        const drawSectionTitle = (title: string, y: number, color: [number, number, number]) => {
+            // Marcador lateral
+            doc.setFillColor(...color);
+            doc.rect(mainX - 4, y, 2, 8, 'F');
 
-    // ================= HELPERS =================
-    const checkPageBreak = (needed: number) => {
-        if (cursorY + needed > CFG.page.h - CFG.margin.bot - 8) {
-            doc.addPage();
-            doc.setFillColor(...CFG.colors.cream);
-            doc.rect(CFG.sidebar.width, 0, CFG.page.w - CFG.sidebar.width, CFG.page.h, 'F');
-            drawSidebar();
-            cursorY = CFG.margin.top + 5;
-            return true;
-        }
-        return false;
-    };
+            // Título
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(14);
+            doc.setTextColor(...CFG.colors.ink);
+            doc.text(title.toUpperCase(), mainX, y + 6);
 
-    const printSectionTitle = (text: string, icon: string, color: [number, number, number]) => {
-        checkPageBreak(16);
-        
-        // Icono
-        drawIcon(icon, mainX, cursorY, 4, color);
-        
-        // Bloque de color
-        doc.setFillColor(...color);
-        doc.rect(mainX + 6, cursorY, 3, 6, 'F');
-        
-        // Título
-        doc.setFont(CFG.fonts.main, 'bold');
-        doc.setFontSize(12);
-        doc.setTextColor(...CFG.colors.ink);
-        doc.text(text, mainX + 11, cursorY + 4.5);
-        
-        // Línea
-        doc.setDrawColor(...CFG.colors.ink);
-        doc.setLineWidth(CFG.border.medium);
-        doc.line(mainX, cursorY + 8, CFG.page.w - CFG.margin.right, cursorY + 8);
-        
-        cursorY += 12;
-    };
+            // Línea divisoria técnica
+            doc.setDrawColor(...CFG.colors.ink);
+            doc.setLineWidth(CFG.border.medium);
+            doc.line(mainX, y + 9, CFG.page.w - CFG.margin.right, y + 9);
 
-    // ================= DOCUMENTO =================
-    
-    // Fondo crema
-    doc.setFillColor(...CFG.colors.cream);
-    doc.rect(CFG.sidebar.width, 0, CFG.page.w - CFG.sidebar.width, CFG.page.h, 'F');
-
-    drawSidebar();
-
-    // ===== HEADER =====
-    // Caja con sombra
-    doc.setFillColor(...CFG.colors.ink);
-    doc.rect(mainX + 1.5, cursorY + 1.5, mainW, 18, 'F');
-    doc.setFillColor(...CFG.colors.cream);
-    doc.setDrawColor(...CFG.colors.ink);
-    doc.setLineWidth(CFG.border.thick);
-    doc.rect(mainX, cursorY, mainW, 18, 'FD');
-    
-    doc.setFont(CFG.fonts.main, 'bold');
-    doc.setFontSize(16);
-    doc.setTextColor(...CFG.colors.ink);
-    doc.text(DATA.header.title, mainX + 3, cursorY + 7);
-
-    doc.setFont(CFG.fonts.mono, 'bold');
-    doc.setFontSize(8);
-    doc.setTextColor(...CFG.colors.blue);
-    doc.text(DATA.header.sub, mainX + 3, cursorY + 13);
-
-    cursorY += 22;
-
-    // ===== PERFIL =====
-    doc.setFillColor(...CFG.colors.blue);
-    doc.rect(mainX, cursorY, 2, 20, 'F');
-    
-    doc.setFont(CFG.fonts.main, 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(30, 30, 30);
-    const summaryLines = doc.splitTextToSize(DATA.summary, mainW - 6);
-    doc.text(summaryLines, mainX + 5, cursorY + 4, { align: 'justify', maxWidth: mainW - 6 });
-    cursorY += summaryLines.length * 4 + 8;
-
-    // ===== EXPERIENCIA =====
-    printSectionTitle('EXPERIENCIA PROFESIONAL', 'briefcase', CFG.colors.orange);
-
-    DATA.experience.forEach(job => {
-        const descHeight = job.desc.reduce((acc, d) => {
-            const l = doc.splitTextToSize(d, mainW - 6);
-            return acc + l.length * 3.8 + 1;
-        }, 0);
-        
-        checkPageBreak(Math.min(descHeight + 14, 50));
-
-        // Período
-        doc.setFont(CFG.fonts.mono, 'bold');
-        doc.setFontSize(8);
-        doc.setTextColor(...CFG.colors.orange);
-        doc.text(job.period, CFG.page.w - CFG.margin.right, cursorY, { align: 'right' });
-
-        // Cargo
-        doc.setFont(CFG.fonts.main, 'bold');
-        doc.setFontSize(10);
-        doc.setTextColor(...CFG.colors.ink);
-        const roleLines = doc.splitTextToSize(job.role, mainW - 35);
-        doc.text(roleLines, mainX, cursorY);
-        cursorY += roleLines.length * 4.5;
-
-        // Empresa
-        doc.setFillColor(...CFG.colors.yellow);
-        doc.rect(mainX, cursorY - 2.5, 1.5, 3, 'F');
-        doc.setFont(CFG.fonts.main, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(...CFG.colors.grey);
-        doc.text(job.company, mainX + 4, cursorY);
-        cursorY += 5;
-
-        // Descripción
-        job.desc.forEach(d => {
-            doc.setFont(CFG.fonts.main, 'normal');
-            doc.setFontSize(8.5);
-            doc.setTextColor(30, 30, 30);
-
-            // Bullet
+            // Decoración técnica final
             doc.setFillColor(...CFG.colors.ink);
-            doc.rect(mainX, cursorY - 2, 1.2, 1.2, 'F');
+            doc.rect(CFG.page.w - CFG.margin.right - 2, y + 7, 2, 2, 'F');
 
-            const lines = doc.splitTextToSize(d, mainW - 6);
-            checkPageBreak(lines.length * 3.8);
-            doc.text(lines, mainX + 4, cursorY, { align: 'justify', maxWidth: mainW - 6 });
-            cursorY += lines.length * 3.8 + 1;
+            return y + 16;
+        };
+
+        const checkPageBreak = (needed: number) => {
+            if (cursorY + needed > CFG.page.h - CFG.margin.bot) {
+                doc.addPage();
+                drawBackground();
+                drawSidebar();
+                cursorY = CFG.margin.top;
+                return true;
+            }
+            return false;
+        };
+
+        // ================= FONDO Y ESTRUCTURA =================
+        const drawBackground = () => {
+            doc.setFillColor(...CFG.colors.cream);
+            doc.rect(0, 0, CFG.page.w, CFG.page.h, 'F');
+
+            // Grid técnico muy sutil en el fondo principal
+            doc.setDrawColor(220, 220, 220);
+            doc.setLineWidth(0.1);
+            for (let i = CFG.sidebar.width; i < CFG.page.w; i += 10) {
+                doc.line(i, 0, i, CFG.page.h);
+            }
+            for (let i = 0; i < CFG.page.h; i += 10) {
+                doc.line(CFG.sidebar.width, i, CFG.page.w, i);
+            }
+        };
+
+        // ================= SIDEBAR (DARK MODE) =================
+        const drawSidebar = () => {
+            // Fondo
+            doc.setFillColor(...CFG.colors.sidebarBg);
+            doc.rect(0, 0, CFG.sidebar.width, CFG.page.h, 'F');
+
+            // Borde separador
+            doc.setDrawColor(...CFG.colors.orange);
+            doc.setLineWidth(CFG.border.thick);
+            doc.line(CFG.sidebar.width, 0, CFG.sidebar.width, CFG.page.h);
+
+            let sbY = CFG.margin.top;
+            const sbX = CFG.margin.left;
+            const sbW = CFG.sidebar.width - CFG.margin.left * 2;
+
+            // --- FOTO / AVATAR (Placeholder o Estilo) ---
+            // Simulado con un bloque gráfico si no hay foto cargada, o simplificado
+            drawBrutalBlock(sbX, sbY, sbW, sbW * 1.2, CFG.colors.blue);
+            // Texto FLB dentro
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(40);
+            doc.setTextColor(...CFG.colors.lightGrey);
+            doc.text('FLB', sbX + sbW / 2, sbY + sbW * 0.7, { align: 'center' });
+
+            sbY += sbW * 1.2 + 10;
+
+            // --- CONTACTO ---
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...CFG.colors.orange);
+            doc.text('CONTACTO', sbX, sbY);
+            sbY += 5;
+
+            // Safe access to profile data
+            const loc = PROFILE.contact?.location ? `${PROFILE.contact.location.city}, ${PROFILE.contact.location.country}` : 'Santiago, Chile';
+            const phone = PROFILE.contact?.phone || '';
+            const email = PROFILE.contact?.email || '';
+
+            const contactData = [
+                { txt: loc, icon: 'L' },
+                { txt: phone, icon: 'P' },
+                { txt: email, icon: 'E' },
+                { txt: 'linkedin.com/in/felipealonsolobo', icon: 'In' }
+            ];
+
+            contactData.forEach(item => {
+                doc.setFont(CFG.fonts.body, 'normal');
+                doc.setFontSize(8);
+                doc.setTextColor(...CFG.colors.textLight);
+
+                // Pequeño marcador
+                doc.setFillColor(...CFG.colors.yellow);
+                doc.rect(sbX, sbY - 2, 2, 2, 'F');
+
+                const lines = doc.splitTextToSize(item.txt, sbW - 5);
+                doc.text(lines, sbX + 4, sbY);
+                sbY += lines.length * 4 + 2;
+            });
+
+            sbY += 5;
+
+            // --- SKILLS / HERRAMIENTAS ---
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...CFG.colors.cyan);
+            doc.text('TECH STACK', sbX, sbY);
+            sbY += 5;
+
+            // Agrupar skills importantes
+            const skills = [
+                ...(PROFILE.tools?.development?.map(t => t.name) || []),
+                ...(PROFILE.tools?.microsoft365?.map(t => t.name) || []),
+                ...(PROFILE.tools?.construction?.map(t => t.name) || [])
+            ].slice(0, 12); // Top 12
+
+            skills.forEach(skill => {
+                doc.setFont(CFG.fonts.body, 'bold'); // Mono bold para código
+                doc.setFontSize(7.5);
+                doc.setTextColor(...CFG.colors.textLight);
+
+                // Checkbox style icon
+                doc.setDrawColor(...CFG.colors.cyan);
+                doc.setLineWidth(0.2);
+                doc.rect(sbX, sbY - 2.5, 3, 3, 'S');
+
+                doc.text(skill, sbX + 5, sbY);
+                sbY += 5;
+            });
+
+            sbY += 5;
+
+            // --- IDIOMAS ---
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...CFG.colors.yellow);
+            doc.text('IDIOMAS', sbX, sbY);
+            sbY += 5;
+
+            (PROFILE.languages || []).forEach(lang => {
+                doc.setFont(CFG.fonts.body, 'bold');
+                doc.setFontSize(8);
+                doc.setTextColor(...CFG.colors.textLight);
+                doc.text(lang.name.toUpperCase(), sbX, sbY);
+
+                // Barra de progreso
+                doc.setFillColor(50, 50, 50);
+                doc.rect(sbX + 25, sbY - 2.5, 25, 2.5, 'F');
+                doc.setFillColor(...CFG.colors.yellow);
+                doc.rect(sbX + 25, sbY - 2.5, 25 * (lang.percentage / 100), 2.5, 'F');
+
+                sbY += 5;
+            });
+        };
+
+        // ================= CONTENIDO PRINCIPAL =================
+        console.log("Drawing layout...");
+        drawBackground();
+        drawSidebar();
+
+        // --- HEADER ---
+        // Nombre gigante
+        doc.setFont(CFG.fonts.head, 'bold');
+        doc.setFontSize(28);
+        doc.setTextColor(...CFG.colors.ink);
+        doc.text(PROFILE.name.first.toUpperCase(), mainX, cursorY + 8);
+        doc.text(PROFILE.name.last.toUpperCase(), mainX, cursorY + 18);
+
+        // Título con fondo negro
+        doc.setFillColor(...CFG.colors.ink);
+        doc.rect(mainX, cursorY + 24, mainW, 10, 'F');
+        doc.setFont(CFG.fonts.body, 'bold'); // Mono
+        doc.setFontSize(10);
+        doc.setTextColor(...CFG.colors.cyan);
+        doc.text((PROFILE.title || '').toUpperCase() + ' // ' + (PROFILE.subtitle || '').toUpperCase(), mainX + 3, cursorY + 30.5);
+
+        cursorY += 45;
+
+        // --- RESUMEN ---
+        doc.setFont(CFG.fonts.body, 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(...CFG.colors.ink);
+        const summaryLines = doc.splitTextToSize(PROFILE.summary || '', mainW);
+        doc.text(summaryLines, mainX, cursorY, { align: 'justify', maxWidth: mainW });
+        cursorY += summaryLines.length * 4 + 10;
+
+        // --- EXPERIENCIA ---
+        console.log("Processing Experience...");
+        cursorY = drawSectionTitle('EXPERIENCIA PROFESIONAL', cursorY, CFG.colors.orange);
+
+        (EXPERIENCES || []).forEach(exp => {
+            // Calcular altura necesaria para evitar cortes feos
+            // Estimación: Header (10) + Detalles (filas * 4) + Tags (6) + Margin (6)
+            const detailsLinesCount = exp.details.reduce((acc, det) => acc + doc.splitTextToSize(det, mainW - 5).length, 0);
+            const needed = 25 + detailsLinesCount * 4.5;
+
+            if (checkPageBreak(needed)) {
+                cursorY = drawSectionTitle('EXPERIENCIA (CONT.)', cursorY, CFG.colors.orange);
+            }
+
+            // Timeline dot & line
+            doc.setFillColor(...CFG.colors.orange);
+            doc.circle(mainX - 3, cursorY + 2, 1.5, 'F');
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.5);
+            // La línea vertical iría hasta el final del bloque, pero es complejo calcular exacto antes de dibujar. 
+            // Lo omitimos por limpieza o hacemos una línea corta decorativa.
+            doc.line(mainX - 3, cursorY + 2, mainX - 3, cursorY + needed - 5);
+
+            // Header Puesto
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(11);
+            doc.setTextColor(...CFG.colors.ink);
+            doc.text(exp.role.toUpperCase(), mainX, cursorY);
+
+            // Empresa y Año (Derecha e Izquierda)
+            cursorY += 5;
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...CFG.colors.blue);
+            doc.text(exp.company.toUpperCase(), mainX, cursorY);
+
+            doc.setFont(CFG.fonts.body, 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...CFG.colors.grey);
+            const dateWidth = doc.getTextWidth(exp.period);
+            doc.text(exp.period, CFG.page.w - CFG.margin.right - dateWidth, cursorY);
+
+            cursorY += 5;
+
+            // Detalles
+            exp.details.forEach(det => {
+                doc.setFont(CFG.fonts.body, 'normal');
+                doc.setFontSize(8.5);
+                doc.setTextColor(30, 30, 30);
+
+                // Bullet cuadrado brutalista
+                doc.setFillColor(...CFG.colors.ink);
+                doc.rect(mainX, cursorY - 2, 1, 1, 'F');
+
+                const lines = doc.splitTextToSize(det, mainW - 5);
+                doc.text(lines, mainX + 3, cursorY, { maxWidth: mainW - 5, align: 'justify' });
+                cursorY += lines.length * 4; // Spacing
+            });
+
+            cursorY += 2;
+
+            // Tags (Tech stack usado)
+            const tagString = (exp.tags || []).join('  //  ');
+            doc.setFont(CFG.fonts.body, 'bold');
+            doc.setFontSize(7);
+            doc.setTextColor(...CFG.colors.grey);
+            doc.text(`[STACK: ${tagString}]`, mainX, cursorY);
+
+            cursorY += 10; // Espacio entre experiencias
         });
 
-        cursorY += 5;
-    });
+        // --- EDUCACIÓN ---
+        console.log("Processing Education...");
+        if (checkPageBreak(50)) {
+            // Just created page
+        } else {
+            cursorY += 5;
+        }
+        cursorY = drawSectionTitle('EDUCACIÓN', cursorY, CFG.colors.blue);
 
-    // ===== FORMACIÓN =====
-    checkPageBreak(35);
-    printSectionTitle('FORMACIÓN ACADÉMICA', 'graduation', CFG.colors.blue);
+        if (PROFILE.education) {
+            // Titulo
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(11);
+            doc.setTextColor(...CFG.colors.ink);
+            doc.text((PROFILE.education.degree || '').toUpperCase(), mainX, cursorY);
 
-    DATA.education.forEach(edu => {
-        checkPageBreak(18);
+            // Inst y Año
+            cursorY += 5;
+            doc.setFont(CFG.fonts.body, 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(...CFG.colors.blue);
+            doc.text(PROFILE.education.institution || '', mainX, cursorY);
 
-        doc.setFont(CFG.fonts.mono, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(...CFG.colors.blue);
-        doc.text(edu.year, CFG.page.w - CFG.margin.right, cursorY, { align: 'right' });
+            doc.setTextColor(...CFG.colors.grey);
+            doc.text((PROFILE.education.year || '').toString(), CFG.page.w - CFG.margin.right - 10, cursorY);
 
-        doc.setFont(CFG.fonts.main, 'bold');
-        doc.setFontSize(9);
-        doc.setTextColor(...CFG.colors.ink);
-        const instLines = doc.splitTextToSize(edu.inst, mainW - 25);
-        doc.text(instLines, mainX, cursorY);
-        cursorY += instLines.length * 4;
+            cursorY += 6;
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(8.5);
+            doc.setTextColor(40, 40, 40);
+            doc.text(PROFILE.education.distinction || '', mainX, cursorY);
 
-        doc.setFont(CFG.fonts.main, 'normal');
-        doc.setFontSize(8.5);
-        doc.setTextColor(40, 40, 40);
-        doc.text(edu.title, mainX, cursorY);
-        cursorY += 4;
+            cursorY += 15;
+        }
 
-        doc.setFontSize(8);
-        doc.setTextColor(...CFG.colors.grey);
-        const detailLines = doc.splitTextToSize(edu.detail, mainW);
-        doc.text(detailLines, mainX, cursorY);
-        cursorY += detailLines.length * 3.5 + 5;
-    });
+        // --- PROYECTOS DESTACADOS (Si cabe o en nueva página) ---
+        console.log("Processing Projects...");
+        // Seleccionamos solo 2 para no alargar demasiado
+        const topProjects = (PROJECTS || []).slice(0, 2);
+        const projHeight = 60; // aprox
 
-    // ===== REFERENCIAS =====
-    checkPageBreak(32);
-    printSectionTitle('REFERENCIAS', 'users', CFG.colors.yellow);
+        if (checkPageBreak(projHeight)) {
+            // new page
+        } else {
+            cursorY = drawSectionTitle('PROYECTOS CLAVE', cursorY, CFG.colors.yellow);
+        }
 
-    const refGap = 3;
-    const refColW = (mainW - refGap * 2) / 3;
+        topProjects.forEach(proj => {
+            // Caja contenedora (estilo card)
+            doc.setDrawColor(...CFG.colors.ink);
+            doc.setLineWidth(CFG.border.medium);
+            doc.rect(mainX, cursorY, mainW, 35);
 
-    DATA.references.forEach((ref, i) => {
-        const xPos = mainX + i * (refColW + refGap);
-        let localY = cursorY;
+            // Banda lateral color
+            doc.setFillColor(...CFG.colors.ink);
+            doc.rect(mainX, cursorY, 2, 35, 'F');
 
-        // Caja con sombra
-        doc.setFillColor(...CFG.colors.ink);
-        doc.rect(xPos + 1, localY + 1, refColW, 18, 'F');
-        doc.setFillColor(...CFG.colors.cream);
-        doc.setDrawColor(...CFG.colors.ink);
-        doc.setLineWidth(CFG.border.medium);
-        doc.rect(xPos, localY, refColW, 18, 'FD');
+            // Titulo Proyecto
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(10);
+            doc.setTextColor(...CFG.colors.ink);
+            doc.text(proj.title, mainX + 5, cursorY + 6);
 
-        // Nombre
-        doc.setFont(CFG.fonts.main, 'bold');
-        doc.setFontSize(7.5);
-        doc.setTextColor(...CFG.colors.ink);
-        doc.text(ref.name, xPos + 2, localY + 4);
+            // Subtitulo (Empresa/Año)
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...CFG.colors.grey);
+            doc.text(`${proj.subtitle} | ${proj.year}`, mainX + 5, cursorY + 10);
 
-        // Cargo
-        doc.setFont(CFG.fonts.main, 'normal');
-        doc.setFontSize(6.5);
-        doc.setTextColor(...CFG.colors.grey);
-        const cargoLines = doc.splitTextToSize(ref.cargo, refColW - 4);
-        doc.text(cargoLines, xPos + 2, localY + 8);
+            // Desafio/Resultado breve
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(...CFG.colors.ink);
+            const desc = doc.splitTextToSize(proj.challenge, mainW - 10);
+            doc.text(desc, mainX + 5, cursorY + 16);
 
-        // Contacto
-        doc.setFont(CFG.fonts.mono, 'bold');
-        doc.setFontSize(6);
-        doc.setTextColor(...CFG.colors.orange);
-        doc.text(ref.contact, xPos + 2, localY + 15);
-    });
+            // Footer Card
+            doc.setFont(CFG.fonts.body, 'bold');
+            doc.setFontSize(7);
+            doc.setTextColor(...CFG.colors.blue);
+            doc.text(proj.category, mainX + 5, cursorY + 32);
 
-    cursorY += 22;
+            cursorY += 40;
+        });
 
-    // ===== FOOTER =====
-    const footerY = CFG.page.h - 6;
-    doc.setFillColor(...CFG.colors.ink);
-    doc.rect(CFG.sidebar.width, footerY, CFG.page.w - CFG.sidebar.width, 6, 'F');
-    
-    doc.setFont(CFG.fonts.mono, 'normal');
-    doc.setFontSize(5.5);
-    doc.setTextColor(...CFG.colors.textLight);
-    doc.text(`${DATA.header.id} | ${DATA.contact.email}`, CFG.sidebar.width + 3, footerY + 4);
-    doc.text('1/1', CFG.page.w - CFG.margin.right - 2, footerY + 4, { align: 'right' });
+        // FOOTER (Número de página y timestamp)
+        console.log("Adding footer...");
+        const pageCount = doc.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+            doc.setPage(i);
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(7);
+            doc.setTextColor(...CFG.colors.grey);
+            doc.text(`Generado: ${new Date().toLocaleDateString()} | REF: FLB-AUTO-PDF`, CFG.sidebar.width + 5, CFG.page.h - 5);
+            doc.text(`${i} / ${pageCount}`, CFG.page.w - 15, CFG.page.h - 5);
+        }
 
-    doc.save('CV_Felipe_Lobo_2025.pdf');
+        console.log("Saving PDF...");
+        try {
+            doc.save('CV_Felipe_Lobo_Boric.pdf');
+            console.log("PDF Saved successfully.");
+        } catch (saveError) {
+            console.error("Error saving PDF:", saveError);
+            alert("El navegador bloqueó la descarga automatica. Intentando abrir en nueva pestaña...");
+            doc.output('dataurlnewwindow');
+        }
+
+    } catch (error) {
+        console.error("FATAL PDF GENERATION ERROR:", error);
+        alert(`Error generando el PDF: ${error instanceof Error ? error.message : 'Error desconocido'}. \n\nIntenta usar CTRL+P para guardar como PDF por ahora.`);
+    }
 }
+

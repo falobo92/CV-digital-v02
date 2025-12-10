@@ -11,11 +11,14 @@ const Hero: React.FC = () => {
     ];
 
     const handleDownloadCV = () => {
+        console.log("Hero: Click received, calling generateCV...");
         generateCV();
     };
 
     return (
-        <section id="hero" className="relative min-h-screen flex items-center overflow-hidden border-b-6 border-ink bg-cream">
+
+        // Reduced height: min-h-[85vh] instead of min-h-screen, reduced padding
+        <section id="hero" className="relative min-h-[85vh] flex items-center overflow-hidden border-b-6 border-ink bg-cream py-16 lg:py-20">
             {/* Background: Interesting Blueprint/Grid Pattern */}
             {/* Background: Interesting Blueprint/Grid Pattern */}
             <div className="absolute inset-0 z-0 opacity-30 pointer-events-none"
@@ -29,9 +32,9 @@ const Hero: React.FC = () => {
                 }}>
             </div>
             {/* Decorative Noise or speckle */}
-            <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")' }}></div>
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E')" }}></div>
 
-            <div className="max-w-[1400px] mx-auto px-8 relative z-10 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 items-center py-20 lg:py-28">
+            <div className="max-w-[1400px] mx-auto px-8 relative z-10 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16 items-center">
 
                 {/* Text Content */}
                 <div className="flex flex-col">
@@ -79,7 +82,7 @@ const Hero: React.FC = () => {
                 {/* Right Column - The "Smart Brutalist" Image */}
                 <div className="relative flex justify-center lg:justify-end">
                     {/* Image Container - Tactile & Solid */}
-                    <div className="relative group">
+                    <div className="relative group hover-glitch cursor-crosshair">
 
                         {/* Shadow Block (Static) */}
                         <div className="absolute top-4 left-4 w-full h-full bg-ink z-0"></div>
@@ -89,7 +92,7 @@ const Hero: React.FC = () => {
                             <img
                                 src="/profile.png"
                                 alt="Profile"
-                                className="w-full h-full object-cover grayscale contrast-125 brightness-110 group-hover:grayscale-0 transition-all duration-300 pointer-events-none relative z-10"
+                                className="w-full h-full object-cover grayscale contrast-125 brightness-110 pointer-events-none relative z-10"
                                 draggable="false"
                                 onContextMenu={(e) => e.preventDefault()}
                             />

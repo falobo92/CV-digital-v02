@@ -52,7 +52,7 @@ module.exports = {
         'slide-up': 'slideUp 0.5s ease-out forwards',
         'fade-in': 'fadeIn 0.4s ease-out forwards',
         'glitch': 'glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite',
-        'marquee': 'marquee 20s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
         'scan': 'scan 2s linear infinite',
       },
       keyframes: {
