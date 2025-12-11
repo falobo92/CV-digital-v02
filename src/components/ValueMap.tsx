@@ -1,5 +1,5 @@
 import React from 'react';
-import { COMPETENCIES } from '../constants';
+import { COMPETENCIES, PROFILE } from '../constants';
 import SectionDivider from './ui/SectionDivider';
 
 const ValueMap: React.FC = () => {
@@ -69,7 +69,9 @@ const ValueMap: React.FC = () => {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 lg:mb-10 border-b border-gray-800 pb-4 sm:pb-6 lg:pb-8 relative z-10">
                         <div>
                             <h3 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase text-white mb-1 sm:mb-2">Dominio Técnico</h3>
-                            <p className="font-mono text-gray-400 text-xs sm:text-sm md:text-base">Competencias clave desarrolladas en más de 9 años de experiencia</p>
+                            <p className="font-mono text-gray-400 text-xs sm:text-sm md:text-base">
+                                Competencias clave desarrolladas en más de {PROFILE.yearsExperience} años de experiencia
+                            </p>
                         </div>
                     </div>
 

@@ -61,10 +61,10 @@ export const PROFILE = {
     ],
 
     // Años de experiencia
-    yearsExperience: 9,
+    yearsExperience: 10,
 
     // Resumen profesional
-    summary: `Constructor Civil de la PUC con más de 9 años entre obra, oficina técnica y control documental. Me dedico a ordenar la información, dejar trazabilidad limpia y convertir el avance de los proyectos en reportes accionables para que la gerencia decida con evidencia. Combino trabajo en terreno con automatizaciones en Python y Microsoft 365.`,
+    summary: `Constructor Civil de la PUC con más de 10 años entre obra, oficina técnica y control documental. Me dedico a ordenar la información, dejar trazabilidad limpia y convertir el avance de los proyectos en reportes accionables para que la gerencia decida con evidencia. Combino trabajo en terreno con automatizaciones en Python y Microsoft 365.`,
 
     // Objetivo profesional
     objective: `Guiar la digitalización de proyectos de construcción: mapear procesos, elegir tecnología que sirva al terreno y acompañar a los equipos hasta que adopten la nueva forma de trabajar. Quiero que la información fluya sin fricciones y que los equipos tomen decisiones más rápido.`,

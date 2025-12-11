@@ -1,57 +1,46 @@
 import { PROFILE, EXPERIENCES, PROJECTS } from '../data/profile';
 
-// ================= CONFIGURACIÓN PROFESIONAL MEJORADA =================
+// ================= CONFIGURACIÓN (FORMATO SERIO / PROFESIONAL) =================
 const CFG = {
     page: { w: 210, h: 297 }, // A4
-    margin: { top: 25, bot: 25, left: 20, right: 20 },
+    margin: { top: 18, bot: 18, left: 18, right: 18 },
     colors: {
         black: [0, 0, 0] as [number, number, number],
-        darkGrey: [40, 40, 40] as [number, number, number],
-        grey: [90, 90, 90] as [number, number, number],
-        lightGrey: [160, 160, 160] as [number, number, number],
+        darkGrey: [45, 45, 45] as [number, number, number],
+        grey: [95, 95, 95] as [number, number, number],
+        lightGrey: [175, 175, 175] as [number, number, number],
         white: [255, 255, 255] as [number, number, number],
-        accent: [30, 60, 120] as [number, number, number], // Azul profesional
-        accentLight: [60, 90, 150] as [number, number, number],
-        yellow: [255, 200, 0] as [number, number, number], // Amarillo destacado
-        yellowLight: [255, 220, 80] as [number, number, number]
+        accent: [25, 55, 105] as [number, number, number] // Azul sobrio
     },
     fonts: {
         head: 'helvetica',
         body: 'helvetica'
+    },
+    type: {
+        h1: 18,
+        h2: 10.5,
+        h3: 10,
+        body: 9.5,
+        small: 8.5,
+        tiny: 7.5,
+        line: 4.6
     }
 };
 
-// Función para formatear fecha y hora en español
-function getFormattedDateTime(): string {
-    const now = new Date();
-    const options: Intl.DateTimeFormatOptions = {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-        timeZone: 'America/Santiago'
-    };
-    
-    const formatter = new Intl.DateTimeFormat('es-CL', options);
-    const parts = formatter.formatToParts(now);
-    
-    const day = parts.find(p => p.type === 'day')?.value || '';
-    const month = parts.find(p => p.type === 'month')?.value || '';
-    const year = parts.find(p => p.type === 'year')?.value || '';
-    const hour = parts.find(p => p.type === 'hour')?.value || '';
-    const minute = parts.find(p => p.type === 'minute')?.value || '';
-    
-    return `${day} de ${month} de ${year}, ${hour}:${minute} hrs`;
+function safeText(input: string): string {
+    // jsPDF con fuentes base puede fallar con algunos símbolos (em dash, checkmark, etc.)
+    return (input || '')
+        .replaceAll('—', '-')
+        .replaceAll('✓', '-')
+        .replaceAll('•', '·');
+}
+
+function joinNonEmpty(parts: Array<string | undefined | null>, sep: string): string {
+    return parts.map(p => (p || '').trim()).filter(Boolean).join(sep);
 }
 
 export async function generateCV() {
-    console.log("Generando CV profesional mejorado...");
-    
-    // Capturar fecha y hora de descarga
-    const downloadDateTime = getFormattedDateTime();
-    
+    console.log("Generando CV (formato serio/profesional)...");
     try {
         // Carga diferida para no inflar el bundle inicial (solo se necesita al descargar)
         const { jsPDF } = await import('jspdf');
@@ -60,7 +49,20 @@ export async function generateCV() {
         let cursorY = CFG.margin.top;
         const contentWidth = CFG.page.w - CFG.margin.left - CFG.margin.right;
 
-        // ================= HELPERS MEJORADOS =================
+        // Metadatos PDF (mejora percepción “documento serio”)
+        try {
+            doc.setProperties({
+                title: `CV - ${PROFILE.name.full}`,
+                subject: 'Currículum Vitae',
+                author: PROFILE.name.full,
+                keywords: 'CV, currículum, experiencia, proyectos',
+                creator: 'CV Digital'
+            });
+        } catch {
+            // noop
+        }
+
+        // ================= HELPERS =================
         const checkPageBreak = (needed: number) => {
             if (cursorY + needed > CFG.page.h - CFG.margin.bot) {
                 doc.addPage();
@@ -71,435 +73,359 @@ export async function generateCV() {
         };
 
         const drawSectionTitle = (title: string, y: number) => {
-            // Barra de color superior más visible
-            doc.setFillColor(...CFG.colors.accent);
-            doc.rect(CFG.margin.left, y - 3, 4, 4, 'F');
-            
-            // Línea horizontal superior más gruesa
-            doc.setDrawColor(...CFG.colors.accent);
-            doc.setLineWidth(0.5);
-            doc.line(CFG.margin.left + 6, y - 1, CFG.page.w - CFG.margin.right, y - 1);
-            
-            // Título con mejor formato
             doc.setFont(CFG.fonts.head, 'bold');
-            doc.setFontSize(11);
+            doc.setFontSize(CFG.type.h2);
             doc.setTextColor(...CFG.colors.accent);
-            doc.text(title.toUpperCase(), CFG.margin.left + 6, y + 2);
-            
-            // Línea inferior sutil
+            doc.text(safeText(title).toUpperCase(), CFG.margin.left, y);
+
             doc.setDrawColor(...CFG.colors.lightGrey);
-            doc.setLineWidth(0.2);
-            doc.line(CFG.margin.left, y + 4, CFG.page.w - CFG.margin.right, y + 4);
-            
-            return y + 10;
+            doc.setLineWidth(0.25);
+            doc.line(CFG.margin.left, y + 2.2, CFG.page.w - CFG.margin.right, y + 2.2);
+
+            return y + 8;
         };
 
-        const drawDivider = (y: number, color = CFG.colors.lightGrey) => {
-            doc.setDrawColor(...color);
-            doc.setLineWidth(0.3);
-            doc.line(CFG.margin.left, y, CFG.page.w - CFG.margin.right, y);
-            return y + 5;
+        const drawBulletLine = (text: string, x: number, y: number, maxW: number) => {
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(CFG.type.body);
+            doc.setTextColor(...CFG.colors.black);
+
+            const bullet = '·';
+            doc.setTextColor(...CFG.colors.black);
+            doc.text(bullet, x, y);
+            const lines = doc.splitTextToSize(safeText(text), maxW - 4);
+            doc.text(lines, x + 3.5, y, { maxWidth: maxW - 4 });
+            return y + lines.length * CFG.type.line;
         };
 
-        // ================= HEADER MEJORADO =================
-        // Barra decorativa superior
-        doc.setFillColor(...CFG.colors.accent);
-        doc.rect(0, 0, CFG.page.w, 3, 'F');
-        
-        // Barra amarilla decorativa
-        doc.setFillColor(...CFG.colors.yellow);
-        doc.rect(0, 3, CFG.page.w, 1.5, 'F');
-        
-        cursorY = 12;
-        
-        // Nombre con mejor tipografía
+        const addTextBlock = (text: string, x: number, y: number, maxW: number, fontSize = CFG.type.body) => {
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(fontSize);
+            doc.setTextColor(...CFG.colors.black);
+            const lines = doc.splitTextToSize(safeText(text), maxW);
+            doc.text(lines, x, y, { maxWidth: maxW });
+            return y + lines.length * CFG.type.line;
+        };
+
+        const addLinkInline = (label: string, url: string, x: number, y: number) => {
+            const anyDoc = doc as unknown as { textWithLink?: (text: string, x: number, y: number, opts: { url: string }) => void };
+            const safeLabel = safeText(label);
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(CFG.type.small);
+            doc.setTextColor(...CFG.colors.accent);
+            if (typeof anyDoc.textWithLink === 'function') {
+                anyDoc.textWithLink(safeLabel, x, y, { url });
+            } else {
+                // fallback (sin link clickeable)
+                doc.text(safeLabel, x, y);
+            }
+            doc.setTextColor(...CFG.colors.black);
+        };
+
+        // ================= HEADER (SOBRIO) =================
         doc.setFont(CFG.fonts.head, 'bold');
-        doc.setFontSize(26);
+        doc.setFontSize(CFG.type.h1);
         doc.setTextColor(...CFG.colors.black);
-        doc.text(PROFILE.name.full.toUpperCase(), CFG.margin.left, cursorY);
-        
-        cursorY += 9;
-        
-        // Título profesional con formato mejorado
-        doc.setFont(CFG.fonts.head, 'bold');
-        doc.setFontSize(13);
-        doc.setTextColor(...CFG.colors.darkGrey);
-        doc.text(PROFILE.title, CFG.margin.left, cursorY);
-        
-        cursorY += 5;
-        
-        // Subtítulo
+        doc.text(safeText(PROFILE.name.full).toUpperCase(), CFG.margin.left, cursorY);
+
+        cursorY += 7.5;
+
         doc.setFont(CFG.fonts.head, 'normal');
-        doc.setFontSize(10.5);
-        doc.setTextColor(...CFG.colors.grey);
-        doc.text(PROFILE.subtitle, CFG.margin.left, cursorY);
-        
-        cursorY += 8;
-        
-        // Línea divisoria
-        cursorY = drawDivider(cursorY);
-        
-        // Información de contacto mejorada (en dos líneas si es necesario)
+        doc.setFontSize(CFG.type.h3);
+        doc.setTextColor(...CFG.colors.darkGrey);
+        doc.text(safeText(`${PROFILE.title} | ${PROFILE.subtitle}`), CFG.margin.left, cursorY);
+
+        cursorY += 6.2;
+
+        // Contacto (1 línea principal + links reales)
         doc.setFont(CFG.fonts.body, 'normal');
-        doc.setFontSize(9);
+        doc.setFontSize(CFG.type.small);
         doc.setTextColor(...CFG.colors.grey);
-        
-        const contactLine1 = [
-            PROFILE.contact?.email || '',
-            PROFILE.contact?.phone || ''
-        ].filter(Boolean).join('  •  ');
-        
-        const contactLine2 = [
-            PROFILE.contact?.location ? `${PROFILE.contact.location.city}, ${PROFILE.contact.location.country}` : '',
-            PROFILE.contact?.linkedin?.url ? 'LinkedIn: felipealonsolobo' : ''
-        ].filter(Boolean).join('  •  ');
-        
-        doc.text(contactLine1, CFG.margin.left, cursorY);
-        if (contactLine2) {
-            cursorY += 4;
-            doc.text(contactLine2, CFG.margin.left, cursorY);
+
+        const locationText = PROFILE.contact?.location
+            ? `${PROFILE.contact.location.city}, ${PROFILE.contact.location.country}${PROFILE.contact.location.availability ? ` (${PROFILE.contact.location.availability})` : ''}`
+            : '';
+
+        const contactLine = joinNonEmpty(
+            [
+                PROFILE.contact?.email,
+                PROFILE.contact?.phone,
+                locationText
+            ],
+            '  |  '
+        );
+        doc.text(safeText(contactLine), CFG.margin.left, cursorY);
+
+        cursorY += 5;
+
+        // LinkedIn como link clickeable (si existe)
+        if (PROFILE.contact?.linkedin?.url) {
+            addLinkInline(PROFILE.contact.linkedin.url, PROFILE.contact.linkedin.url, CFG.margin.left, cursorY);
+            cursorY += 5.5;
+        } else {
+            cursorY += 2;
         }
+
+        // Separador fino
+        doc.setDrawColor(...CFG.colors.lightGrey);
+        doc.setLineWidth(0.35);
+        doc.line(CFG.margin.left, cursorY, CFG.page.w - CFG.margin.right, cursorY);
         cursorY += 8;
 
-        // ================= RESUMEN PROFESIONAL MEJORADO =================
-        cursorY = drawSectionTitle('RESUMEN PROFESIONAL', cursorY);
-        
-        doc.setFont(CFG.fonts.body, 'normal');
-        doc.setFontSize(10);
-        doc.setTextColor(...CFG.colors.black);
-        const summaryLines = doc.splitTextToSize(PROFILE.summary || '', contentWidth);
-        doc.text(summaryLines, CFG.margin.left, cursorY, { align: 'justify', maxWidth: contentWidth });
-        cursorY += summaryLines.length * 5.5 + 10;
+        // ================= PERFIL =================
+        cursorY = drawSectionTitle('PERFIL', cursorY);
+        cursorY = addTextBlock(PROFILE.summary || '', CFG.margin.left, cursorY, contentWidth, CFG.type.body);
+        cursorY += 6.5;
 
-        // ================= EXPERIENCIA PROFESIONAL MEJORADA =================
+        // ================= COMPETENCIAS CLAVE =================
+        cursorY = drawSectionTitle('COMPETENCIAS CLAVE', cursorY);
+        const competencies = (PROFILE.competencies || []).map(safeText);
+        const colGap = 10;
+        const colW = (contentWidth - colGap) / 2;
+        const leftX = CFG.margin.left;
+        const rightX = CFG.margin.left + colW + colGap;
+        const rows = Math.ceil(competencies.length / 2);
+
+        const startY = cursorY;
+        let yL = startY;
+        let yR = startY;
+        for (let i = 0; i < rows; i++) {
+            const left = competencies[i];
+            const right = competencies[i + rows];
+            if (left) yL = drawBulletLine(left, leftX, yL, colW);
+            if (right) yR = drawBulletLine(right, rightX, yR, colW);
+        }
+        cursorY = Math.max(yL, yR) + 6;
+
+        // ================= EXPERIENCIA PROFESIONAL =================
         cursorY = drawSectionTitle('EXPERIENCIA PROFESIONAL', cursorY);
 
         (EXPERIENCES || []).forEach((exp, idx) => {
-            const detailsLinesCount = exp.details.reduce((acc, det) => 
-                acc + doc.splitTextToSize(det, contentWidth - 8).length, 0);
-            const needed = 35 + detailsLinesCount * 5.5;
-            
-            if (checkPageBreak(needed) && idx > 0) {
-                cursorY = drawSectionTitle('EXPERIENCIA PROFESIONAL (CONTINUACIÓN)', cursorY);
+            const detailsLinesCount = (exp.details || []).reduce(
+                (acc, det) => acc + doc.splitTextToSize(safeText(det), contentWidth - 6).length,
+                0
+            );
+            const tagsLineCount = exp.tags?.length ? doc.splitTextToSize(`Herramientas: ${safeText(exp.tags.join(', '))}`, contentWidth).length : 0;
+            const headerCount = 3; // role/company/location+period
+            const needed = 10 + (headerCount + detailsLinesCount + tagsLineCount) * CFG.type.line + 6;
+
+            if (checkPageBreak(Math.max(needed, 30)) && idx > 0) {
+                cursorY = drawSectionTitle('EXPERIENCIA PROFESIONAL (CONT.)', cursorY);
             }
 
-            // Puesto con mejor formato
+            // Cargo
             doc.setFont(CFG.fonts.head, 'bold');
-            doc.setFontSize(11.5);
+            doc.setFontSize(CFG.type.h3);
             doc.setTextColor(...CFG.colors.black);
-            doc.text(exp.role, CFG.margin.left, cursorY);
-            
-            // Empresa y período (en la misma línea)
-            cursorY += 6;
-            doc.setFont(CFG.fonts.head, 'bold');
-            doc.setFontSize(10.5);
-            doc.setTextColor(...CFG.colors.accent);
-            doc.text(exp.company, CFG.margin.left, cursorY);
-            
-            if (exp.project) {
-                doc.setFont(CFG.fonts.body, 'italic');
-                doc.setFontSize(9.5);
-                doc.setTextColor(...CFG.colors.grey);
-                const projectText = `— ${exp.project}`;
-                const companyWidth = doc.getTextWidth(exp.company);
-                doc.text(projectText, CFG.margin.left + companyWidth + 3, cursorY);
-            }
-            
-            doc.setFont(CFG.fonts.body, 'bold');
-            doc.setFontSize(9);
+            doc.text(safeText(exp.role), CFG.margin.left, cursorY);
+
+            // Empresa / proyecto (subtítulo)
+            cursorY += 5.2;
+            doc.setFont(CFG.fonts.head, 'normal');
+            doc.setFontSize(CFG.type.body);
             doc.setTextColor(...CFG.colors.darkGrey);
-            const periodWidth = doc.getTextWidth(exp.period);
-            doc.text(exp.period, CFG.page.w - CFG.margin.right - periodWidth, cursorY);
-            
-            cursorY += 7;
-            
-            // Detalles con mejor formato
-            exp.details.forEach(det => {
-                doc.setFont(CFG.fonts.body, 'normal');
-                doc.setFontSize(9.5);
-                doc.setTextColor(...CFG.colors.black);
-                
-                // Bullet point mejorado (cuadrado pequeño)
-                doc.setFillColor(...CFG.colors.accent);
-                doc.rect(CFG.margin.left + 1, cursorY - 2, 1.5, 1.5, 'F');
-                
-                const lines = doc.splitTextToSize(`  ${det}`, contentWidth - 8);
-                doc.text(lines, CFG.margin.left + 4, cursorY, { maxWidth: contentWidth - 8, align: 'justify' });
-                cursorY += lines.length * 5;
+            const companyLine = joinNonEmpty([exp.company, exp.project ? `(${exp.project})` : ''], ' ');
+            doc.text(safeText(companyLine), CFG.margin.left, cursorY);
+
+            // Período + ubicación a la derecha
+            const rightInfo = joinNonEmpty([exp.period, exp.location], ' | ');
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(CFG.type.small);
+            doc.setTextColor(...CFG.colors.grey);
+            const rightW = doc.getTextWidth(safeText(rightInfo));
+            doc.text(safeText(rightInfo), CFG.page.w - CFG.margin.right - rightW, cursorY);
+
+            cursorY += 5.8;
+
+            // Bullets (logros / responsabilidades)
+            (exp.details || []).forEach(det => {
+                cursorY = drawBulletLine(det, CFG.margin.left, cursorY, contentWidth);
             });
-            
-            // Tecnologías utilizadas (si hay tags) con mejor formato
+
+            // Herramientas (línea sobria)
             if (exp.tags && exp.tags.length > 0) {
-                cursorY += 3;
-                doc.setFont(CFG.fonts.body, 'normal');
-                doc.setFontSize(8.5);
+                cursorY += 1.5;
+                doc.setFont(CFG.fonts.body, 'italic');
+                doc.setFontSize(CFG.type.small);
                 doc.setTextColor(...CFG.colors.grey);
-                
-                // Fondo sutil para las tecnologías
-                const tagsText = `Tecnologías: ${exp.tags.join(' • ')}`;
-                doc.text(tagsText, CFG.margin.left + 4, cursorY);
-                cursorY += 5;
+                const tagsText = `Herramientas: ${safeText(exp.tags.join(', '))}`;
+                const tagsLines = doc.splitTextToSize(tagsText, contentWidth);
+                doc.text(tagsLines, CFG.margin.left, cursorY, { maxWidth: contentWidth });
+                cursorY += tagsLines.length * (CFG.type.line - 0.2);
             }
-            
-            cursorY += 8; // Espacio entre experiencias
+
+            cursorY += 7;
         });
 
-        // ================= EDUCACIÓN MEJORADA =================
-        if (checkPageBreak(45)) {
-            // Nueva página creada
-        } else {
-            cursorY += 5;
+        // ================= FORMACIÓN =================
+        if (checkPageBreak(50)) {
+            // nueva página
         }
-        cursorY = drawSectionTitle('FORMACIÓN ACADÉMICA', cursorY);
+        cursorY = drawSectionTitle('FORMACIÓN', cursorY);
 
         if (PROFILE.education) {
-            // Título
             doc.setFont(CFG.fonts.head, 'bold');
-            doc.setFontSize(11.5);
+            doc.setFontSize(CFG.type.h3);
             doc.setTextColor(...CFG.colors.black);
-            doc.text(PROFILE.education.degree, CFG.margin.left, cursorY);
-            
-            // Institución y año
-            cursorY += 6;
+            doc.text(safeText(PROFILE.education.degree), CFG.margin.left, cursorY);
+
+            cursorY += 5.2;
+
             doc.setFont(CFG.fonts.head, 'normal');
-            doc.setFontSize(10.5);
-            doc.setTextColor(...CFG.colors.accent);
-            doc.text(PROFILE.education.institution, CFG.margin.left, cursorY);
-            
-            doc.setFont(CFG.fonts.body, 'bold');
-            doc.setFontSize(9.5);
+            doc.setFontSize(CFG.type.body);
             doc.setTextColor(...CFG.colors.darkGrey);
-            const yearText = PROFILE.education.year?.toString() || '';
-            const yearWidth = doc.getTextWidth(yearText);
-            doc.text(yearText, CFG.page.w - CFG.margin.right - yearWidth, cursorY);
-            
+            const eduLine = joinNonEmpty([PROFILE.education.institution, PROFILE.education.year ? String(PROFILE.education.year) : ''], ' | ');
+            doc.text(safeText(eduLine), CFG.margin.left, cursorY);
+
+            cursorY += 5.2;
+
             if (PROFILE.education.distinction) {
-                cursorY += 6;
                 doc.setFont(CFG.fonts.body, 'normal');
-                doc.setFontSize(9);
+                doc.setFontSize(CFG.type.small);
                 doc.setTextColor(...CFG.colors.grey);
-                doc.text(`✓ ${PROFILE.education.distinction}`, CFG.margin.left, cursorY);
-                cursorY += 4;
+                const dLines = doc.splitTextToSize(safeText(PROFILE.education.distinction), contentWidth);
+                doc.text(dLines, CFG.margin.left, cursorY, { maxWidth: contentWidth });
+                cursorY += dLines.length * (CFG.type.line - 0.2);
+                cursorY += 2;
             }
-            
-            // Especializaciones
-            if (PROFILE.education.specializations && PROFILE.education.specializations.length > 0) {
-                cursorY += 4;
-                doc.setFont(CFG.fonts.body, 'bold');
-                doc.setFontSize(9);
-                doc.setTextColor(...CFG.colors.darkGrey);
-                doc.text('Especializaciones:', CFG.margin.left, cursorY);
-                cursorY += 5;
-                
-                PROFILE.education.specializations.forEach(spec => {
-                    doc.setFont(CFG.fonts.body, 'normal');
-                    doc.setFontSize(9);
-                    doc.setTextColor(...CFG.colors.black);
-                    doc.setFillColor(...CFG.colors.lightGrey);
-                    doc.circle(CFG.margin.left + 2, cursorY - 1.5, 1, 'F');
-                    doc.text(`  ${spec}`, CFG.margin.left + 5, cursorY);
-                    cursorY += 4.5;
-                });
-            }
-            
-            cursorY += 5;
         }
 
-        // Cursos adicionales
+        // Cursos (si existen)
         if (PROFILE.courses && PROFILE.courses.length > 0) {
-            cursorY += 5;
+            cursorY += 4;
+            doc.setFont(CFG.fonts.head, 'bold');
+            doc.setFontSize(CFG.type.h3);
+            doc.setTextColor(...CFG.colors.black);
+            doc.text('Cursos', CFG.margin.left, cursorY);
+            cursorY += 5.2;
+
             PROFILE.courses.forEach(course => {
-                doc.setFont(CFG.fonts.head, 'bold');
-                doc.setFontSize(10.5);
-                doc.setTextColor(...CFG.colors.black);
-                doc.text(course.name, CFG.margin.left, cursorY);
-                
-                cursorY += 5;
-                doc.setFont(CFG.fonts.body, 'normal');
-                doc.setFontSize(9);
-                doc.setTextColor(...CFG.colors.grey);
-                doc.text(`${course.institution} - ${course.year}`, CFG.margin.left, cursorY);
-                cursorY += 7;
+                cursorY = drawBulletLine(`${course.name} - ${course.institution} (${course.year})`, CFG.margin.left, cursorY, contentWidth);
             });
+            cursorY += 2;
         }
 
-        // ================= COMPETENCIAS TÉCNICAS MEJORADAS =================
-        if (checkPageBreak(65)) {
-            // Nueva página
-        } else {
-            cursorY += 5;
+        // ================= HERRAMIENTAS / TECNOLOGÍAS =================
+        if (checkPageBreak(55)) {
+            // nueva página
         }
-        cursorY = drawSectionTitle('COMPETENCIAS TÉCNICAS', cursorY);
+        cursorY = drawSectionTitle('HERRAMIENTAS Y TECNOLOGÍAS', cursorY);
 
-        // Agrupar todas las herramientas
         const allTools = [
             ...(PROFILE.tools?.development?.map(t => t.name) || []),
             ...(PROFILE.tools?.microsoft365?.map(t => t.name) || []),
             ...(PROFILE.tools?.construction?.map(t => t.name) || []),
             ...(PROFILE.tools?.methodologies?.map(t => t.name) || []),
             ...(PROFILE.tools?.emerging?.map(t => t.name) || [])
-        ];
+        ].map(safeText);
 
-        // Organizar en columnas con mejor formato
-        const toolsPerColumn = Math.ceil(allTools.length / 3);
-        const columnWidth = contentWidth / 3;
-        const columnSpacing = 2;
-        
-        for (let col = 0; col < 3; col++) {
-            const startIdx = col * toolsPerColumn;
-            const endIdx = Math.min(startIdx + toolsPerColumn, allTools.length);
-            const columnTools = allTools.slice(startIdx, endIdx);
-            
-            let colY = cursorY;
-            const colX = CFG.margin.left + (col * (columnWidth + columnSpacing));
-            
-            columnTools.forEach(tool => {
-                doc.setFont(CFG.fonts.body, 'normal');
-                doc.setFontSize(9);
-                doc.setTextColor(...CFG.colors.black);
-                doc.setFillColor(...CFG.colors.accent);
-                doc.circle(colX, colY - 1.5, 0.8, 'F');
-                doc.text(`  ${tool}`, colX + 2.5, colY);
-                colY += 5;
-            });
+        // Para un CV serio: listado compacto (2 columnas) y sin excesiva “decoración”
+        const maxTools = 18;
+        const tools = allTools.slice(0, maxTools);
+        const toolsRows = Math.ceil(tools.length / 2);
+
+        const toolsColGap = 10;
+        const toolsColW = (contentWidth - toolsColGap) / 2;
+        const toolsLeftX = CFG.margin.left;
+        const toolsRightX = CFG.margin.left + toolsColW + toolsColGap;
+
+        let tYL = cursorY;
+        let tYR = cursorY;
+        for (let i = 0; i < toolsRows; i++) {
+            const left = tools[i];
+            const right = tools[i + toolsRows];
+            if (left) tYL = drawBulletLine(left, toolsLeftX, tYL, toolsColW);
+            if (right) tYR = drawBulletLine(right, toolsRightX, tYR, toolsColW);
         }
-        
-        cursorY += Math.ceil(allTools.length / 3) * 5 + 10;
+        cursorY = Math.max(tYL, tYR) + 6;
 
-        // ================= IDIOMAS MEJORADOS =================
-        if (checkPageBreak(35)) {
-            // Nueva página
-        } else {
-            cursorY += 5;
+        // ================= IDIOMAS =================
+        if (checkPageBreak(30)) {
+            // nueva página
         }
         cursorY = drawSectionTitle('IDIOMAS', cursorY);
 
         (PROFILE.languages || []).forEach(lang => {
-            doc.setFont(CFG.fonts.head, 'bold');
-            doc.setFontSize(10.5);
-            doc.setTextColor(...CFG.colors.black);
-            doc.text(lang.name, CFG.margin.left, cursorY);
-            
-            doc.setFont(CFG.fonts.body, 'normal');
-            doc.setFontSize(9.5);
-            doc.setTextColor(...CFG.colors.grey);
-            const levelText = `— ${lang.level}`;
-            const nameWidth = doc.getTextWidth(lang.name);
-            doc.text(levelText, CFG.margin.left + nameWidth + 4, cursorY);
-            
-            cursorY += 7;
-        });
-
-        // ================= PROYECTOS DESTACADOS MEJORADOS =================
-        if (checkPageBreak(90)) {
-            // Nueva página
-        } else {
-            cursorY += 5;
-        }
-        cursorY = drawSectionTitle('PROYECTOS DESTACADOS', cursorY);
-
-        // Mostrar los 3 proyectos más relevantes
-        const topProjects = (PROJECTS || []).slice(0, 3);
-        
-        topProjects.forEach(proj => {
-            // Título del proyecto
-            doc.setFont(CFG.fonts.head, 'bold');
-            doc.setFontSize(11);
-            doc.setTextColor(...CFG.colors.black);
-            doc.text(proj.title.toUpperCase(), CFG.margin.left, cursorY);
-            
-            // Empresa y año
-            cursorY += 5;
-            doc.setFont(CFG.fonts.head, 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(...CFG.colors.accent);
-            doc.text(proj.subtitle, CFG.margin.left, cursorY);
-            
             doc.setFont(CFG.fonts.body, 'bold');
-            doc.setFontSize(9);
-            doc.setTextColor(...CFG.colors.darkGrey);
-            const yearWidth = doc.getTextWidth(proj.year);
-            doc.text(proj.year, CFG.page.w - CFG.margin.right - yearWidth, cursorY);
-            
-            // Descripción del desafío
-            cursorY += 6;
-            doc.setFont(CFG.fonts.body, 'bold');
-            doc.setFontSize(9);
-            doc.setTextColor(...CFG.colors.darkGrey);
-            doc.text('Desafío:', CFG.margin.left, cursorY);
-            cursorY += 4.5;
-            
-            doc.setFont(CFG.fonts.body, 'normal');
-            doc.setFontSize(9);
+            doc.setFontSize(CFG.type.body);
             doc.setTextColor(...CFG.colors.black);
-            const challengeLines = doc.splitTextToSize(proj.challenge, contentWidth - 5);
-            doc.text(challengeLines, CFG.margin.left + 3, cursorY, { align: 'justify', maxWidth: contentWidth - 5 });
-            cursorY += challengeLines.length * 5;
-            
-            // Resultados clave (si hay)
-            if (proj.results && proj.results.length > 0) {
-                cursorY += 3;
-                doc.setFont(CFG.fonts.body, 'bold');
-                doc.setFontSize(9);
-                doc.setTextColor(...CFG.colors.darkGrey);
-                doc.text('Resultados clave:', CFG.margin.left + 3, cursorY);
-                cursorY += 5;
-                
-                proj.results.slice(0, 2).forEach(result => {
-                    doc.setFont(CFG.fonts.body, 'normal');
-                    doc.setFontSize(9);
-                    doc.setTextColor(...CFG.colors.black);
-                    doc.setFillColor(...CFG.colors.yellow);
-                    doc.circle(CFG.margin.left + 6, cursorY - 1.5, 1, 'F');
-                    const resultLines = doc.splitTextToSize(`  ${result}`, contentWidth - 10);
-                    doc.text(resultLines, CFG.margin.left + 9, cursorY, { maxWidth: contentWidth - 10 });
-                    cursorY += resultLines.length * 4.5;
-                });
+            doc.text(safeText(lang.name), CFG.margin.left, cursorY);
+
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(CFG.type.body);
+            doc.setTextColor(...CFG.colors.darkGrey);
+            const lvl = safeText(lang.level || '');
+            const nameW = doc.getTextWidth(safeText(lang.name));
+            doc.text(` - ${lvl}`, CFG.margin.left + nameW + 1.5, cursorY);
+
+            cursorY += 5.4;
+            if (lang.note) {
+                doc.setFont(CFG.fonts.body, 'normal');
+                doc.setFontSize(CFG.type.small);
+                doc.setTextColor(...CFG.colors.grey);
+                const noteLines = doc.splitTextToSize(safeText(lang.note), contentWidth);
+                doc.text(noteLines, CFG.margin.left, cursorY, { maxWidth: contentWidth });
+                cursorY += noteLines.length * (CFG.type.line - 0.2);
             }
-            
-            cursorY += 8; // Espacio entre proyectos
+            cursorY += 3;
         });
 
-        // ================= FOOTER MEJORADO CON FECHA Y HORA =================
+        // ================= PROYECTOS (FORMATO CV) =================
+        if (checkPageBreak(55)) {
+            // nueva página
+        }
+        cursorY = drawSectionTitle('PROYECTOS RELEVANTES', cursorY);
+        const topProjects = (PROJECTS || []).slice(0, 3);
+        topProjects.forEach(proj => {
+            const needed = 18;
+            checkPageBreak(needed);
+
+            doc.setFont(CFG.fonts.body, 'bold');
+            doc.setFontSize(CFG.type.body);
+            doc.setTextColor(...CFG.colors.black);
+            doc.text(safeText(proj.title), CFG.margin.left, cursorY);
+
+            const rightW = doc.getTextWidth(safeText(proj.year));
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(CFG.type.small);
+            doc.setTextColor(...CFG.colors.grey);
+            doc.text(safeText(proj.year), CFG.page.w - CFG.margin.right - rightW, cursorY);
+
+            cursorY += 5;
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(CFG.type.small);
+            doc.setTextColor(...CFG.colors.darkGrey);
+            doc.text(safeText(proj.subtitle), CFG.margin.left, cursorY);
+
+            cursorY += 4.8;
+            // 1 línea de contexto (no storytelling)
+            const oneLiner = proj.results?.[0] || proj.challenge || '';
+            if (oneLiner) {
+                cursorY = drawBulletLine(oneLiner, CFG.margin.left, cursorY, contentWidth);
+            }
+            cursorY += 3.5;
+        });
+
+        // ================= FOOTER (SOBRIO) =================
         const pageCount = doc.getNumberOfPages();
         for (let i = 1; i <= pageCount; i++) {
             doc.setPage(i);
             
-            // Línea superior del footer más visible
-            doc.setDrawColor(...CFG.colors.accent);
-            doc.setLineWidth(0.5);
-            doc.line(CFG.margin.left, CFG.page.h - 18, CFG.page.w - CFG.margin.right, CFG.page.h - 18);
-            
-            // Información del footer (primera línea)
-            doc.setFont(CFG.fonts.body, 'normal');
-            doc.setFontSize(8);
-            doc.setTextColor(...CFG.colors.darkGrey);
-            
-            const footerLine1 = `${PROFILE.name.full}  •  ${PROFILE.contact?.email || ''}`;
-            doc.text(footerLine1, CFG.margin.left, CFG.page.h - 12);
-            
-            // Fecha y hora de descarga (segunda línea, izquierda)
             doc.setFont(CFG.fonts.body, 'normal');
             doc.setFontSize(7.5);
             doc.setTextColor(...CFG.colors.grey);
-            const downloadText = `Descargado el ${downloadDateTime}`;
-            doc.text(downloadText, CFG.margin.left, CFG.page.h - 8);
-            
-            // Número de página (segunda línea, derecha)
-            doc.setFont(CFG.fonts.body, 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(...CFG.colors.darkGrey);
-            const pageText = `Página ${i} de ${pageCount}`;
-            const pageTextWidth = doc.getTextWidth(pageText);
-            doc.text(pageText, CFG.page.w - CFG.margin.right - pageTextWidth, CFG.page.h - 8);
-            
-            // Línea decorativa inferior
-            doc.setFillColor(...CFG.colors.accent);
-            doc.rect(CFG.margin.left, CFG.page.h - 3, CFG.page.w - CFG.margin.left - CFG.margin.right, 1, 'F');
+            doc.text(safeText(PROFILE.name.full), CFG.margin.left, CFG.page.h - 8);
+
+            doc.setFont(CFG.fonts.body, 'normal');
+            doc.setFontSize(7.5);
+            doc.setTextColor(...CFG.colors.grey);
+            const pageText = `${i}/${pageCount}`;
+            const pageW = doc.getTextWidth(pageText);
+            doc.text(pageText, CFG.page.w - CFG.margin.right - pageW, CFG.page.h - 8);
         }
 
         // ================= GUARDAR =================
-        console.log("Guardando PDF mejorado...");
+        console.log("Guardando PDF...");
         try {
             const fileName = `CV_${PROFILE.name.first}_${PROFILE.name.last.replace(' ', '_')}.pdf`;
             doc.save(fileName);

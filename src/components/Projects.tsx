@@ -137,26 +137,43 @@ const Projects: React.FC = () => {
                             className={`bg-white border-4 border-ink shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full relative group overflow-hidden ${animationClass}`}
                         >
                             {/* Technical Header / Progress Bar */}
-                            <div className="bg-ink text-cream p-1 border-b-4 border-ink grid grid-cols-[auto_1fr_auto] items-center gap-4">
-                                {/* Tab */}
-                                <div className="bg-cream text-ink px-6 py-2 font-mono font-bold text-sm uppercase tracking-wider border-r-4 border-ink ml-1 mt-1 rounded-t-sm">
-                                    <i className="fa-solid fa-folder-open mr-2"></i>
-                                    {currentProject.category}
-                                </div>
+                            <div className="bg-ink text-cream border-b-4 border-ink">
+                                <div className="p-2 sm:p-1 grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-4">
+                                    {/* Row 1 (mobile): Category + Index */}
+                                    <div className="flex items-center justify-between sm:block min-w-0">
+                                        {/* Tab */}
+                                        <div className="bg-cream text-ink px-4 sm:px-6 py-2 font-mono font-bold text-xs sm:text-sm uppercase tracking-wider border-r-4 border-ink ml-0.5 sm:ml-1 mt-0.5 sm:mt-1 rounded-t-sm max-w-[70%] sm:max-w-none truncate">
+                                            <i className="fa-solid fa-folder-open mr-2"></i>
+                                            {currentProject.category}
+                                        </div>
 
-                                {/* Segmented Progress Bar */}
-                                <div className="flex gap-1 h-full items-center px-4 w-full">
-                                    {PROJECTS.map((_, idx) => (
-                                        <div
-                                            key={idx}
-                                            className={`h-2 flex-grow transition-all duration-300 ${idx === currentIndex ? 'bg-accent-yellow' : idx < currentIndex ? 'bg-gray-600' : 'bg-gray-800'}`}
-                                        />
-                                    ))}
-                                </div>
+                                        {/* Index (mobile) */}
+                                        <div className="sm:hidden px-1 font-mono text-xs font-bold text-gray-300 shrink-0">
+                                            {String(currentIndex + 1).padStart(2, '0')}/{String(PROJECTS.length).padStart(2, '0')}
+                                        </div>
+                                    </div>
 
-                                {/* Year/Index */}
-                                <div className="px-4 font-mono text-sm font-bold text-gray-400">
-                                    {String(currentIndex + 1).padStart(2, '0')}/{String(PROJECTS.length).padStart(2, '0')}
+                                    {/* Row 2 (mobile): Progress */}
+                                    <div
+                                        className="w-full min-w-0 px-0 sm:px-4"
+                                        aria-label={`Proyecto ${currentIndex + 1} de ${PROJECTS.length}`}
+                                    >
+                                        <div className="flex gap-1 items-center w-full">
+                                            {PROJECTS.map((_, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className={`h-2.5 sm:h-2 flex-1 transition-colors duration-300 ${
+                                                        idx === currentIndex ? 'bg-accent-yellow' : idx < currentIndex ? 'bg-gray-600' : 'bg-gray-800'
+                                                    }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Index (desktop) */}
+                                    <div className="hidden sm:block px-4 font-mono text-sm font-bold text-gray-400">
+                                        {String(currentIndex + 1).padStart(2, '0')}/{String(PROJECTS.length).padStart(2, '0')}
+                                    </div>
                                 </div>
                             </div>
 
@@ -175,7 +192,11 @@ const Projects: React.FC = () => {
                                             <img
                                                 src={currentProject.image}
                                                 alt={currentProject.title}
-                                                className="w-full h-full object-cover transition-all duration-[2000ms] group-hover/image:grayscale group-hover/image:scale-105"
+                                                className="img-stable group-hover/image:grayscale group-hover/image:scale-105 transition-transform duration-700 will-change-transform"
+                                                width={900}
+                                                height={900}
+                                                loading={currentIndex === 0 ? 'eager' : 'lazy'}
+                                                decoding="async"
                                             />
                                         )}
 

@@ -25,17 +25,47 @@ const TechStack: React.FC = () => {
         [activeCategory]
     );
 
-    // Colores de consola por categoría
-    const consoleColors: Record<string, string> = {
-        'dev': '#9CDCFE',      // Azul claro (variables en PS)
-        'm365': '#569CD6',     // Azul (keywords en PS)
-        'construction': '#CE9178', // Naranja (strings en PS)
-        'data': '#DCDCAA',     // Amarillo (funciones en PS)
-        'emerging': '#4EC9B0'  // Cyan (tipos en PS)
+    // Colores de consola por categoría (clases Tailwind; evita estilos inline)
+    const consoleTextColorClass: Record<string, string> = {
+        dev: 'text-[#9CDCFE]', // Azul claro (variables en PS)
+        m365: 'text-[#569CD6]', // Azul (keywords en PS)
+        construction: 'text-[#CE9178]', // Naranja (strings en PS)
+        data: 'text-[#DCDCAA]', // Amarillo (funciones en PS)
+        emerging: 'text-[#4EC9B0]', // Cyan (tipos en PS)
+        other: 'text-[#D4D4D4]'
     };
 
-    const getColor = useCallback((category: string) => 
-        consoleColors[category] || '#D4D4D4',
+    const consoleBorderColorClass: Record<string, string> = {
+        dev: 'border-[#9CDCFE]',
+        m365: 'border-[#569CD6]',
+        construction: 'border-[#CE9178]',
+        data: 'border-[#DCDCAA]',
+        emerging: 'border-[#4EC9B0]',
+        other: 'border-[#D4D4D4]'
+    };
+
+    // Tinte (hex8) equivalente a `${color}20`
+    const consoleTintBgClass: Record<string, string> = {
+        dev: 'bg-[#9CDCFE20]',
+        m365: 'bg-[#569CD620]',
+        construction: 'bg-[#CE917820]',
+        data: 'bg-[#DCDCAA20]',
+        emerging: 'bg-[#4EC9B020]',
+        other: 'bg-[#D4D4D420]'
+    };
+
+    const getTextColorClass = useCallback(
+        (category: string) => consoleTextColorClass[category] || consoleTextColorClass.other,
+        []
+    );
+
+    const getBorderColorClass = useCallback(
+        (category: string) => consoleBorderColorClass[category] || consoleBorderColorClass.other,
+        []
+    );
+
+    const getTintBgClass = useCallback(
+        (category: string) => consoleTintBgClass[category] || consoleTintBgClass.other,
         []
     );
 
@@ -101,9 +131,9 @@ const TechStack: React.FC = () => {
                     <div className="bg-[#323233] px-4 py-2 flex items-center justify-between border-b border-[#3C3C3C]">
                         <div className="flex items-center gap-3">
                             <div className="flex gap-2">
-                                <button className="w-3 h-3 rounded-full bg-[#FF5F56] hover:bg-[#FF5F56]/80 transition-colors"></button>
-                                <button className="w-3 h-3 rounded-full bg-[#FFBD2E] hover:bg-[#FFBD2E]/80 transition-colors"></button>
-                                <button className="w-3 h-3 rounded-full bg-[#27CA40] hover:bg-[#27CA40]/80 transition-colors"></button>
+                                <button type="button" aria-label="Cerrar" className="w-3 h-3 rounded-full bg-[#FF5F56] hover:bg-[#FF5F56]/80 transition-colors"></button>
+                                <button type="button" aria-label="Minimizar" className="w-3 h-3 rounded-full bg-[#FFBD2E] hover:bg-[#FFBD2E]/80 transition-colors"></button>
+                                <button type="button" aria-label="Maximizar" className="w-3 h-3 rounded-full bg-[#27CA40] hover:bg-[#27CA40]/80 transition-colors"></button>
                             </div>
                             <span className="font-mono text-xs text-gray-400 ml-2">
                                 Windows PowerShell — arsenal-digital.ps1
@@ -135,12 +165,11 @@ const TechStack: React.FC = () => {
                                     onClick={() => handleCategoryChange(cat.id)}
                                     className={`px-3 py-1.5 font-mono text-xs transition-colors whitespace-nowrap ${
                                         activeCategory === cat.id
-                                            ? 'bg-[#1E1E1E] text-white border-t-2'
+                                            ? `bg-[#1E1E1E] text-white border-t-2 ${getBorderColorClass(cat.id)}`
                                             : 'text-gray-400 hover:text-white hover:bg-[#2D2D2D]'
                                     }`}
-                                    style={activeCategory === cat.id ? { borderColor: getColor(cat.id) } : {}}
                                 >
-                                    <i className={`${cat.icon} mr-1.5 text-[10px]`} style={{ color: getColor(cat.id) }}></i>
+                                    <i className={`${cat.icon} mr-1.5 text-[10px] ${getTextColorClass(cat.id)}`}></i>
                                     {cat.title.split(' ')[0].toUpperCase()} [{count}]
                                 </button>
                             );
@@ -168,7 +197,9 @@ const TechStack: React.FC = () => {
                             <div className="space-y-0.5">
                                 {filteredTech.map((tech, idx) => {
                                     const isActive = activeTech?.key === tech.key;
-                                    const color = getColor(tech.category);
+                                    const colorClass = getTextColorClass(tech.category);
+                                    const tintBgClass = getTintBgClass(tech.category);
+                                    const borderClass = getBorderColorClass(tech.category);
                                     const catInfo = getCategoryInfo(tech.category);
                                     
                                     return (
@@ -191,7 +222,7 @@ const TechStack: React.FC = () => {
                                                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-[#27CA40]' : 'bg-gray-600'}`}></span>
                                                 
                                                 {/* Icono */}
-                                                <i className={`${tech.icon} w-5 text-center`} style={{ color }}></i>
+                                                <i className={`${tech.icon} w-5 text-center ${colorClass}`}></i>
                                                 
                                                 {/* Nombre */}
                                                 <span className="text-white font-medium min-w-[100px] sm:min-w-[140px] text-xs sm:text-sm">
@@ -200,8 +231,7 @@ const TechStack: React.FC = () => {
                                                 
                                                 {/* Categoría tag */}
                                                 <span 
-                                                    className="text-[10px] px-1.5 py-0.5 rounded-sm shrink-0"
-                                                    style={{ backgroundColor: `${color}20`, color }}
+                                                    className={`text-[10px] px-1.5 py-0.5 rounded-sm shrink-0 ${tintBgClass} ${colorClass}`}
                                                 >
                                                     {catInfo.title.substring(0, 3)}
                                                 </span>
@@ -219,7 +249,7 @@ const TechStack: React.FC = () => {
                                             
                                             {/* Panel de detalle expandido */}
                                             {isActive && (
-                                                <div className="bg-[#1A1A1A] border-l-2 ml-8 py-3 px-4 my-1" style={{ borderColor: color }}>
+                                                <div className={`bg-[#1A1A1A] border-l-2 ml-8 py-3 px-4 my-1 ${borderClass}`}>
                                                     {/* Comentario de código */}
                                                     <div className="text-[#6A9955] text-xs mb-2">
                                                         {'/**'}
@@ -304,31 +334,32 @@ const TechStack: React.FC = () => {
                 </div>
 
                 {/* Resumen por categoría (mini cards) */}
-                <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
                     {TECH_CATEGORIES.map(cat => {
                         const count = TECH_STACK.filter(t => t.category === cat.id).length;
-                        const color = getColor(cat.id);
                         const isActive = activeCategory === cat.id;
+                        const activeBorderClass = getBorderColorClass(cat.id);
+                        const activeTextClass = getTextColorClass(cat.id);
                         
                         return (
                             <button
                                 key={cat.id}
                                 onClick={() => handleCategoryChange(cat.id)}
-                                className={`p-2 sm:p-3 border transition-all text-center ${
+                                type="button"
+                                className={`p-2.5 sm:p-3 border text-center rounded-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] focus-visible:ring-[#007ACC] ${
                                     isActive 
-                                        ? 'bg-[#1E1E1E] border-[#3C3C3C]' 
-                                        : 'bg-transparent border-gray-800/30 hover:border-gray-700'
+                                        ? `bg-[#1E1E1E] border-[#3C3C3C] shadow-[0_0_0_1px_rgba(255,255,255,0.06)] ${activeBorderClass}` 
+                                        : 'bg-transparent border-gray-800/30 hover:border-gray-700 hover:-translate-y-[1px]'
                                 }`}
-                                style={isActive ? { borderColor: color } : {}}
                             >
-                                <div 
-                                    className="font-display text-xl sm:text-2xl md:text-3xl mb-1"
-                                    style={{ color: isActive ? color : '#666' }}
-                                >
-                                    {count}
+                                <div className="flex items-center justify-between gap-2 mb-1.5">
+                                    <i className={`${cat.icon} text-sm ${isActive ? activeTextClass : 'text-[#666]'}`}></i>
+                                    <div className={`font-display text-2xl sm:text-3xl leading-none ${isActive ? activeTextClass : 'text-[#666]'}`}>
+                                        {count}
+                                    </div>
                                 </div>
-                                <div className="font-mono text-[8px] sm:text-[9px] text-gray-500 uppercase truncate">
-                                    {cat.title.split(' ')[0]}
+                                <div className="font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider leading-tight">
+                                    {cat.title}
                                 </div>
                             </button>
                         );
