@@ -4,11 +4,9 @@
 @tailwind utilities;
 
 /* ========================================
-   FELIPE LOBO BORIC - CV NEO-BRUTALISTA
-   Custom Styles
+   Estilos base y utilidades personalizadas
 ======================================== */
 
-/* Base Styles */
 * {
     box-sizing: border-box;
 }
@@ -22,6 +20,7 @@ html,
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    overflow-y: scroll;
 }
 
 body {
@@ -29,37 +28,27 @@ body {
     background-color: #F9F9F7;
     color: #121212;
     line-height: 1.7;
-    /* Balanced base size for better hierarchy */
     font-size: 18px;
-    /* Updated for high-impact contrast */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Prevent layout shift from scrollbar */
-html {
-    overflow-y: scroll;
-}
-
-/* Focus styles for accessibility */
 :focus-visible {
     outline: 4px solid #D35400;
     outline-offset: 2px;
 }
 
-/* Selection */
 ::selection {
     background: #F1C40F;
     color: #121212;
 }
 
-/* Smooth transitions for all interactive elements */
 a,
 button {
     transition: all 0.15s ease;
 }
 
-/* Custom scrollbar - Webkit browsers */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 14px;
 }
@@ -77,7 +66,6 @@ button {
     background: #D35400;
 }
 
-/* Firefox scrollbar - Solo para Firefox, Safari no lo soporta */
 @supports (scrollbar-width: thin) {
     * {
         scrollbar-width: thin;
@@ -85,60 +73,7 @@ button {
     }
 }
 
-/* Animations */
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-
-    /* Smooth Transitions */
-    .appear-trigger {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .appear-active {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .stagger-1 {
-        transition-delay: 100ms;
-    }
-
-    .stagger-2 {
-        transition-delay: 200ms;
-    }
-
-    .stagger-3 {
-        transition-delay: 300ms;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(0);
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
+/* Animaciones puntuales */
 @keyframes slideInRight {
     from {
         opacity: 0;
@@ -171,39 +106,7 @@ button {
     animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-
-/* Float animation for particles */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-        opacity: 0.4;
-    }
-    50% {
-        transform: translateY(-20px);
-        opacity: 0.8;
-    }
-}
-
-/* Typing cursor effect */
-.typing::after {
-    content: '_';
-    animation: blink 0.8s step-end infinite;
-    color: currentColor;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
-}
-
-/* Neo-brutalista button effects */
+/* Botones brutales */
 .brutal-btn {
     position: relative;
     transition: all 0.08s ease;
@@ -218,23 +121,7 @@ button {
     box-shadow: 2px 2px 0px 0px #121212 !important;
 }
 
-/* Card hover effects */
-.brutal-card {
-    transition: all 0.2s ease;
-}
-
-.brutal-card:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 10px 10px 0px 0px #121212;
-}
-
-/* Timeline styles */
-.timeline-dot {
-    position: relative;
-    z-index: 10;
-}
-
-/* Grid pattern background - blueprint style */
+/* Fondos y patrones */
 .bg-grid {
     background-image:
         linear-gradient(#EBEBE8 1px, transparent 1px),
@@ -250,41 +137,48 @@ button {
     background-size: 10px 10px;
 }
 
-/* Brutalist image effects */
-.brutal-image {
-    position: relative;
-    transition: all 0.3s ease;
+.bg-scanlines {
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
 }
 
-.brutal-image:hover {
-    transform: translate(-4px, -4px);
+/* Marquee */
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
-.brutal-image img {
-    display: block;
-    width: 100%;
-    height: auto;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
+@keyframes marquee-reverse {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0%);
+    }
 }
 
-/* Grayscale effect with hover */
-.brutal-image img.grayscale {
-    filter: grayscale(100%) contrast(1.2);
-    transition: filter 0.3s ease;
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-.brutal-image:hover img.grayscale {
-    filter: grayscale(0%) contrast(1.1);
-}
-
-/* Diagonal pattern */
-.bg-diagonal {
-    background-image: repeating-linear-gradient(-45deg,
-            transparent,
-            transparent 8px,
-            rgba(0, 0, 0, 0.03) 8px,
-            rgba(0, 0, 0, 0.03) 16px);
+.animate-marquee-reverse {
+    animation: marquee-reverse 30s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* Backdrop filter support for Safari */
@@ -312,19 +206,7 @@ button {
     }
 }
 
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    :root {
-        --border-width: 4px;
-    }
-
-    * {
-        border-width: var(--border-width) !important;
-    }
-}
-
-/* Mobile-specific adjustments */
+/* Ajustes móviles */
 @media (max-width: 768px) {
     html {
         scroll-padding-top: 70px;
@@ -333,257 +215,4 @@ button {
     .brutal-btn:active {
         transform: translate(2px, 2px) !important;
     }
-}
-
-
-/* Marquee Animations - Consolidated */
-@keyframes marquee {
-    0% {
-        transform: translateX(0%);
-    }
-
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-@keyframes marquee-reverse {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(0%);
-    }
-}
-
-.animate-marquee {
-    animation: marquee 30s linear infinite;
-    will-change: transform;
-    /* Hardware acceleration helpers */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-.animate-marquee-reverse {
-    animation: marquee-reverse 30s linear infinite;
-    will-change: transform;
-    /* Hardware acceleration helpers */
-    transform: translateZ(0);
-    backface-visibility: hidden;
-}
-
-/* Scanlines Effect */
-.bg-scanlines {
-    background: linear-gradient(to bottom,
-            rgba(255, 255, 255, 0),
-            rgba(255, 255, 255, 0) 50%,
-            rgba(0, 0, 0, 0.2) 50%,
-            rgba(0, 0, 0, 0.2));
-    background-size: 100% 4px;
-}
-
-/* Tech Corners */
-.tech-corners::before,
-.tech-corners::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border-color: #121212;
-    border-style: solid;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    z-index: 50;
-    pointer-events: none;
-}
-
-.tech-corners::before {
-    top: -4px;
-    left: -4px;
-    border-width: 4px 0 0 4px;
-}
-
-.tech-corners::after {
-    bottom: -4px;
-    right: -4px;
-    border-width: 0 4px 4px 0;
-}
-
-.group:hover .tech-corners::before {
-    top: -12px;
-    left: -12px;
-}
-
-.group:hover .tech-corners::after {
-    bottom: -12px;
-    right: -12px;
-}
-
-/* ========================================
-   ARSENAL COMMAND CENTER - TECH STACK
-   Estilos especiales para el visualizador
-======================================== */
-
-/* Animación de escritura para terminal */
-@keyframes typewriter {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-@keyframes blinkCursor {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-.terminal-cursor {
-    animation: blinkCursor 0.8s step-end infinite;
-}
-
-/* Efecto de escaneo horizontal */
-@keyframes scanLine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.scan-effect::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,193,7,0.1), transparent);
-    animation: scanLine 2s ease-in-out infinite;
-}
-
-/* Animación para celdas hexagonales */
-@keyframes hexPulse {
-    0%, 100% { 
-        transform: scale(1);
-        filter: brightness(1);
-    }
-    50% { 
-        transform: scale(1.02);
-        filter: brightness(1.1);
-    }
-}
-
-@keyframes hexAppear {
-    0% {
-        opacity: 0;
-        transform: scale(0.8) translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.hex-cell {
-    animation: hexAppear 0.4s ease-out forwards;
-}
-
-.hex-cell:hover {
-    animation: hexPulse 1.5s ease-in-out infinite;
-}
-
-/* Efecto de radar */
-@keyframes radarSweep {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.radar-sweep {
-    animation: radarSweep 3s linear infinite;
-    transform-origin: left center;
-}
-
-/* Animación de puntos en radar */
-@keyframes radarBlip {
-    0%, 100% { 
-        opacity: 0.3;
-        transform: scale(0.8);
-    }
-    50% { 
-        opacity: 1;
-        transform: scale(1.2);
-    }
-}
-
-.radar-blip {
-    animation: radarBlip 2s ease-in-out infinite;
-}
-
-/* Efecto de glow pulsante */
-@keyframes glowPulse {
-    0%, 100% {
-        box-shadow: 0 0 20px var(--glow-color, rgba(255,193,7,0.3));
-    }
-    50% {
-        box-shadow: 0 0 40px var(--glow-color, rgba(255,193,7,0.5));
-    }
-}
-
-.glow-pulse {
-    animation: glowPulse 2s ease-in-out infinite;
-}
-
-/* Progress bar shimmer */
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
-.shimmer-effect {
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255,255,255,0.2) 50%,
-        transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
-}
-
-/* Línea de código flicker */
-@keyframes codeFlicker {
-    0%, 100% { opacity: 1; }
-    92% { opacity: 1; }
-    93% { opacity: 0.8; }
-    94% { opacity: 1; }
-    95% { opacity: 0.9; }
-}
-
-.code-line {
-    animation: codeFlicker 4s linear infinite;
-}
-
-/* Gradiente animado para bordes */
-@keyframes borderGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.animated-border {
-    background: linear-gradient(90deg, #FFC107, #43A047, #4A90D9, #FF5722, #FFC107);
-    background-size: 300% 300%;
-    animation: borderGradient 4s ease infinite;
-}
-
-/* Hover lift effect */
-.hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-}
-
-/* Stats counter animation */
-@keyframes countUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.stat-number {
-    animation: countUp 0.5s ease-out forwards;
 }

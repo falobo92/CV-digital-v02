@@ -13,12 +13,10 @@ module.exports = {
         'cream': '#F5F5F0',       // Slightly cleaner white/stone
         'cream-dark': '#E0E0DB',
         'ink': '#0A0A0A',         // Jet Black
-        'ink-light': '#1F1F1F',
 
         // Accents - "International Style" (Professional, High Contrast)
         'eng-blue': '#002147',    // Deep Navy (Professional, Architecture)
         'eng-blue-light': '#003366',
-        'magenta': '#FF00FF', // New highlight color
 
         'safety-orange': '#FF5722', // Deep Industrial Orange (High vis but not neon)
         'safety-orange-light': '#FF7043',
@@ -46,51 +44,6 @@ module.exports = {
         '4': '4px',
         '5': '5px',
         '6': '6px',
-      },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'slide-up': 'slideUp 0.5s ease-out forwards',
-        'fade-in': 'fadeIn 0.4s ease-out forwards',
-        'glitch': 'glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite',
-        'marquee': 'marquee 30s linear infinite',
-        'scan': 'scan 2s linear infinite',
-        'spin-slow': 'spin 30s linear infinite',
-        'spin-reverse': 'spinReverse 30s linear infinite',
-        'pulse-slow': 'pulse 3s ease-in-out infinite',
-      },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
-        scan: {
-          '0%': { top: '-100%' },
-          '100%': { top: '200%' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-12px)' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        glitch: {
-          '0%': { transform: 'translate(0)' },
-          '20%': { transform: 'translate(-3px, 3px)' },
-          '40%': { transform: 'translate(-3px, -3px)' },
-          '60%': { transform: 'translate(3px, 3px)' },
-          '80%': { transform: 'translate(3px, -3px)' },
-          '100%': { transform: 'translate(0)' },
-        },
-        spinReverse: {
-          '0%': { transform: 'rotate(360deg)' },
-          '100%': { transform: 'rotate(0deg)' },
-        },
       }
     }
   },

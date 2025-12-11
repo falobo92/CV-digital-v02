@@ -1,24 +1,37 @@
 import React, { useState, useRef } from 'react';
 import BrutalButton from './ui/BrutalButton';
 import emailjs from '@emailjs/browser';
+import { supabase } from '../utils/supabaseClient';
+
+const emailConfig = {
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+} as const;
+
+const isEmailConfigured = Boolean(
+    emailConfig.serviceId &&
+    emailConfig.templateId &&
+    emailConfig.publicKey
+);
 
 interface FormState {
-    name: string;
-    email: string;
+    from_name: string;
+    from_email: string;
     message: string;
 }
 
 interface FormErrors {
-    name?: string;
-    email?: string;
+    from_name?: string;
+    from_email?: string;
     message?: string;
 }
 
 const Contact: React.FC = () => {
     const formRef = useRef<HTMLFormElement>(null);
     const [formData, setFormData] = useState<FormState>({
-        name: '',
-        email: '',
+        from_name: '',
+        from_email: '',
         message: ''
     });
     const [errors, setErrors] = useState<FormErrors>({});
@@ -29,14 +42,14 @@ const Contact: React.FC = () => {
     const validateForm = (): boolean => {
         const newErrors: FormErrors = {};
 
-        if (!formData.name.trim()) {
-            newErrors.name = 'Identificación requerida';
+        if (!formData.from_name.trim()) {
+            newErrors.from_name = 'Identificación requerida';
         }
 
-        if (!formData.email.trim()) {
-            newErrors.email = 'Canal de retorno requerido';
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Sintaxis de correo inválida';
+        if (!formData.from_email.trim()) {
+            newErrors.from_email = 'Canal de retorno requerido';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.from_email)) {
+            newErrors.from_email = 'Sintaxis de correo inválida';
         }
 
         if (!formData.message.trim()) {
@@ -55,26 +68,59 @@ const Contact: React.FC = () => {
 
         setIsSubmitting(true);
 
-        // NOTA PARA EL USUARIO: Reemplazar estos valores con los de tu cuenta de EmailJS
-        // Si no tienes cuenta, crea una gratis en https://www.emailjs.com/
-        const SERVICE_ID = 'service_YOUR_ID_HERE';
-        const TEMPLATE_ID = 'template_YOUR_ID_HERE';
-        const PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';
-
         try {
-            // Simulation mode if keys are placeholders
-            if (SERVICE_ID.includes('YOUR_ID')) {
-                console.warn("EmailJS keys missing. Running in simulation mode.");
-                await new Promise(resolve => setTimeout(resolve, 2000));
+            if (!formRef.current) {
+                throw new Error('Formulario no disponible. Refresca la página.');
+            }
+
+            // Guardar en Supabase primero
+            const { error: dbError } = await supabase
+                .from('contact_messages')
+                .insert([
+                    {
+                        name: formData.from_name,
+                        email: formData.from_email,
+                        message: formData.message
+                    }
+                ]);
+
+            if (dbError) {
+                console.error('Error guardando en base de datos:', dbError);
+                // Continuamos aunque falle la BD, para intentar enviar el correo
             } else {
-                await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current!, PUBLIC_KEY);
+                console.log('✅ Datos guardados en Supabase correctamente');
+            }
+
+            // Enviar correo con EmailJS si está configurado
+            if (isEmailConfigured) {
+                try {
+                    await emailjs.sendForm(
+                        emailConfig.serviceId!,
+                        emailConfig.templateId!,
+                        formRef.current,
+                        emailConfig.publicKey!
+                    );
+                    console.log('✅ Correo enviado con EmailJS');
+                } catch (emailError) {
+                    console.error('Error enviando correo:', emailError);
+                    // Si falla el correo pero se guardó en BD, no es crítico
+                    if (dbError) {
+                        throw new Error('Error en transmisión y almacenamiento. Intente canal alternativo (LinkedIn/Email).');
+                    }
+                }
+            } else {
+                console.warn('EmailJS no configurado, solo se guardó en base de datos');
             }
 
             setIsSubmitted(true);
-            setFormData({ name: '', email: '', message: '' });
+            setFormData({ from_name: '', from_email: '', message: '' });
         } catch (error) {
-            console.error('Email error:', error);
-            setSubmitError('Error en transmisión. Intente canal alternativo (LinkedIn/Email).');
+            console.error('Error en handleSubmit:', error);
+            setSubmitError(
+                error instanceof Error 
+                    ? error.message 
+                    : 'Error en transmisión. Intente canal alternativo (LinkedIn/Email).'
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -159,15 +205,15 @@ const Contact: React.FC = () => {
                                             <input
                                                 id="user_name"
                                                 type="text"
-                                                name="name"
-                                                value={formData.name}
+                                                name="from_name"
+                                                value={formData.from_name}
                                                 onChange={handleChange}
-                                                className={`w-full pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 sm:py-4 border-3 sm:border-4 ${errors.name ? 'border-alert-red bg-red-50' : 'border-ink bg-white'} font-mono text-sm sm:text-base focus:outline-none focus:border-eng-blue transition-all placeholder:text-gray-300`}
+                                                className={`w-full pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 sm:py-4 border-3 sm:border-4 ${errors.from_name ? 'border-alert-red bg-red-50' : 'border-ink bg-white'} font-mono text-sm sm:text-base focus:outline-none focus:border-eng-blue transition-all placeholder:text-gray-300`}
                                                 placeholder="NOMBRE_APELLIDO"
-                                                aria-invalid={errors.name ? 'true' : 'false'}
+                                                aria-invalid={errors.from_name ? 'true' : 'false'}
                                             />
                                         </div>
-                                        {errors.name && <div className="mt-1 text-alert-red font-mono text-[10px] sm:text-xs font-bold flex items-center gap-1"><i className="fa-solid fa-xmark"></i> {errors.name}</div>}
+                                        {errors.from_name && <div className="mt-1 text-alert-red font-mono text-[10px] sm:text-xs font-bold flex items-center gap-1"><i className="fa-solid fa-xmark"></i> {errors.from_name}</div>}
                                     </div>
 
                                     {/* Email Field */}
@@ -182,14 +228,14 @@ const Contact: React.FC = () => {
                                             <input
                                                 id="user_email"
                                                 type="email"
-                                                name="email"
-                                                value={formData.email}
+                                                name="from_email"
+                                                value={formData.from_email}
                                                 onChange={handleChange}
-                                                className={`w-full pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 sm:py-4 border-3 sm:border-4 ${errors.email ? 'border-alert-red bg-red-50' : 'border-ink bg-white'} font-mono text-sm sm:text-base focus:outline-none focus:border-eng-blue transition-all placeholder:text-gray-300`}
+                                                className={`w-full pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 sm:py-4 border-3 sm:border-4 ${errors.from_email ? 'border-alert-red bg-red-50' : 'border-ink bg-white'} font-mono text-sm sm:text-base focus:outline-none focus:border-eng-blue transition-all placeholder:text-gray-300`}
                                                 placeholder="USUARIO@DOMINIO.COM"
                                             />
                                         </div>
-                                        {errors.email && <div className="mt-1 text-alert-red font-mono text-[10px] sm:text-xs font-bold flex items-center gap-1"><i className="fa-solid fa-xmark"></i> {errors.email}</div>}
+                                        {errors.from_email && <div className="mt-1 text-alert-red font-mono text-[10px] sm:text-xs font-bold flex items-center gap-1"><i className="fa-solid fa-xmark"></i> {errors.from_email}</div>}
                                     </div>
 
                                     {/* Message Field */}

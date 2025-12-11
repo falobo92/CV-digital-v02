@@ -40,7 +40,19 @@ Portfolio digital brutalista con CV interactivo. Constructor Civil UC especializ
 npm run build
 ```
 
-El resultado se genera en la carpeta `dist/`.
+El resultado se genera en la carpeta `dist/` (ahora ignorada en el repositorio).
+
+## 🔐 Variables de entorno
+
+Para habilitar el formulario de contacto con EmailJS define en un `.env.local`:
+
+```
+VITE_EMAILJS_SERVICE_ID=...
+VITE_EMAILJS_TEMPLATE_ID=...
+VITE_EMAILJS_PUBLIC_KEY=...
+```
+
+Si no se configuran, el envío del formulario mostrará un mensaje de error y se podrá usar el correo/LinkedIn directo.
 
 ## 🌐 Deploy en GitHub Pages
 
@@ -75,10 +87,7 @@ Si prefieres desplegar manualmente:
    - Si el repo es `TU_USUARIO/CV-digital-FLB`, el base será `/CV-digital-FLB/`
    - Si es el repo raíz del usuario, usar `/`
 
-3. Subir la carpeta `dist/` a la rama `gh-pages`:
-   ```bash
-   git subtree push --prefix dist origin gh-pages
-   ```
+3. Publicar la carpeta `dist/` en tu hosting de preferencia (p. ej. GitHub Pages usando `gh-pages -d dist`), sin versionar los artefactos.
 
 ## 📝 Estructura del Proyecto
 

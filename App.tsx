@@ -9,6 +9,8 @@ import Education from './components/Education';
 import References from './components/References';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+// Inicializar Supabase al arrancar la aplicación
+import './utils/supabaseClient';
 
 function App() {
   return (
