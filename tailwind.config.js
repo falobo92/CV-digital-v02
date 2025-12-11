@@ -54,6 +54,9 @@ module.exports = {
         'glitch': 'glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite',
         'marquee': 'marquee 30s linear infinite',
         'scan': 'scan 2s linear infinite',
+        'spin-slow': 'spin 30s linear infinite',
+        'spin-reverse': 'spinReverse 30s linear infinite',
+        'pulse-slow': 'pulse 3s ease-in-out infinite',
       },
       keyframes: {
         marquee: {
@@ -83,6 +86,10 @@ module.exports = {
           '60%': { transform: 'translate(3px, 3px)' },
           '80%': { transform: 'translate(3px, -3px)' },
           '100%': { transform: 'translate(0)' },
+        },
+        spinReverse: {
+          '0%': { transform: 'rotate(360deg)' },
+          '100%': { transform: 'rotate(0deg)' },
         },
       }
     }

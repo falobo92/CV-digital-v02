@@ -342,7 +342,7 @@ Selecciono mis herramientas por su capacidad de impacto. No uso tecnología por 
 ### 1. Control Documental y Transformación Digital
 **CRAMSA S.A. - Proyecto Aguas Marítimas**
 - **Período:** 2021 — Actual
-- **Ubicación:** Santiago — Modalidad Presencial 4x1
+- **Ubicación:** Santiago — Modalidad Presencial
 - **Categoría:** Digital
 - **Destacado:** Proyecto Emblemático
 

@@ -68,7 +68,7 @@ const Projects: React.FC = () => {
 
     return (
         <section id="proyectos" className="py-0 border-b-6 border-ink bg-cream relative overflow-hidden">
-            <SectionDivider text="INNOVATION  ///  EXECUTION  ///  RESULTS" theme="light" direction="right" />
+            <SectionDivider text="INNOVACIÓN /// EJECUCIÓN /// RESULTADOS" theme="light" direction="right" />
 
             {/* Background Texture */}
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
@@ -78,16 +78,16 @@ const Projects: React.FC = () => {
                 }}>
             </div>
 
-            <div className="py-12 lg:py-16 max-w-[1500px] mx-auto px-4 md:px-8 relative z-10"
+            <div className="py-10 sm:py-12 lg:py-16 max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 relative z-10"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
             >
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8 pointer-events-none">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-8 sm:mb-12 gap-6 sm:gap-8 pointer-events-none">
                     <div className="max-w-[800px]">
-                        <h2 className="text-6xl md:text-7xl lg:text-8xl font-display mb-4 uppercase tracking-tight leading-[0.9]">
-                            <span className="inline-block bg-accent-yellow px-2 mr-2 border-4 border-ink text-ink shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">PROYECTOS</span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-3 sm:mb-4 uppercase tracking-tight leading-[0.9]">
+                            <span className="inline-block bg-accent-yellow px-1.5 sm:px-2 mr-1.5 sm:mr-2 border-3 sm:border-4 border-ink text-ink shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transform -rotate-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">PROYECTOS</span>
                             CLAVE
                         </h2>
                     </div>
@@ -143,7 +143,7 @@ const Projects: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="p-6 md:p-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 bg-white relative">
+                                <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 xl:gap-14 bg-white relative">
                                 {/* Decorative "Holes" or Screws */}
                                 <div className="absolute top-4 right-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
                                 <div className="absolute bottom-4 left-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
@@ -158,7 +158,7 @@ const Projects: React.FC = () => {
                                             <img
                                                 src={currentProject.image}
                                                 alt={currentProject.title}
-                                                className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover/image:grayscale-0 group-hover/image:scale-105"
+                                                className="w-full h-full object-cover transition-all duration-[2000ms] group-hover/image:grayscale group-hover/image:scale-105"
                                             />
                                         )}
 
@@ -176,31 +176,31 @@ const Projects: React.FC = () => {
 
                                 {/* Right Col: Info */}
                                 <div className="lg:col-span-7 flex flex-col justify-center">
-                                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-display leading-[0.9] mb-4 uppercase text-ink">
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display leading-[0.85] mb-3 sm:mb-4 uppercase text-ink">
                                         {currentProject.title}
                                     </h3>
-                                    <div className="text-eng-blue font-bold text-xl mb-8 flex items-center gap-2 font-mono">
-                                        <i className="fa-solid fa-chevron-right text-xs"></i>
+                                    <div className="text-eng-blue font-bold text-base sm:text-lg md:text-xl lg:text-2xl mb-5 sm:mb-8 flex items-center gap-2 font-mono">
+                                        <i className="fa-solid fa-chevron-right text-xs sm:text-sm"></i>
                                         {currentProject.subtitle}
                                     </div>
 
-                                    <div className="space-y-8">
+                                    <div className="space-y-5 sm:space-y-8">
                                         {/* Challenge Section */}
-                                        <div className="relative pl-6 border-l-4 border-gray-300">
-                                            <h4 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-2">The Challenge</h4>
-                                            <p className="text-lg leading-relaxed text-gray-900 font-medium max-w-2xl">
+                                        <div className="relative pl-4 sm:pl-6 border-l-3 sm:border-l-4 border-gray-300">
+                                            <h4 className="font-bold text-xs sm:text-sm uppercase tracking-widest text-gray-400 mb-2 sm:mb-3">El Desafío</h4>
+                                            <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-gray-900 font-medium max-w-2xl">
                                                 {currentProject.challenge}
                                             </p>
                                         </div>
 
                                         {/* Results Section */}
                                         <div>
-                                            <h4 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-4">Key Outcomes</h4>
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            <h4 className="font-bold text-xs sm:text-sm uppercase tracking-widest text-gray-400 mb-3 sm:mb-4">Resultados Clave</h4>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
                                                 {currentProject.results.map((res, i) => (
-                                                    <div key={i} className="flex items-start gap-3 bg-gray-50 border border-gray-200 p-3 hover:border-black transition-colors">
-                                                        <i className="fa-solid fa-check text-term-green mt-1"></i>
-                                                        <span className="font-mono text-sm leading-tight text-gray-700">{res}</span>
+                                                    <div key={i} className="flex items-start gap-2 sm:gap-3 bg-gray-50 border sm:border-2 border-gray-200 p-3 sm:p-4 hover:border-ink transition-colors">
+                                                        <i className="fa-solid fa-check text-term-green mt-0.5 sm:mt-1 text-xs sm:text-sm"></i>
+                                                        <span className="font-mono text-xs sm:text-sm lg:text-base leading-snug text-gray-700">{res}</span>
                                                     </div>
                                                 ))}
                                             </div>
@@ -208,11 +208,11 @@ const Projects: React.FC = () => {
                                     </div>
 
                                     {/* Footer Tags */}
-                                    <div className="flex flex-wrap gap-2 mt-10">
+                                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-6 sm:mt-10">
                                         {currentProject.tags.map(tag => (
                                             <span
                                                 key={tag}
-                                                className="text-xs font-bold px-3 py-1.5 bg-ink text-white uppercase font-mono"
+                                                className="text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 bg-ink text-white uppercase font-mono"
                                             >
                                                 {tag}
                                             </span>
@@ -235,10 +235,10 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-24 flex justify-center">
+                <div className="mt-12 sm:mt-16 lg:mt-24 flex justify-center px-4">
                     <a
                         href="#contacto"
-                        className="group relative inline-flex items-center gap-4 bg-accent-yellow text-ink px-8 py-4 font-display text-xl uppercase tracking-wider border-4 border-ink shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
+                        className="group relative inline-flex items-center gap-2 sm:gap-4 bg-accent-yellow text-ink px-4 sm:px-6 lg:px-8 py-3 sm:py-4 font-display text-sm sm:text-base lg:text-xl uppercase tracking-wider border-3 sm:border-4 border-ink shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all text-center"
                     >
                         Ver Detalle Completo
                         <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>

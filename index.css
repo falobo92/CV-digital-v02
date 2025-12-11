@@ -171,15 +171,16 @@ button {
     animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+
+/* Float animation for particles */
 @keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(var(--rotation, 0deg));
+    0%, 100% {
+        transform: translateY(0px);
+        opacity: 0.4;
     }
-
     50% {
-        transform: translateY(-15px) rotate(var(--rotation, 0deg));
+        transform: translateY(-20px);
+        opacity: 0.8;
     }
 }
 
@@ -228,27 +229,9 @@ button {
 }
 
 /* Timeline styles */
-/* Timeline styles - STRUCTURAL */
 .timeline-dot {
     position: relative;
     z-index: 10;
-}
-
-/* Removed pulse/glow effects here */
-
-/* Structural Beam styles */
-.structural-beam {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    /* Thicker beam */
-    background-color: #EBEBE8;
-    /* Concrete color */
-    border-left: 1px solid #121212;
-    border-right: 1px solid #121212;
-    height: 100%;
-    z-index: 0;
 }
 
 /* Grid pattern background - blueprint style */
@@ -352,25 +335,6 @@ button {
     }
 }
 
-/* Loading skeleton animation */
-.skeleton {
-    background: linear-gradient(90deg,
-            #f0f0f0 25%,
-            #e0e0e0 50%,
-            #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: skeleton-loading 1.5s ease-in-out infinite;
-}
-
-@keyframes skeleton-loading {
-    0% {
-        background-position: 200% 0;
-    }
-
-    100% {
-        background-position: -200% 0;
-    }
-}
 
 /* Marquee Animations - Consolidated */
 @keyframes marquee {
@@ -408,10 +372,6 @@ button {
     transform: translateZ(0);
     backface-visibility: hidden;
 }
-
-/* =========================================
-   NEW: PROJECT VISUAL ENHANCEMENTS
-   ========================================= */
 
 /* Scanlines Effect */
 .bg-scanlines {
@@ -459,20 +419,171 @@ button {
     right: -12px;
 }
 
-/* Stacked Card Effect */
-.card-stack::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 100%;
-    height: 100%;
-    background-color: #121212;
-    z-index: -1;
-    transition: all 0.3s ease;
+/* ========================================
+   ARSENAL COMMAND CENTER - TECH STACK
+   Estilos especiales para el visualizador
+======================================== */
+
+/* Animación de escritura para terminal */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
 }
 
-.group:hover .card-stack::before {
-    top: 16px;
-    left: 16px;
+@keyframes blinkCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.terminal-cursor {
+    animation: blinkCursor 0.8s step-end infinite;
+}
+
+/* Efecto de escaneo horizontal */
+@keyframes scanLine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.scan-effect::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,193,7,0.1), transparent);
+    animation: scanLine 2s ease-in-out infinite;
+}
+
+/* Animación para celdas hexagonales */
+@keyframes hexPulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% { 
+        transform: scale(1.02);
+        filter: brightness(1.1);
+    }
+}
+
+@keyframes hexAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.hex-cell {
+    animation: hexAppear 0.4s ease-out forwards;
+}
+
+.hex-cell:hover {
+    animation: hexPulse 1.5s ease-in-out infinite;
+}
+
+/* Efecto de radar */
+@keyframes radarSweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.radar-sweep {
+    animation: radarSweep 3s linear infinite;
+    transform-origin: left center;
+}
+
+/* Animación de puntos en radar */
+@keyframes radarBlip {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.radar-blip {
+    animation: radarBlip 2s ease-in-out infinite;
+}
+
+/* Efecto de glow pulsante */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--glow-color, rgba(255,193,7,0.3));
+    }
+    50% {
+        box-shadow: 0 0 40px var(--glow-color, rgba(255,193,7,0.5));
+    }
+}
+
+.glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Progress bar shimmer */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.shimmer-effect {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.2) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Línea de código flicker */
+@keyframes codeFlicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.8; }
+    94% { opacity: 1; }
+    95% { opacity: 0.9; }
+}
+
+.code-line {
+    animation: codeFlicker 4s linear infinite;
+}
+
+/* Gradiente animado para bordes */
+@keyframes borderGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animated-border {
+    background: linear-gradient(90deg, #FFC107, #43A047, #4A90D9, #FF5722, #FFC107);
+    background-size: 300% 300%;
+    animation: borderGradient 4s ease infinite;
+}
+
+/* Hover lift effect */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+/* Stats counter animation */
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-number {
+    animation: countUp 0.5s ease-out forwards;
 }

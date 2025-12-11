@@ -65,34 +65,34 @@ const Experience: React.FC = () => {
             {/* Background Grid - Minimal opacity */}
             <div className="absolute inset-0 opacity-[0.2] bg-grid pointer-events-none mt-12"></div>
 
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 pt-20">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 pt-10 sm:pt-16 lg:pt-20">
                 {/* Header - Sober & Architectural */}
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-24 gap-12">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 lg:mb-24 gap-6 sm:gap-8 lg:gap-12">
                     <div>
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-8 h-8 bg-ink flex items-center justify-center text-white font-mono text-xs font-bold">02</div>
-                            <span className="font-mono text-sm font-bold text-ink uppercase tracking-widest">Evolución Profesional</span>
+                        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">02</div>
+                            <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Evolución Profesional</span>
                         </div>
-                        <h2 className="text-6xl md:text-7xl lg:text-8xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9]">
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9]">
                             Trayectoria
-                            <span className="block text-gray-300 text-5xl md:text-6xl lg:text-7xl mt-2">/ Timeline</span>
+                            <span className="block text-gray-300 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-1 sm:mt-2">/ Timeline</span>
                         </h2>
                     </div>
 
                     {/* Filters - Hard Edge Buttons */}
-                    <div className="flex border-4 border-ink">
+                    <div className="flex border-3 sm:border-4 border-ink w-full sm:w-auto">
                         {['all', 'digital', 'construction'].map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setFilter(cat as ExperienceCategory)}
-                                className={`px-6 py-4 font-mono text-xs md:text-sm font-bold uppercase transition-all relative overflow-hidden group ${filter === cat
+                                className={`flex-1 sm:flex-none px-3 sm:px-6 py-3 sm:py-4 font-mono text-[10px] sm:text-xs md:text-sm font-bold uppercase transition-all relative overflow-hidden group ${filter === cat
                                     ? 'bg-ink text-white'
                                     : 'bg-white text-ink hover:bg-gray-100'
-                                    } ${cat !== 'construction' ? 'border-r-4 border-ink' : 'border-r-0'}`}
+                                    } ${cat !== 'construction' ? 'border-r-3 sm:border-r-4 border-ink' : 'border-r-0'}`}
                             >
                                 <span className="relative z-10">{cat === 'all' ? 'TODO' : cat === 'digital' ? 'DIGITAL' : 'OBRA'}</span>
-                                {filter !== cat && <div className="absolute inset-0 bg-ink translate-y-full group-hover:translate-y-0 transition-transform duration-200 z-0"></div>}
-                                {filter !== cat && <span className="absolute inset-0 flex items-center justify-center text-white translate-y-full group-hover:translate-y-0 transition-transform duration-200 z-10 delay-75">{cat === 'all' ? 'TODO' : cat === 'digital' ? 'DIGITAL' : 'OBRA'}</span>}
+                                {filter !== cat && <div className="absolute inset-0 bg-ink translate-y-full group-hover:translate-y-0 transition-transform duration-200 z-0 hidden sm:block"></div>}
+                                {filter !== cat && <span className="absolute inset-0 hidden sm:flex items-center justify-center text-white translate-y-full group-hover:translate-y-0 transition-transform duration-200 z-10 delay-75">{cat === 'all' ? 'TODO' : cat === 'digital' ? 'DIGITAL' : 'OBRA'}</span>}
                             </button>
                         ))}
                     </div>
@@ -143,10 +143,10 @@ const Experience: React.FC = () => {
                                                     </span>
                                                 </div>
 
-                                                <h3 className="font-display text-2xl md:text-4xl leading-none uppercase mb-2 text-ink group-hover:underline decoration-4 underline-offset-4 decoration-safety-orange">
+                                                <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-none uppercase mb-2 sm:mb-3 text-ink group-hover:underline decoration-2 sm:decoration-4 underline-offset-4 decoration-safety-orange">
                                                     {job.role}
                                                 </h3>
-                                                <div className="font-mono text-base font-bold text-gray-600">
+                                                <div className="font-mono text-sm sm:text-base lg:text-lg font-bold text-gray-600">
                                                     @{job.company}
                                                 </div>
                                             </div>
@@ -161,10 +161,10 @@ const Experience: React.FC = () => {
                                         {/* Expanded Content */}
                                         <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-[600px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                                             <div className="border-t-2 border-dashed border-gray-300 pt-6">
-                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 mb-8">
+                                                <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8">
                                                     {job.details.map((detail, idx) => (
-                                                        <li key={idx} className="flex gap-3 text-sm font-medium text-gray-700 leading-relaxed">
-                                                            <span className="text-ink font-bold font-mono">_</span>
+                                                        <li key={idx} className="flex gap-3 text-base font-medium text-gray-700 leading-relaxed">
+                                                            <span className="text-safety-orange font-bold font-mono mt-1">›</span>
                                                             {detail}
                                                         </li>
                                                     ))}

@@ -1,108 +1,159 @@
 import React from 'react';
 import BrutalButton from './ui/BrutalButton';
-import { PROFILE } from '../constants';
 import { generateCV } from '../utils/generateCV';
 
 const Hero: React.FC = () => {
-    const badges = [
-        { label: 'INGENIERÍA', icon: 'fa-solid fa-helmet-safety' },
-        { label: 'DATOS', icon: 'fa-solid fa-database' },
-        { label: 'GESTIÓN', icon: 'fa-solid fa-list-check' },
-    ];
-
     const handleDownloadCV = () => {
-        console.log("Hero: Click received, calling generateCV...");
         generateCV();
     };
 
     return (
-
-        <section id="hero" className="relative min-h-[90vh] flex items-center overflow-hidden border-b-6 border-ink bg-cream py-20 lg:py-24">
-            {/* Background: Interesting Blueprint/Grid Pattern */}
-            <div className="absolute inset-0 z-0 opacity-30 pointer-events-none"
+        <section id="hero" className="relative min-h-[100vh] flex items-center overflow-hidden border-b-6 border-ink bg-cream">
+            
+            {/* Background Grid - Blueprint style */}
+            <div className="absolute inset-0 z-0 opacity-40 pointer-events-none"
                 style={{
                     backgroundImage: `
-                        linear-gradient(rgba(17, 17, 17, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(17, 17, 17, 0.03) 1px, transparent 1px),
-                        radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%)
-                     `,
-                    backgroundSize: '40px 40px, 40px 40px, 100% 100%'
+                        linear-gradient(rgba(0, 0, 0, 0.03) 2px, transparent 2px),
+                        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 2px, transparent 2px)
+                    `,
+                    backgroundSize: '60px 60px'
                 }}>
             </div>
-            {/* Decorative Noise or speckle */}
-            <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E')" }}></div>
 
-            <div className="max-w-[1400px] mx-auto px-8 relative z-10 grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-20 items-center">
+            {/* Diagonal accent stripe */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-yellow opacity-10 transform rotate-45 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+            <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-16 lg:py-0">
 
                 {/* Text Content */}
-                <div className="flex flex-col">
-                    <div className="font-mono text-base font-bold uppercase tracking-widest mb-6 text-gray-600 flex items-center gap-3">
-                        <span className="w-3 h-3 bg-ink"></span>
-                        CONSTRUCTOR CIVIL PUC & DATA SPECIALIST
+                <div className="flex flex-col order-2 lg:order-1">
+                    
+                    {/* Label */}
+                    <div className="inline-flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <div className="w-10 sm:w-16 h-1 bg-ink"></div>
+                        <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-widest text-ink">
+                            Constructor Civil PUC
+                        </span>
                     </div>
 
-                    <h1 className="font-display text-7xl sm:text-8xl lg:text-[8rem] leading-[0.85] mb-10 text-ink uppercase tracking-tight">
-                        <span className="bg-accent-yellow text-ink px-1 inline-block transform -skew-x-6">CONSTRUCCIÓN</span>
-                        <span className="block text-eng-blue mt-2">
-                            & GESTIÓN
+                    {/* Main Title - RAW BRUTAL */}
+                    <h1 className="font-display text-[2.75rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[7rem] xl:text-[8.5rem] leading-[0.85] mb-6 sm:mb-8 text-ink uppercase tracking-tighter">
+                        <span className="block">FELIPE</span>
+                        <span className="block relative">
+                            <span className="relative z-10">LOBO</span>
+                            {/* Yellow highlight block */}
+                            <span className="absolute left-0 bottom-1 sm:bottom-2 w-full h-4 sm:h-6 md:h-10 lg:h-12 bg-accent-yellow -z-0 transform -skew-x-3"></span>
                         </span>
                     </h1>
 
-                    {/* Value Statement - Grounded & Convincing */}
-                    <p className="text-2xl md:text-3xl mb-12 max-w-[800px] font-mono font-medium leading-relaxed text-gray-800 border-l-4 border-ink pl-8 py-2">
-                        Integrando la <span className="bg-digital-cyan text-ink px-1 font-bold">gestión de obra</span> con sistemas digitales para ordenar la información, asegurar <span className="bg-magenta text-white px-1 font-bold">trazabilidad</span> y mejorar la calidad de los datos.
+                    {/* Subtitle with brutal border */}
+                    <div className="bg-ink text-cream px-4 sm:px-6 py-3 sm:py-4 mb-8 sm:mb-10 max-w-fit border-3 sm:border-4 border-ink shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                        <span className="font-mono text-sm sm:text-base md:text-lg lg:text-xl font-bold uppercase tracking-wide">
+                            Construcción + Datos + Transformación Digital
+                        </span>
+                    </div>
+
+                    {/* Value proposition */}
+                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 lg:mb-12 max-w-[600px] font-mono leading-relaxed text-gray-700">
+                        9+ años uniendo <span className="bg-accent-yellow text-ink px-1 font-bold">gestión de obra</span> y sistemas digitales. Ordeno la información, dejo trazabilidad clara y convierto los datos en decisiones rápidas.
                     </p>
 
-                    {/* Badges - Functional Pills */}
-                    <div className="flex gap-4 mb-14 flex-wrap">
-                        {badges.map((badge, idx) => (
-                            <span
-                                key={idx}
-                                className="bg-white text-ink px-5 py-2.5 border-2 border-ink font-mono text-base font-bold uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-0.5 hover:shadow-none hover:bg-accent-yellow transition-all cursor-default"
-                            >
-                                <i className={`${badge.icon} mr-2 text-ink`}></i>
-                                {badge.label}
-                            </span>
-                        ))}
+                    {/* Stats row */}
+                    <div className="flex gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 lg:mb-12 flex-wrap">
+                        <div className="border-l-3 sm:border-l-4 border-ink pl-3 sm:pl-4">
+                            <div className="font-display text-3xl sm:text-4xl md:text-5xl text-ink">+9</div>
+                            <div className="font-mono text-[10px] sm:text-xs uppercase text-gray-500 tracking-wider">Años Exp.</div>
+                        </div>
+                        <div className="border-l-3 sm:border-l-4 border-safety-orange pl-3 sm:pl-4">
+                            <div className="font-display text-3xl sm:text-4xl md:text-5xl text-ink">5</div>
+                            <div className="font-mono text-[10px] sm:text-xs uppercase text-gray-500 tracking-wider">Proyectos</div>
+                        </div>
+                        <div className="border-l-3 sm:border-l-4 border-eng-blue pl-3 sm:pl-4">
+                            <div className="font-display text-3xl sm:text-4xl md:text-5xl text-ink">16</div>
+                            <div className="font-mono text-[10px] sm:text-xs uppercase text-gray-500 tracking-wider">Herramientas</div>
+                        </div>
                     </div>
 
                     {/* CTAs */}
-                    <div className="flex gap-6 flex-wrap">
+                    <div className="flex gap-4 flex-wrap">
                         <BrutalButton as="a" href="#experiencia" variant="primary" size="lg">
-                            VER MI TRABAJO
+                            <i className="fa-solid fa-arrow-down mr-2"></i>
+                            VER TRAYECTORIA
                         </BrutalButton>
                         <BrutalButton as="button" onClick={handleDownloadCV} size="lg">
+                            <i className="fa-solid fa-file-pdf mr-2"></i>
                             DESCARGAR CV
                         </BrutalButton>
                     </div>
                 </div>
 
-                {/* Right Column - The "Smart Brutalist" Image */}
-                <div className="relative flex justify-center lg:justify-end mt-10 lg:mt-0">
-                    {/* Image Container - Tactile & Solid */}
-                    <div className="relative group cursor-crosshair">
+                {/* Image - BRUTAL STYLE */}
+                <div className="relative flex justify-center lg:justify-end order-1 lg:order-2">
+                    <div className="relative group cursor-pointer">
+                        
+                        {/* Shadow block - offset brutal */}
+                        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 md:top-6 md:left-6 w-full h-full bg-ink z-0"></div>
+                        
+                        {/* Secondary accent shadow */}
+                        <div className="absolute top-6 left-6 sm:top-8 sm:left-8 md:top-12 md:left-12 w-full h-full bg-accent-yellow z-0 opacity-60"></div>
 
-                        {/* Shadow Block (Static) */}
-                        <div className="absolute top-5 left-5 w-full h-full bg-ink z-0"></div>
-
-                        {/* Image Block */}
-                        <div className="relative w-[360px] h-[450px] bg-white border-4 border-ink z-10 transition-transform duration-200 group-hover:translate-x-1 group-hover:translate-y-1 select-none overflow-hidden">
+                        {/* Main image container */}
+                        <div className="relative w-[260px] h-[325px] sm:w-[300px] sm:h-[380px] md:w-[360px] md:h-[450px] lg:w-[400px] lg:h-[500px] border-4 sm:border-6 border-ink bg-white z-10 overflow-hidden transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1">
+                            
+                            {/* The Image */}
                             <img
                                 src="/profile.png"
-                                alt="Profile"
-                                className="w-full h-full object-cover grayscale contrast-125 brightness-110 relative z-10 transition-all duration-300 group-hover:grayscale-0 group-hover:saturate-110"
+                                alt="Felipe Lobo Boric - Constructor Civil"
+                                className="w-full h-full object-cover grayscale contrast-125 brightness-105 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:saturate-[1.2] group-hover:contrast-110"
                                 draggable="false"
                                 onContextMenu={(e) => e.preventDefault()}
                             />
 
+                            {/* Overlay gradient - fades on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent transition-opacity duration-500 group-hover:opacity-0"></div>
 
-                            {/* Tag */}
-                            <div className="absolute top-0 right-0 bg-accent-yellow border-l-4 border-b-4 border-ink px-4 py-2 font-mono text-base font-bold z-20">
-                                FLB_92
+                            {/* Corner markers - architectural style */}
+                            <div className="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-white opacity-80"></div>
+                            <div className="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-white opacity-80"></div>
+                            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-white opacity-80"></div>
+                            <div className="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-white opacity-80"></div>
+
+                            {/* Name tag - brutal label */}
+                            <div className="absolute bottom-0 left-0 right-0 bg-ink p-4 transform translate-y-0 transition-transform duration-300">
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <div className="font-mono text-[10px] text-gray-400 uppercase tracking-widest mb-1">2024 // SANTIAGO</div>
+                                        <div className="font-display text-xl md:text-2xl text-white uppercase tracking-tight">FLB</div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-3 h-3 bg-term-green"></span>
+                                        <span className="font-mono text-xs text-term-green uppercase">Disponible</span>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        {/* Single floating tag to evitar sobrecarga visual */}
+                        <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 bg-safety-orange border-3 sm:border-4 border-ink px-3 py-1.5 sm:px-4 sm:py-2 z-20 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-1 group-hover:rotate-0 transition-transform">
+                            <span className="font-mono text-xs sm:text-sm md:text-base font-bold text-ink uppercase">+9 años</span>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* Bottom decoration bar */}
+            <div className="absolute bottom-0 left-0 right-0 flex">
+                <div className="flex-1 h-2 bg-ink"></div>
+                <div className="w-32 h-2 bg-accent-yellow"></div>
+                <div className="w-24 h-2 bg-safety-orange"></div>
+                <div className="w-16 h-2 bg-eng-blue"></div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 animate-bounce">
+                <span className="font-mono text-xs text-gray-400 uppercase tracking-widest">Scroll</span>
+                <i className="fa-solid fa-chevron-down text-ink"></i>
             </div>
         </section>
     );
