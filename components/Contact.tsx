@@ -108,7 +108,7 @@ const Contact: React.FC = () => {
                         <div className="inline-block bg-accent-yellow border-2 border-ink px-3 py-1 font-mono text-xs font-bold mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                             05 //_CONECTAR
                         </div>
-                        <h2 className="text-5xl md:text-6xl lg:text-7xl font-display text-ink uppercase tracking-tight leading-none">
+                        <h2 className="text-6xl md:text-7xl lg:text-8xl font-display text-ink uppercase tracking-tight leading-none">
                             INICIAR <span className="text-eng-blue">TRANSMISIÓN</span>
                         </h2>
                     </div>
@@ -121,7 +121,7 @@ const Contact: React.FC = () => {
 
                     {/* Left: Data Input Terminal */}
                     <div className="bg-white border-4 border-ink p-1 shadow-[8px_8px_0px_0px_rgba(15,15,15,1)]">
-                        <div className="bg-ink text-cream p-2 font-mono text-xs flex justify-between items-center mb-1">
+                        <div className="bg-ink text-cream p-2 font-mono text-sm flex justify-between items-center mb-1">
                             <span>:: INPUT_TERMINAL_V1.0</span>
                             <span className="animate-pulse">● ONLINE</span>
                         </div>
@@ -149,7 +149,7 @@ const Contact: React.FC = () => {
                                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-6" noValidate>
                                     {/* Name Field */}
                                     <div className="relative group">
-                                        <label htmlFor="user_name" className="block font-mono text-xs font-bold mb-2 uppercase text-gray-500 group-focus-within:text-eng-blue transition-colors">
+                                        <label htmlFor="user_name" className="block font-mono text-sm font-bold mb-2 uppercase text-gray-500 group-focus-within:text-eng-blue transition-colors">
                                             [01] Identificación (Nombre)
                                         </label>
                                         <div className="relative">
@@ -172,7 +172,7 @@ const Contact: React.FC = () => {
 
                                     {/* Email Field */}
                                     <div className="relative group">
-                                        <label htmlFor="user_email" className="block font-mono text-xs font-bold mb-2 uppercase text-gray-500 group-focus-within:text-eng-blue transition-colors">
+                                        <label htmlFor="user_email" className="block font-mono text-sm font-bold mb-2 uppercase text-gray-500 group-focus-within:text-eng-blue transition-colors">
                                             [02] Canal de Retorno (Email)
                                         </label>
                                         <div className="relative">
@@ -194,7 +194,7 @@ const Contact: React.FC = () => {
 
                                     {/* Message Field */}
                                     <div className="relative group">
-                                        <label htmlFor="message" className="block font-mono text-xs font-bold mb-2 uppercase text-gray-500 group-focus-within:text-eng-blue transition-colors">
+                                        <label htmlFor="message" className="block font-mono text-sm font-bold mb-2 uppercase text-gray-500 group-focus-within:text-eng-blue transition-colors">
                                             [03] Payload de Datos (Mensaje)
                                         </label>
                                         <textarea
@@ -242,7 +242,7 @@ const Contact: React.FC = () => {
                     <div className="flex flex-col gap-6">
                         {/* Status Card */}
                         <div className="bg-digital-cyan border-4 border-ink p-6 shadow-brutal group hover:-translate-y-1 transition-transform">
-                            <h3 className="font-mono text-xs font-bold opacity-60 mb-2">:: ESTADO_ACTUAL</h3>
+                            <h3 className="font-mono text-sm font-bold opacity-60 mb-2">:: ESTADO_ACTUAL</h3>
                             <div className="flex items-center gap-4">
                                 <div className="w-3 h-3 bg-term-green rounded-full animate-ping"></div>
                                 <span className="font-display text-2xl uppercase">DISPONIBLE</span>
@@ -259,7 +259,7 @@ const Contact: React.FC = () => {
                                     <div className="flex items-center gap-4">
                                         <i className="fa-solid fa-envelope text-xl w-8"></i>
                                         <div>
-                                            <div className="font-mono text-[10px] text-gray-500 uppercase">PROTOCOLO SMTP</div>
+                                            <div className="font-mono text-xs text-gray-500 uppercase">PROTOCOLO SMTP</div>
                                             <div className="font-bold font-mono text-sm sm:text-base group-hover:underline">felipealonso.lobo@gmail.com</div>
                                         </div>
                                     </div>
@@ -272,7 +272,7 @@ const Contact: React.FC = () => {
                                     <div className="flex items-center gap-4">
                                         <i className="fa-brands fa-linkedin text-xl w-8"></i>
                                         <div>
-                                            <div className="font-mono text-[10px] text-gray-500 group-hover:text-white/70 uppercase">RED LINKEDIN</div>
+                                            <div className="font-mono text-xs text-gray-500 group-hover:text-white/70 uppercase">RED LINKEDIN</div>
                                             <div className="font-bold font-mono text-sm sm:text-base group-hover:underline">/in/felipealonsolobo</div>
                                         </div>
                                     </div>
@@ -284,7 +284,7 @@ const Contact: React.FC = () => {
                                 <div className="flex items-center gap-4">
                                     <i className="fa-solid fa-location-dot text-xl w-8 text-accent-yellow"></i>
                                     <div>
-                                        <div className="font-mono text-[10px] text-gray-400 uppercase">BASE DE OPERACIONES</div>
+                                        <div className="font-mono text-xs text-gray-400 uppercase">BASE DE OPERACIONES</div>
                                         <div className="font-bold font-mono text-sm sm:text-base">Santiago, Chile (GMT-3)</div>
                                     </div>
                                 </div>

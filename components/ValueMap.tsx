@@ -25,7 +25,7 @@ const ValueMap: React.FC = () => {
     ];
 
     return (
-        <section id="about" className="bg-white text-ink border-b-6 border-ink pt-0 pb-24 relative overflow-hidden">
+        <section id="about" className="bg-white text-ink border-b-6 border-ink pt-0 pb-32 relative overflow-hidden">
 
             <SectionDivider text="METHODOLOGY  ///  SYSTEMS  ///  CONSTRUCTION" theme="light" direction="left" />
 
@@ -33,7 +33,7 @@ const ValueMap: React.FC = () => {
                 {/* Header */}
                 <div className="mb-20 flex flex-col lg:flex-row gap-12 items-end border-b-4 border-ink pb-12">
                     <div className="flex-1">
-                        <h2 className="text-5xl md:text-7xl font-display uppercase tracking-tighter text-ink leading-none">
+                        <h2 className="text-6xl md:text-8xl font-display uppercase tracking-tighter text-ink leading-[0.9]">
                             Enfoque <br /><span className="text-eng-blue">Profesional</span>
                         </h2>
                     </div>
@@ -56,7 +56,7 @@ const ValueMap: React.FC = () => {
                                 </div>
                                 <h3 className="font-display text-2xl uppercase mb-3 leading-none tracking-tight">{item.title}</h3>
                                 <div className="w-8 h-1 bg-safety-orange mb-4"></div>
-                                <p className="font-mono text-sm leading-relaxed text-gray-600 font-medium">
+                                <p className="font-mono text-base leading-relaxed text-gray-600 font-medium">
                                     {item.desc}
                                 </p>
                             </div>
@@ -92,7 +92,7 @@ const ValueMap: React.FC = () => {
                                     <i className="fa-solid fa-check text-term-green text-xs opacity-50 group-hover:opacity-100"></i>
                                 </div>
 
-                                <h4 className="font-mono text-sm font-bold text-gray-200 uppercase mb-4 tracking-tight group-hover:text-white group-hover:translate-x-1 transition-transform">
+                                <h4 className="font-mono text-base font-bold text-gray-200 uppercase mb-4 tracking-tight group-hover:text-white group-hover:translate-x-1 transition-transform">
                                     {comp}
                                 </h4>
 

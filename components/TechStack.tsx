@@ -51,72 +51,74 @@ const TechStack: React.FC = () => {
     const getSelectionStyle = (tech: TechStackItem) => {
         const cat = TECH_CATEGORIES.find(c => c.id === tech.category);
         const color = cat?.color || 'gray-500';
-        return `bg-ink border-${color} shadow-[0_0_15px_rgba(255,255,255,0.1)] scale-105 z-10 ring-1 ring-${color}`;
+        return `bg-ink border-${color} shadow-[0_0_20px_rgba(255,255,255,0.15)] scale-110 z-20 ring-2 ring-${color}`;
     };
 
     return (
         <section id="stack" className="bg-ink text-cream border-b-8 border-ink relative overflow-hidden pt-0 pb-32">
             <SectionDivider text="FULL STACK  ///  DIGITAL TOOLS  ///  AUTOMATION" theme="accent" direction="left" />
 
-            <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 w-full mt-24">
+            <div className="max-w-[1600px] mx-auto px-6 md:px-12 relative z-10 w-full mt-24">
                 {/* Header Area */}
                 <div className="mb-12 flex flex-col lg:flex-row justify-between items-end gap-8">
                     <div className="flex-1">
-                        <h2 className="text-5xl md:text-7xl font-display uppercase tracking-tighter text-white leading-none mb-4">
+                        <h2 className="text-7xl md:text-9xl font-display uppercase tracking-tighter text-white leading-[0.8] mb-6">
                             Stack <span className="text-white bg-digital-cyan px-2 text-ink">Digital</span>
                         </h2>
-                        <p className="font-mono text-gray-400 max-w-2xl">
-                            Selecciono mis herramientas por su capacidad de impacto. No uso tecnología por moda, la uso para resolver problemas específicos de construcción y gestión.
+                        <p className="font-mono text-gray-400 max-w-2xl text-lg">
+                            Arquitectura de herramientas de alto rendimiento. Selección estratégica para impacto máximo en construcción y gestión.
                         </p>
                     </div>
                 </div>
 
                 {/* Dashboard Grid Layout */}
-                <div className="grid grid-cols-1 xl:grid-cols-[1fr_450px] gap-8">
+                <div className="grid grid-cols-1 xl:grid-cols-[1fr_500px] gap-8">
 
                     {/* Left Panel: The Grid */}
                     <div className="bg-ink-light border border-gray-800 p-6 md:p-8">
                         {/* Filters */}
-                        <div className="flex flex-wrap gap-2 mb-10">
+                        <div className="flex flex-wrap gap-2 mb-8">
                             <button
                                 onClick={() => setActiveCategory('all')}
-                                className={`px-4 py-2 font-mono text-xs font-bold uppercase transition-all border border-transparent ${activeCategory === 'all' ? 'bg-white text-ink' : 'bg-gray-800 text-gray-400 hover:text-white hover:border-gray-600'}`}
+                                className={`px-3 py-1.5 font-mono text-xs font-bold uppercase transition-all border border-transparent ${activeCategory === 'all' ? 'bg-white text-ink' : 'bg-gray-800 text-gray-400 hover:text-white hover:border-gray-600'}`}
                             >
-                                ALL
+                                ALL SYSTEMS
                             </button>
                             {TECH_CATEGORIES.map(cat => (
                                 <button
                                     key={cat.id}
                                     onClick={() => setActiveCategory(cat.id)}
-                                    className={`px-4 py-2 font-mono text-xs font-bold uppercase transition-all flex items-center gap-2 border border-transparent ${activeCategory === cat.id ? `bg-white text-ink border-${cat.color}` : 'bg-gray-800 text-gray-400 hover:text-white hover:border-gray-600'}`}
+                                    className={`px-3 py-1.5 font-mono text-xs font-bold uppercase transition-all flex items-center gap-2 border border-transparent ${activeCategory === cat.id ? `bg-white text-ink border-${cat.color}` : 'bg-gray-800 text-gray-400 hover:text-white hover:border-gray-600'}`}
                                 >
-                                    <span className={`w-2 h-2 rounded-full bg-${cat.color}`}></span>
+                                    <span className={`w-1.5 h-1.5 rounded-full bg-${cat.color}`}></span>
                                     {cat.title}
                                 </button>
                             ))}
                         </div>
 
-                        {/* Tech Grid */}
-                        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2">
+                        {/* Tech Grid - Denser and smaller */}
+                        <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-1.5">
                             {filteredTech.map((tech) => {
                                 const cat = TECH_CATEGORIES.find(c => c.id === tech.category);
                                 return (
                                     <button
                                         key={tech.key}
                                         onClick={() => setActiveTech(tech)}
-                                        className={`aspect-square relative flex flex-col items-center justify-center p-2 border transition-all duration-200 group ${activeTech?.key === tech.key
+                                        className={`aspect-square relative flex flex-col items-center justify-center p-1 border transition-all duration-150 group overflow-hidden ${activeTech?.key === tech.key
                                             ? getSelectionStyle(tech)
-                                            : 'bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-600 hover:bg-gray-800 hover:text-gray-300'
+                                            : 'bg-gray-900 border-gray-800 text-gray-600 hover:border-gray-500 hover:bg-gray-800 hover:text-gray-200'
                                             }`}
                                     >
-                                        {/* Category Indicator Dot */}
-                                        <div className={`absolute top-1 right-1 w-1 h-1 rounded-full bg-${cat?.color} opacity-50 group-hover:opacity-100`}></div>
+                                        {/* Corner Accents */}
+                                        <div className={`absolute top-0 right-0 w-2 h-2 border-t border-r border-${cat?.color} opacity-0 group-hover:opacity-100 transition-opacity`}></div>
+                                        <div className={`absolute bottom-0 left-0 w-2 h-2 border-b border-l border-${cat?.color} opacity-0 group-hover:opacity-100 transition-opacity`}></div>
 
                                         {/* Main Icon */}
-                                        <div className={`text-2xl mb-1 transition-colors flex items-center justify-center ${activeTech?.key === tech.key ? 'text-white' : 'text-gray-600 group-hover:text-gray-400'}`}>
+                                        <div className={`text-xl mb-1 transition-transform group-hover:scale-110 ${activeTech?.key === tech.key ? 'text-white' : ''}`}>
                                             <i className={tech.icon}></i>
                                         </div>
-                                        <div className="font-mono text-[8px] font-bold uppercase truncate w-full text-center tracking-tight leading-none">
+                                        {/* Label - Hidden on very small screens or just very small */}
+                                        <div className="font-mono text-[9px] font-bold uppercase truncate w-full text-center tracking-tight leading-none opacity-80 group-hover:opacity-100">
                                             {tech.name}
                                         </div>
                                     </button>
@@ -126,18 +128,25 @@ const TechStack: React.FC = () => {
                     </div>
 
                     {/* Right Panel: Data Inspector */}
-                    <div className="border-4 border-white bg-ink relative min-h-[450px] p-8 flex flex-col shadow-brutal-xl sticky top-8">
+                    <div className="border border-gray-700 bg-ink relative min-h-[500px] flex flex-col sticky top-8 group">
+                        {/* Tech Corners / Hud elements */}
+                        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white"></div>
+                        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white"></div>
+                        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white"></div>
+                        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white"></div>
+
                         {activeTech ? (
-                            <div className="animate-fade-in flex flex-col h-full">
-                                <div className="flex items-start justify-between mb-8 border-b border-gray-800 pb-6">
+                            <div className="animate-fade-in flex flex-col h-full p-8 bg-scanlines">
+                                <div className="flex items-start justify-between mb-8 border-b border-gray-800 pb-6 relative">
+                                    <div className="absolute -bottom-[1px] -right-2 w-4 h-4 bg-ink border border-gray-800 rotate-45"></div>
                                     <div>
                                         <div className={`font-mono text-xs mb-2 flex items-center gap-2 ${getCategoryColor(activeTech.category)}`}>
-                                            <span className={`w-2 h-2 rounded-full bg-current animate-pulse`}></span>
-                                            SELECTED_TOOL
+                                            <span className={`w-2 h-2 bg-current animate-pulse`}></span>
+                                            SYSTEM_SELECTED // {activeTech.key}
                                         </div>
-                                        <h3 className="font-display text-3xl md:text-4xl text-white uppercase leading-none">{activeTech.name}</h3>
+                                        <h3 className="font-display text-5xl text-white uppercase leading-none tracking-tighter">{activeTech.name}</h3>
                                     </div>
-                                    <div className={`w-12 h-12 border-2 flex items-center justify-center text-xl ${getCategoryBorder(activeTech.category)} ${getCategoryColor(activeTech.category)}`}>
+                                    <div className={`w-16 h-16 border-2 flex items-center justify-center text-3xl ${getCategoryBorder(activeTech.category)} ${getCategoryColor(activeTech.category)} bg-ink-light`}>
                                         <i className={TECH_CATEGORIES.find(c => c.id === activeTech.category)?.icon}></i>
                                     </div>
                                 </div>
@@ -145,42 +154,42 @@ const TechStack: React.FC = () => {
                                 <div className="flex-1 space-y-8">
                                     {/* Function */}
                                     <div>
-                                        <h4 className="font-mono text-xs font-bold text-gray-500 uppercase mb-2">PARA QUÉ SIRVE</h4>
-                                        <p className="font-mono text-sm text-gray-300 leading-relaxed pl-4 border-l-2 border-gray-700">
-                                            {activeTech.description}
+                                        <h4 className="font-mono text-xs font-bold text-gray-500 uppercase mb-2 tracking-widest">FUNCIONALIDAD</h4>
+                                        <p className="font-mono text-lg text-gray-200 leading-tight">
+                                            "{activeTech.description}"
                                         </p>
                                     </div>
 
                                     {/* Use Case */}
                                     <div>
-                                        <h4 className={`font-mono text-xs font-bold uppercase mb-3 ${getCategoryColor(activeTech.category)}`}>
+                                        <h4 className={`font-mono text-xs font-bold uppercase mb-3 tracking-widest ${getCategoryColor(activeTech.category)}`}>
                                             <i className="fa-solid fa-crosshairs mr-2"></i>
-                                            PARA QUÉ LA USO
+                                            APLICACIÓN PRÁCTICA
                                         </h4>
-                                        <div className="bg-gray-900/50 p-5 border border-gray-700 relative overflow-hidden group">
-                                            {/* Decorative element */}
-                                            <div className={`absolute top-0 left-0 w-1 h-full bg-${TECH_CATEGORIES.find(c => c.id === activeTech.category)?.color} transition-all duration-300 group-hover:w-1.5`}></div>
-
-                                            <p className="font-mono text-sm text-white font-medium leading-relaxed relative z-10">
+                                        <div className="bg-gray-900 border-l-4 border-current p-5 relative overflow-hidden" style={{ borderColor: TECH_CATEGORIES.find(c => c.id === activeTech.category)?.color ? `var(--${TECH_CATEGORIES.find(c => c.id === activeTech.category)?.color})` : '#333' }}>
+                                            <p className="font-mono text-base text-white font-medium leading-relaxed relative z-10">
                                                 {activeTech.reason}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="mt-auto pt-6 flex justify-between items-center text-[10px] font-mono text-gray-600 uppercase">
-                                    <span>ID: {activeTech.key}</span>
-                                    <span>STATUS: DEPLOYED</span>
+                                <div className="mt-auto pt-6 flex justify-between items-center text-[10px] font-mono text-gray-500 uppercase border-t border-gray-800">
+                                    <span>CONTEXT_ID: {getToolContext(activeTech.key).substring(0, 15)}...</span>
+                                    <span className="flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                                        ONLINE
+                                    </span>
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center h-full text-center opacity-40">
-                                <div className="w-20 h-20 border-2 border-dashed border-white rounded-full flex items-center justify-center mb-6 animate-spin-slow">
-                                    <i className="fa-solid fa-gear text-3xl text-white"></i>
+                            <div className="flex flex-col items-center justify-center h-full text-center p-8">
+                                <div className="w-24 h-24 border border-gray-800 rounded-full flex items-center justify-center mb-6 animate-spin-slow opacity-20">
+                                    <i className="fa-solid fa-circle-notch text-4xl text-white"></i>
                                 </div>
-                                <h4 className="font-display text-xl text-white uppercase mb-2">SISTEMA EN ESPERA</h4>
-                                <p className="font-mono text-sm text-gray-400 max-w-[250px]">
-                                    Selecciona una herramienta del grid para inspeccionar sus detalles técnicos.
+                                <h4 className="font-display text-2xl text-white uppercase mb-2 tracking-widest">SISTEMA EN ESPERA</h4>
+                                <p className="font-mono text-sm text-gray-500 max-w-[300px]">
+                                    // Seleccione un módulo de la matriz para acceder a los protocolos y especificaciones.
                                 </p>
                             </div>
                         )}

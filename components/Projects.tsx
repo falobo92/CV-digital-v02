@@ -5,148 +5,244 @@ import BrutalButton from './ui/BrutalButton';
 
 const Projects: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState<'left' | 'right'>('right');
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    // Touch handling state
+    const touchStartX = React.useRef<number | null>(null);
+    const touchEndX = React.useRef<number | null>(null);
 
     const nextProject = () => {
+        if (isAnimating) return;
+        setDirection('right');
+        setIsAnimating(true);
         setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
+        setTimeout(() => setIsAnimating(false), 500); // Match animation duration
     };
 
     const prevProject = () => {
+        if (isAnimating) return;
+        setDirection('left');
+        setIsAnimating(true);
         setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+        setTimeout(() => setIsAnimating(false), 500);
+    };
+
+    // Keyboard Navigation
+    React.useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight') nextProject();
+            if (e.key === 'ArrowLeft') prevProject();
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isAnimating]); // Re-bind when animating state changes to prevent spam
+
+    // Touch Handlers
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStartX.current || !touchEndX.current) return;
+        const distance = touchStartX.current - touchEndX.current;
+        const isSwipeLeft = distance > 50;
+        const isSwipeRight = distance < -50;
+
+        if (isSwipeLeft) nextProject();
+        if (isSwipeRight) prevProject();
+
+        touchStartX.current = null;
+        touchEndX.current = null;
     };
 
     const currentProject = PROJECTS[currentIndex];
+
+    // Animation Class
+    const animationClass = direction === 'right' ? 'animate-slide-in-right' : 'animate-slide-in-left';
 
     return (
         <section id="proyectos" className="py-0 border-b-6 border-ink bg-cream relative overflow-hidden">
             <SectionDivider text="INNOVATION  ///  EXECUTION  ///  RESULTS" theme="light" direction="right" />
 
-            <div className="py-24 lg:py-32 max-w-[1400px] mx-auto px-8 relative z-10">
-                {/* Header & Controls Container */}
-                <div className="flex flex-col xl:flex-row justify-between items-end mb-16 gap-10">
-                    <div className="max-w-[700px]">
-                        <h2 className="text-5xl md:text-6xl lg:text-7xl font-display mb-6 uppercase tracking-tight">PROYECTOS CLAVE</h2>
-                        <p className="font-mono text-gray-600 text-lg">
-                            Desliza para ver casos reales donde apliqué gestión documental, automatización y metodologías Lean.
-                        </p>
-                    </div>
+            {/* Background Texture */}
+            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+                style={{
+                    backgroundImage: `linear-gradient(#121212 1px, transparent 1px), linear-gradient(90deg, #121212 1px, transparent 1px)`,
+                    backgroundSize: '40px 40px'
+                }}>
+            </div>
 
-                    {/* Carousel Controls */}
-                    <div className="flex gap-4">
-                        <BrutalButton onClick={prevProject} size="md" className="w-16 h-16 !p-0">
-                            <i className="fa-solid fa-arrow-left text-xl"></i>
-                        </BrutalButton>
-                        <div className="font-mono text-4xl font-bold flex items-center px-4">
-                            {currentIndex + 1} <span className="text-gray-400 mx-2">/</span> {PROJECTS.length}
-                        </div>
-                        <BrutalButton onClick={nextProject} size="md" className="w-16 h-16 !p-0">
-                            <i className="fa-solid fa-arrow-right text-xl"></i>
-                        </BrutalButton>
+            <div className="py-16 lg:py-24 max-w-[1500px] mx-auto px-4 md:px-8 relative z-10"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
+                {/* Section Header */}
+                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8 pointer-events-none">
+                    <div className="max-w-[800px]">
+                        <h2 className="text-6xl md:text-7xl lg:text-8xl font-display mb-4 uppercase tracking-tight leading-[0.9]">
+                            <span className="inline-block bg-accent-yellow px-2 mr-2 border-4 border-ink text-ink shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">PROYECTOS</span>
+                            CLAVE
+                        </h2>
                     </div>
                 </div>
 
-                {/* Carousel Card - Single Display */}
-                <div className="relative min-h-[600px]">
-                    <article
-                        key={currentProject.id}
-                        className="bg-white border-4 border-ink shadow-brutal flex flex-col h-full animate-fade-in relative group overflow-hidden"
+                {/* Main Carousel Area */}
+                <div className="relative">
+
+                    {/* Navigation Buttons (Desktop: Sides / Mobile: Bottom) */}
+                    <button
+                        onClick={prevProject}
+                        className="hidden md:flex absolute left-[-20px] lg:left-[-60px] top-1/2 -translate-y-1/2 z-30 w-16 h-32 bg-ink text-cream border-2 border-cream shadow-brutal items-center justify-center hover:-translate-x-2 transition-transform group"
+                        aria-label="Previous Project"
                     >
-                        {/* Blueprint Grid Background */}
-                        <div className="absolute inset-0 bg-grid-small opacity-10 pointer-events-none"></div>
+                        <i className="fa-solid fa-chevron-left text-3xl group-hover:scale-125 transition-transform"></i>
+                    </button>
 
-                        {/* Card Header */}
-                        <div className="bg-ink text-cream p-6 flex justify-between items-center border-b-4 border-ink">
-                            <span className="font-bold text-xs tracking-widest uppercase flex items-center gap-2">
-                                <i className="fa-solid fa-folder-open"></i>
-                                {currentProject.category}
-                            </span>
-                            <span className="text-xs border-2 border-cream px-3 py-1 font-mono">{currentProject.year}</span>
-                        </div>
+                    <button
+                        onClick={nextProject}
+                        className="hidden md:flex absolute right-[-20px] lg:right-[-60px] top-1/2 -translate-y-1/2 z-30 w-16 h-32 bg-ink text-cream border-2 border-cream shadow-brutal items-center justify-center hover:translate-x-2 transition-transform group"
+                        aria-label="Next Project"
+                    >
+                        <i className="fa-solid fa-chevron-right text-3xl group-hover:scale-125 transition-transform"></i>
+                    </button>
 
-                        <div className="p-8 md:p-12 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-12">
-                            {/* Left Col: Image (Visual Dominance) */}
-                            <div className="lg:col-span-5 flex flex-col h-full">
-                                <div className="relative w-full h-full min-h-[300px] border-4 border-ink overflow-hidden group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white">
-                                    {/* Paper Texture Overlay */}
-                                    <div className="absolute inset-0 bg-[#f4f1ea] opacity-20 pointer-events-none z-10 mix-blend-multiply"></div>
+                    {/* The Card */}
+                    <div className="relative min-h-[600px] overflow-hidden md:mx-10">
+                        <article
+                            key={currentIndex}
+                            className={`bg-white border-4 border-ink shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full relative group overflow-hidden ${animationClass}`}
+                        >
+                            {/* Technical Header / Progress Bar */}
+                            <div className="bg-ink text-cream p-1 border-b-4 border-ink grid grid-cols-[auto_1fr_auto] items-center gap-4">
+                                {/* Tab */}
+                                <div className="bg-cream text-ink px-6 py-2 font-mono font-bold text-sm uppercase tracking-wider border-r-4 border-ink ml-1 mt-1 rounded-t-sm">
+                                    <i className="fa-solid fa-folder-open mr-2"></i>
+                                    {currentProject.category}
+                                </div>
 
-                                    {/* The Image */}
-                                    {currentProject.image && (
-                                        <img
-                                            src={currentProject.image}
-                                            alt={currentProject.title}
-                                            className="w-full h-full object-cover filter grayscale-[50%] contrast-110 brightness-100 transition-all duration-500 group-hover/image:grayscale-0 group-hover/image:scale-105"
+                                {/* Segmented Progress Bar */}
+                                <div className="flex gap-1 h-full items-center px-4 w-full">
+                                    {PROJECTS.map((_, idx) => (
+                                        <div
+                                            key={idx}
+                                            className={`h-2 flex-grow transition-all duration-300 ${idx === currentIndex ? 'bg-accent-yellow' : idx < currentIndex ? 'bg-gray-600' : 'bg-gray-800'}`}
                                         />
-                                    )}
+                                    ))}
+                                </div>
 
-                                    {/* Technical Marker Overlay */}
-                                    <div className="absolute bottom-4 left-4 z-20 bg-white border-2 border-ink px-2 py-1 font-mono text-xs font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                                        IMG_REF: {currentProject.id.toUpperCase()}
-                                    </div>
+                                {/* Year/Index */}
+                                <div className="px-4 font-mono text-sm font-bold text-gray-400">
+                                    {String(currentIndex + 1).padStart(2, '0')}/{String(PROJECTS.length).padStart(2, '0')}
                                 </div>
                             </div>
 
-                            {/* Right Col: Info & Details */}
-                            <div className="lg:col-span-7 flex flex-col justify-center">
-                                <div className="flex flex-col">
-                                    <h3 className="text-4xl md:text-5xl font-display leading-none mb-4 uppercase">{currentProject.title}</h3>
-                                    <div className="text-eng-blue font-bold text-xl mb-8 flex items-center gap-2">
-                                        <span className="w-12 h-1 bg-eng-blue inline-block"></span>
+                            <div className="p-6 md:p-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 bg-white relative">
+                                {/* Decorative "Holes" or Screws */}
+                                <div className="absolute top-4 right-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
+                                <div className="absolute bottom-4 left-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
+
+                                {/* Left Col: Image */}
+                                <div className="lg:col-span-5 flex flex-col relative">
+                                    <div className="relative w-full aspect-video lg:aspect-[4/5] bg-gray-100 border-4 border-ink overflow-hidden group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)]">
+                                        {/* Overlay Effects */}
+                                        <div className="absolute inset-0 bg-scanlines opacity-10 pointer-events-none z-20"></div>
+
+                                        {currentProject.image && (
+                                            <img
+                                                src={currentProject.image}
+                                                alt={currentProject.title}
+                                                className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover/image:grayscale-0 group-hover/image:scale-105"
+                                            />
+                                        )}
+
+                                        {/* Status Badge */}
+                                        <div className="absolute top-4 left-4 bg-white border-2 border-ink px-3 py-1 font-mono text-xs font-bold z-30">
+                                            STATUS: COMPLETE
+                                        </div>
+
+                                        {/* Ref Badge */}
+                                        <div className="absolute bottom-4 right-4 bg-eng-blue text-white px-3 py-1 font-mono text-xs font-bold z-30">
+                                            {currentProject.id}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Right Col: Info */}
+                                <div className="lg:col-span-7 flex flex-col justify-center">
+                                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-display leading-[0.9] mb-4 uppercase text-ink">
+                                        {currentProject.title}
+                                    </h3>
+                                    <div className="text-eng-blue font-bold text-xl mb-8 flex items-center gap-2 font-mono">
+                                        <i className="fa-solid fa-chevron-right text-xs"></i>
                                         {currentProject.subtitle}
                                     </div>
 
-                                    {/* Challenge */}
-                                    <div className="mb-8 bg-white border-l-4 border-accent-yellow pl-6 py-2">
-                                        <p className="font-bold text-sm uppercase tracking-wide text-gray-500 mb-2">EL DESAFÍO</p>
-                                        <p className="text-base leading-relaxed text-gray-800 font-mono">
-                                            {currentProject.challenge}
-                                        </p>
+                                    <div className="space-y-8">
+                                        {/* Challenge Section */}
+                                        <div className="relative pl-6 border-l-4 border-gray-300">
+                                            <h4 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-2">The Challenge</h4>
+                                            <p className="text-lg leading-relaxed text-gray-900 font-medium max-w-2xl">
+                                                {currentProject.challenge}
+                                            </p>
+                                        </div>
+
+                                        {/* Results Section */}
+                                        <div>
+                                            <h4 className="font-bold text-sm uppercase tracking-widest text-gray-400 mb-4">Key Outcomes</h4>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                {currentProject.results.map((res, i) => (
+                                                    <div key={i} className="flex items-start gap-3 bg-gray-50 border border-gray-200 p-3 hover:border-black transition-colors">
+                                                        <i className="fa-solid fa-check text-term-green mt-1"></i>
+                                                        <span className="font-mono text-sm leading-tight text-gray-700">{res}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {/* Results */}
-                                    <div className="mb-8">
-                                        <p className="font-bold text-sm uppercase tracking-wide text-gray-500 mb-4 border-b-2 border-gray-200 inline-block">RESULTADOS CLAVE</p>
-                                        <ul className="space-y-3">
-                                            {currentProject.results.map((res, i) => (
-                                                <li key={i} className="flex items-start gap-3 text-base text-gray-700">
-                                                    <i className="fa-solid fa-square-check text-term-green mt-1 text-lg"></i>
-                                                    <span className="font-mono leading-tight">{res}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    {/* Tags */}
-                                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t-2 border-dashed border-gray-300">
+                                    {/* Footer Tags */}
+                                    <div className="flex flex-wrap gap-2 mt-10">
                                         {currentProject.tags.map(tag => (
                                             <span
                                                 key={tag}
-                                                className="text-xs font-bold px-3 py-1 bg-gray-100 text-gray-600 uppercase font-mono border border-gray-300"
+                                                className="text-xs font-bold px-3 py-1.5 bg-ink text-white uppercase font-mono"
                                             >
-                                                #{tag}
+                                                {tag}
                                             </span>
                                         ))}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
+
+                    {/* Mobile Controls (Visible only on small screens) */}
+                    <div className="flex md:hidden justify-between mt-8 gap-4 px-2">
+                        <BrutalButton onClick={prevProject} className="flex-1 justify-center">
+                            <i className="fa-solid fa-arrow-left"></i>
+                        </BrutalButton>
+                        <BrutalButton onClick={nextProject} className="flex-1 justify-center">
+                            <i className="fa-solid fa-arrow-right"></i>
+                        </BrutalButton>
+                    </div>
                 </div>
 
-                {/* Global CTA */}
-                <div className="mt-20 text-center">
-                    <div className="inline-block bg-ink text-cream border-4 border-ink p-10 shadow-brutal-xl">
-                        <p className="font-mono text-lg mb-6 flex items-center justify-center gap-3">
-                            <i className="fa-solid fa-comments"></i>
-                            ¿Quieres conocer más detalles sobre estos proyectos?
-                        </p>
-                        <a
-                            href="#contacto"
-                            className="brutal-btn inline-flex items-center gap-3 bg-safety-orange text-cream px-10 py-5 font-display uppercase border-4 border-cream shadow-brutal hover:-translate-y-1 hover:shadow-brutal-lg transition-all"
-                        >
-                            <i className="fa-solid fa-paper-plane"></i>
-                            CONVERSEMOS
-                        </a>
-                    </div>
+                {/* Bottom CTA */}
+                <div className="mt-24 flex justify-center">
+                    <a
+                        href="#contacto"
+                        className="group relative inline-flex items-center gap-4 bg-accent-yellow text-ink px-8 py-4 font-display text-xl uppercase tracking-wider border-4 border-ink shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
+                    >
+                        Ver Detalle Completo
+                        <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
             </div>
         </section>

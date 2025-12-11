@@ -73,9 +73,9 @@ const Experience: React.FC = () => {
                             <div className="w-8 h-8 bg-ink flex items-center justify-center text-white font-mono text-xs font-bold">02</div>
                             <span className="font-mono text-sm font-bold text-ink uppercase tracking-widest">Evolución Profesional</span>
                         </div>
-                        <h2 className="text-5xl md:text-6xl lg:text-7xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9]">
+                        <h2 className="text-6xl md:text-7xl lg:text-8xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9]">
                             Trayectoria
-                            <span className="block text-gray-300 text-4xl md:text-5xl lg:text-6xl mt-1">/ Timeline</span>
+                            <span className="block text-gray-300 text-5xl md:text-6xl lg:text-7xl mt-2">/ Timeline</span>
                         </h2>
                     </div>
 
