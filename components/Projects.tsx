@@ -78,7 +78,7 @@ const Projects: React.FC = () => {
                 }}>
             </div>
 
-            <div className="py-16 lg:py-24 max-w-[1500px] mx-auto px-4 md:px-8 relative z-10"
+            <div className="py-12 lg:py-16 max-w-[1500px] mx-auto px-4 md:px-8 relative z-10"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -150,7 +150,7 @@ const Projects: React.FC = () => {
 
                                 {/* Left Col: Image */}
                                 <div className="lg:col-span-5 flex flex-col relative">
-                                    <div className="relative w-full aspect-video lg:aspect-[4/5] bg-gray-100 border-4 border-ink overflow-hidden group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)]">
+                                    <div className="relative w-full aspect-square bg-gray-100 border-4 border-ink overflow-hidden group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)]">
                                         {/* Overlay Effects */}
                                         <div className="absolute inset-0 bg-scanlines opacity-10 pointer-events-none z-20"></div>
 
