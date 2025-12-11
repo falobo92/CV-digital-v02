@@ -4,22 +4,14 @@ import { generateCV } from '../utils/generateCV';
 
 const Hero: React.FC = () => {
     const handleDownloadCV = () => {
-        generateCV();
+        void generateCV();
     };
 
     return (
         <section id="hero" className="relative min-h-[100vh] flex items-center overflow-hidden border-b-6 border-ink bg-cream">
             
             {/* Background Grid - Blueprint style */}
-            <div className="absolute inset-0 z-0 opacity-40 pointer-events-none"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(0, 0, 0, 0.03) 2px, transparent 2px),
-                        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 2px, transparent 2px)
-                    `,
-                    backgroundSize: '60px 60px'
-                }}>
-            </div>
+            <div className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-blueprint-grid-60" />
 
             {/* Diagonal accent stripe */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-yellow opacity-10 transform rotate-45 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>

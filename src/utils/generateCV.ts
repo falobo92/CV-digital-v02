@@ -1,4 +1,3 @@
-import { jsPDF } from 'jspdf';
 import { PROFILE, EXPERIENCES, PROJECTS } from '../data/profile';
 
 // ================= CONFIGURACIÓN PROFESIONAL MEJORADA =================
@@ -47,13 +46,15 @@ function getFormattedDateTime(): string {
     return `${day} de ${month} de ${year}, ${hour}:${minute} hrs`;
 }
 
-export function generateCV() {
+export async function generateCV() {
     console.log("Generando CV profesional mejorado...");
     
     // Capturar fecha y hora de descarga
     const downloadDateTime = getFormattedDateTime();
     
     try {
+        // Carga diferida para no inflar el bundle inicial (solo se necesita al descargar)
+        const { jsPDF } = await import('jspdf');
         const doc = new jsPDF({ unit: 'mm', format: 'a4' });
         
         let cursorY = CFG.margin.top;

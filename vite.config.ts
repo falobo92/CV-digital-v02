@@ -3,7 +3,8 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
-    const env = loadEnv(mode, '.', '');
+    // Cargamos solo envs públicas (VITE_) para la config
+    const env = loadEnv(mode, process.cwd(), 'VITE_');
     
     // Base path para GitHub Pages
     // En GitHub Actions, usar el nombre del repositorio
@@ -15,8 +16,10 @@ export default defineConfig(({ mode }) => {
             return `/${repoName}/`;
         }
         // Si hay una variable de entorno personalizada
-        if (process.env.VITE_BASE_PATH) {
-            return process.env.VITE_BASE_PATH;
+        if (env.VITE_BASE_PATH) {
+            const base = env.VITE_BASE_PATH.trim();
+            if (!base) return '/';
+            return base.endsWith('/') ? base : `${base}/`;
         }
         // Por defecto, raíz (para desarrollo local)
         return '/';
@@ -29,13 +32,9 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
       },
       plugins: [react()],
-      define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
-      },
       resolve: {
         alias: {
-          '@': path.resolve(__dirname, '.'),
+          '@': path.resolve(__dirname, 'src'),
         }
       },
       build: {

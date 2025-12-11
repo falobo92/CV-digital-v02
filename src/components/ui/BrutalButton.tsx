@@ -1,27 +1,39 @@
 import React from 'react';
 
-interface BrutalButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'default' | 'primary' | 'dark';
-    size?: 'sm' | 'md' | 'lg';
-    as?: 'button' | 'a';
-    href?: string;
-    target?: string;
-    rel?: string;
-    active?: boolean;
-}
+type BrutalButtonVariant = 'default' | 'primary' | 'dark';
+type BrutalButtonSize = 'sm' | 'md' | 'lg';
 
-const BrutalButton: React.FC<BrutalButtonProps> = ({ 
-    children, 
-    variant = 'default', 
-    size = 'md',
-    as = 'button', 
-    href,
-    target,
-    rel,
-    className = '',
-    active = false,
-    ...props 
-}) => {
+type BrutalButtonBaseProps = {
+    variant?: BrutalButtonVariant;
+    size?: BrutalButtonSize;
+    active?: boolean;
+    className?: string;
+    children: React.ReactNode;
+};
+
+type BrutalButtonAsButtonProps = BrutalButtonBaseProps &
+    React.ButtonHTMLAttributes<HTMLButtonElement> & {
+        as?: 'button';
+    };
+
+type BrutalButtonAsAnchorProps = BrutalButtonBaseProps &
+    React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+        as: 'a';
+        href: string;
+    };
+
+type BrutalButtonProps = BrutalButtonAsButtonProps | BrutalButtonAsAnchorProps;
+
+const BrutalButton: React.FC<BrutalButtonProps> = (props) => {
+    const {
+        children,
+        variant = 'default',
+        size = 'md',
+        as = 'button',
+        className = '',
+        active = false
+    } = props;
+
     const baseStyles = "brutal-btn inline-flex items-center justify-center font-display uppercase border-4 border-ink text-center cursor-pointer select-none tracking-wide";
     
     const sizeStyles = {
@@ -42,21 +54,21 @@ const BrutalButton: React.FC<BrutalButtonProps> = ({
 
     const combinedStyles = `${baseStyles} ${sizeStyles[size]} ${activeStyles} ${className}`;
 
-    if (as === 'a' && href) {
+    if (as === 'a') {
+        const { as: _as, variant: _variant, size: _size, active: _active, className: _className, ...anchorProps } = props;
         return (
             <a 
-                href={href} 
-                target={target}
-                rel={rel}
                 className={combinedStyles}
+                {...anchorProps}
             >
                 {children}
             </a>
         );
     }
 
+    const { as: _as, variant: _variant, size: _size, active: _active, className: _className, ...buttonProps } = props;
     return (
-        <button className={combinedStyles} {...props}>
+        <button className={combinedStyles} {...buttonProps}>
             {children}
         </button>
     );

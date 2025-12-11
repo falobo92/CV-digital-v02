@@ -11,21 +11,37 @@ const Projects: React.FC = () => {
     // Touch handling state
     const touchStartX = React.useRef<number | null>(null);
     const touchEndX = React.useRef<number | null>(null);
+    const animTimeoutRef = React.useRef<number | null>(null);
+
+    // Guardrail: evita crashes si por algún motivo no hay proyectos
+    if (!PROJECTS || PROJECTS.length === 0) {
+        return null;
+    }
+
+    const clearAnimTimeout = () => {
+        if (animTimeoutRef.current != null) {
+            window.clearTimeout(animTimeoutRef.current);
+            animTimeoutRef.current = null;
+        }
+    };
+
+    const startAnimation = (dir: 'left' | 'right') => {
+        clearAnimTimeout();
+        setDirection(dir);
+        setIsAnimating(true);
+        animTimeoutRef.current = window.setTimeout(() => setIsAnimating(false), 500); // Match animation duration
+    };
 
     const nextProject = () => {
         if (isAnimating) return;
-        setDirection('right');
-        setIsAnimating(true);
+        startAnimation('right');
         setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
-        setTimeout(() => setIsAnimating(false), 500); // Match animation duration
     };
 
     const prevProject = () => {
         if (isAnimating) return;
-        setDirection('left');
-        setIsAnimating(true);
+        startAnimation('left');
         setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
-        setTimeout(() => setIsAnimating(false), 500);
     };
 
     // Keyboard Navigation
@@ -37,6 +53,7 @@ const Projects: React.FC = () => {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAnimating]); // Re-bind when animating state changes to prevent spam
 
     // Touch Handlers
@@ -49,7 +66,7 @@ const Projects: React.FC = () => {
     };
 
     const handleTouchEnd = () => {
-        if (!touchStartX.current || !touchEndX.current) return;
+        if (touchStartX.current == null || touchEndX.current == null) return;
         const distance = touchStartX.current - touchEndX.current;
         const isSwipeLeft = distance > 50;
         const isSwipeRight = distance < -50;
@@ -66,17 +83,17 @@ const Projects: React.FC = () => {
     // Animation Class
     const animationClass = direction === 'right' ? 'animate-slide-in-right' : 'animate-slide-in-left';
 
+    React.useEffect(() => {
+        return () => clearAnimTimeout();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <section id="proyectos" className="py-0 border-b-6 border-ink bg-cream relative overflow-hidden">
             <SectionDivider text="INNOVACIÓN /// EJECUCIÓN /// RESULTADOS" theme="light" direction="right" />
 
             {/* Background Texture */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
-                style={{
-                    backgroundImage: `linear-gradient(#121212 1px, transparent 1px), linear-gradient(90deg, #121212 1px, transparent 1px)`,
-                    backgroundSize: '40px 40px'
-                }}>
-            </div>
+            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-ink-grid-40" />
 
             <div className="py-10 sm:py-12 lg:py-16 max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 relative z-10"
                 onTouchStart={handleTouchStart}

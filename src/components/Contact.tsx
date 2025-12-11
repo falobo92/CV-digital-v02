@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import BrutalButton from './ui/BrutalButton';
 import emailjs from '@emailjs/browser';
-import { supabase } from '../utils/supabaseClient';
+import { getSupabaseClient, isSupabaseConfigured } from '../utils/supabaseClient';
 
 const emailConfig = {
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -73,22 +73,29 @@ const Contact: React.FC = () => {
                 throw new Error('Formulario no disponible. Refresca la página.');
             }
 
-            // Guardar en Supabase primero
-            const { error: dbError } = await supabase
-                .from('contact_messages')
-                .insert([
-                    {
-                        name: formData.from_name,
-                        email: formData.from_email,
-                        message: formData.message
-                    }
-                ]);
+            // Guardar en Supabase primero (si está configurado)
+            const supabase = getSupabaseClient();
+            let dbError: unknown = null;
+            if (supabase) {
+                const { error } = await supabase
+                    .from('contact_messages')
+                    .insert([
+                        {
+                            name: formData.from_name,
+                            email: formData.from_email,
+                            message: formData.message
+                        }
+                    ]);
+                dbError = error;
+            }
 
             if (dbError) {
                 console.error('Error guardando en base de datos:', dbError);
                 // Continuamos aunque falle la BD, para intentar enviar el correo
-            } else {
+            } else if (isSupabaseConfigured()) {
                 console.log('✅ Datos guardados en Supabase correctamente');
+            } else {
+                console.warn('Supabase no configurado: no se guardó en base de datos');
             }
 
             // Enviar correo con EmailJS si está configurado
@@ -137,15 +144,7 @@ const Contact: React.FC = () => {
     return (
         <section id="contacto" className="py-12 sm:py-16 lg:py-24 xl:py-32 bg-cream border-b-6 border-ink relative overflow-hidden">
             {/* Background: Technical Grid similar to Hero */}
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(17, 17, 17, 0.1) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(17, 17, 17, 0.1) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '40px 40px'
-                }}>
-            </div>
+            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-tech-grid-40" />
 
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header Section Homologated */}
@@ -210,7 +209,6 @@ const Contact: React.FC = () => {
                                                 onChange={handleChange}
                                                 className={`w-full pl-14 sm:pl-16 pr-3 sm:pr-4 py-3 sm:py-4 border-3 sm:border-4 ${errors.from_name ? 'border-alert-red bg-red-50' : 'border-ink bg-white'} font-mono text-sm sm:text-base focus:outline-none focus:border-eng-blue transition-all placeholder:text-gray-300`}
                                                 placeholder="NOMBRE_APELLIDO"
-                                                aria-invalid={errors.from_name ? 'true' : 'false'}
                                             />
                                         </div>
                                         {errors.from_name && <div className="mt-1 text-alert-red font-mono text-[10px] sm:text-xs font-bold flex items-center gap-1"><i className="fa-solid fa-xmark"></i> {errors.from_name}</div>}
