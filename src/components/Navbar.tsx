@@ -49,9 +49,13 @@ const Navbar: React.FC = () => {
     const links = useMemo(() => NAV_LINKS, []);
 
     return (
-        <nav className={`border-b-3 sm:border-b-4 border-ink py-2 sm:py-2.5 lg:py-3 sticky top-0 z-50 transition-all ${isScrolled ? 'bg-cream/40 backdrop-blur-2xl shadow-brutal-sm' : 'bg-cream'
-            }`}>
-            <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-12 flex justify-between items-center">
+        <nav className="sticky top-0 z-50 py-2 sm:py-2.5 lg:py-3">
+            {/* Background Layer with Backdrop Filter - Separated to avoid 'fixed' child issues */}
+            <div className={`absolute inset-0 w-full h-full border-b-3 sm:border-b-4 border-ink transition-all ${isScrolled ? 'bg-cream/40 backdrop-blur-2xl shadow-brutal-sm' : 'bg-cream'
+                }`} />
+
+            {/* Content Container */}
+            <div className="relative z-[60] max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-12 flex justify-between items-center">
 
                 {/* Logo - Architectural Style */}
                 <a href="#hero" className="font-display text-base lg:text-xl tracking-tighter uppercase group flex items-center gap-1.5 sm:gap-2 relative z-[60] shrink-0">
@@ -84,60 +88,66 @@ const Navbar: React.FC = () => {
                     </a>
                 </div>
 
-                {/* Mobile/Tablet Menu Button - Visible hasta lg */}
+                {/* Mobile/Tablet Menu Button - Visible hasta lg. Solo visible cuando el menú está CERRADO */}
                 <button
-                    className={`lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center border-3 transition-all relative z-[60] ${
-                        isMenuOpen 
-                            ? 'bg-cream text-ink border-ink' 
-                            : 'bg-ink text-cream border-ink hover:bg-safety-orange hover:text-ink'
-                    }`}
+                    className={`lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center border-3 transition-all relative z-[60] bg-ink text-cream border-ink hover:bg-safety-orange hover:text-ink ${isMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                        }`}
                     type="button"
-                    onClick={() => setIsMenuOpen((v) => !v)}
-                    aria-label="Toggle menu"
-                    aria-expanded={isMenuOpen ? "true" : "false"}
+                    onClick={() => setIsMenuOpen(true)}
+                    aria-label="Open menu"
                 >
-                    <i className={`fa-solid ${isMenuOpen ? 'fa-xmark' : 'fa-bars'} text-base sm:text-lg`}></i>
+                    <i className="fa-solid fa-bars text-base sm:text-lg"></i>
                 </button>
             </div>
 
             {/* Mobile Menu - BRUTAL Full Screen Overlay (visible hasta lg) */}
-            <div 
-                className={`lg:hidden fixed inset-0 top-0 bg-ink z-[55] transition-all duration-300 ease-out ${
-                    isMenuOpen 
-                        ? 'opacity-100 pointer-events-auto' 
-                        : 'opacity-0 pointer-events-none'
-                }`}
+            <div
+                className={`lg:hidden fixed inset-0 top-0 bg-ink z-[55] transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${isMenuOpen
+                        ? 'opacity-100 pointer-events-auto translate-y-0'
+                        : 'opacity-0 pointer-events-none -translate-y-4'
+                    }`}
             >
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-5 pointer-events-none bg-blueprint-grid-60" />
-                
-                {/* Decorative corner marks */}
-                <div className="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-accent-yellow opacity-60"></div>
-                <div className="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-accent-yellow opacity-60"></div>
-                <div className="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-accent-yellow opacity-60"></div>
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-accent-yellow opacity-60"></div>
+
+                {/* Close Button - Tied to Menu */}
+                <button
+                    className="absolute top-2 sm:top-2.5 right-3 sm:right-6 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center border-3 border-cream text-cream hover:bg-cream hover:text-ink transition-all z-10"
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-label="Close menu"
+                >
+                    <i className="fa-solid fa-xmark text-lg sm:text-xl"></i>
+                </button>
+
+                {/* Decorative corner marks - Animated */}
+                <div className={`absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-accent-yellow opacity-60 transition-all duration-700 delay-100 ${isMenuOpen ? 'translate-x-0 translate-y-0' : '-translate-x-4 -translate-y-4'}`}></div>
+                <div className={`absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-accent-yellow opacity-60 transition-all duration-700 delay-100 ${isMenuOpen ? 'translate-x-0 translate-y-0' : 'translate-x-4 -translate-y-4'}`}></div>
+                <div className={`absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-accent-yellow opacity-60 transition-all duration-700 delay-100 ${isMenuOpen ? 'translate-x-0 translate-y-0' : '-translate-x-4 translate-y-4'}`}></div>
+                <div className={`absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-accent-yellow opacity-60 transition-all duration-700 delay-100 ${isMenuOpen ? 'translate-x-0 translate-y-0' : 'translate-x-4 translate-y-4'}`}></div>
 
                 {/* Menu Content */}
                 <div className="flex flex-col h-full pt-20 pb-8 px-6 overflow-y-auto">
-                    
+
                     {/* Navigation Links */}
                     <div className="flex-1 flex flex-col justify-center gap-1 sm:gap-2">
-                        {links.map((link) => (
+                        {links.map((link, index) => (
                             <a
                                 key={link.label}
                                 href={link.href}
-                                className="group flex items-center gap-3 sm:gap-4 py-3 sm:py-4 border-b-2 border-white/10 transition-all duration-200"
+                                className={`group flex items-center gap-3 sm:gap-4 py-3 sm:py-4 border-b-2 border-white/10 transition-all duration-300 ${isMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
+                                    }`}
+                                style={{ transitionDelay: `${100 + (index * 50)}ms` }}
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {/* Number */}
                                 <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white/10 border-2 border-white/20 flex items-center justify-center font-mono text-[10px] sm:text-xs text-white/60 group-hover:bg-accent-yellow group-hover:border-accent-yellow group-hover:text-ink transition-all shrink-0">
                                     {link.num}
                                 </div>
-                                
+
                                 {/* Icon + Label */}
                                 <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                     <i className={`fa-solid ${link.icon} text-base sm:text-lg text-accent-yellow group-hover:text-safety-orange transition-colors shrink-0`}></i>
-                                    <span className="font-display text-xl sm:text-2xl text-cream uppercase tracking-tight group-hover:text-accent-yellow transition-colors truncate">
+                                    <span className="font-display text-xl sm:text-3xl text-cream uppercase tracking-tight group-hover:text-accent-yellow transition-colors truncate">
                                         {link.label}
                                     </span>
                                 </div>
@@ -149,10 +159,13 @@ const Navbar: React.FC = () => {
                     </div>
 
                     {/* CTA Button */}
-                    <div className="shrink-0 mt-6 sm:mt-8">
+                    <div
+                        className={`shrink-0 mt-6 sm:mt-8 transition-all duration-500 delay-300 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                            }`}
+                    >
                         <a
                             href="#contacto"
-                            className="flex items-center justify-center gap-3 w-full bg-safety-orange text-ink py-4 sm:py-5 font-display text-base sm:text-lg uppercase border-4 border-cream shadow-[6px_6px_0px_0px_rgba(255,255,255,0.3)] hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.4)] hover:-translate-y-1 active:translate-y-0 active:shadow-none transition-all"
+                            className="flex items-center justify-center gap-3 w-full bg-safety-orange text-ink py-4 sm:py-5 font-display text-base sm:text-xl uppercase border-4 border-cream shadow-[6px_6px_0px_0px_rgba(255,255,255,0.3)] hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.4)] hover:bg-cream hover:text-ink hover:border-safety-orange hover:-translate-y-1 active:translate-y-0 active:shadow-none transition-all"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             <i className="fa-solid fa-paper-plane"></i>
@@ -161,12 +174,15 @@ const Navbar: React.FC = () => {
                     </div>
 
                     {/* Footer info */}
-                    <div className="shrink-0 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-white/10">
+                    <div
+                        className={`shrink-0 mt-4 sm:mt-6 pt-4 sm:pt-6 border-t-2 border-white/10 transition-all duration-500 delay-[400ms] ${isMenuOpen ? 'opacity-100' : 'opacity-0'
+                            }`}
+                    >
                         <div className="flex items-center justify-between text-white/40 font-mono text-[10px] sm:text-xs">
-                            <span>FELIPE LOBO B.</span>
+                            <span className="uppercase tracking-widest">Felipe Lobo B.</span>
                             <span className="flex items-center gap-2">
-                                <span className="w-2 h-2 bg-term-green rounded-full animate-pulse"></span>
-                                Disponible
+                                <span className="w-2 h-2 bg-term-green rounded-full animate-pulse shadow-[0_0_8px_rgba(72,187,120,0.5)]"></span>
+                                DISPONIBLE
                             </span>
                         </div>
                     </div>
