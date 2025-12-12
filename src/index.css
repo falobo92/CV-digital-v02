@@ -31,6 +31,9 @@ body {
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+main {
     zoom: 0.9;
 }
 
