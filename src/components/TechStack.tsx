@@ -128,21 +128,23 @@ const TechStack: React.FC = () => {
         <section id="stack" className="bg-[#0a0a0a] text-cream border-b-6 border-ink relative overflow-hidden pt-0 pb-20">
             <SectionDivider text="FULL STACK /// HERRAMIENTAS DIGITALES /// AUTOMATIZACIÓN" theme="accent" direction="left" />
 
-            <div className="max-w-[1400px] mx-auto px-3 sm:px-4 md:px-8 relative z-10 w-full mt-10 sm:mt-16">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 w-full mt-10 sm:mt-16">
                 
-                {/* Header compacto */}
-                <div className="mb-6 sm:mb-8 text-center">
-                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-accent-yellow flex items-center justify-center text-ink font-mono text-[10px] sm:text-xs font-bold">03</div>
-                        <span className="font-mono text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Herramientas Técnicas</span>
+                {/* Header (homologado con el resto de secciones) */}
+                <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-[#3C3C3C] pb-8 sm:pb-12">
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-accent-yellow flex items-center justify-center text-ink font-mono text-[10px] sm:text-xs font-bold">03</div>
+                            <span className="font-mono text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Herramientas Técnicas</span>
+                        </div>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display uppercase tracking-tighter text-white leading-[0.85] mb-2 sm:mb-3">
+                            ARSENAL <span className="text-accent-yellow">DIGITAL</span>
+                        </h2>
+                        <p className="font-mono text-xs sm:text-sm text-gray-500">
+                            <span className="text-[#4EC9B0]">{TECH_STACK.length}</span> módulos ·
+                            <span className="text-[#DCDCAA]"> {TECH_CATEGORIES.length}</span> categorías
+                        </p>
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display uppercase tracking-tighter text-white leading-[0.85] mb-2 sm:mb-3">
-                        ARSENAL <span className="text-accent-yellow">DIGITAL</span>
-                    </h2>
-                    <p className="font-mono text-xs sm:text-sm text-gray-500">
-                        <span className="text-[#4EC9B0]">{TECH_STACK.length}</span> módulos · 
-                        <span className="text-[#DCDCAA]"> {TECH_CATEGORIES.length}</span> categorías
-                    </p>
                 </div>
 
                 {/* Consola Principal */}

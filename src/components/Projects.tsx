@@ -100,29 +100,30 @@ const Projects: React.FC = () => {
     }, [clearAnimTimeout]);
 
     return (
-        <section id="proyectos" className="py-0 border-b-6 border-ink bg-cream relative overflow-hidden">
+        <section id="proyectos" className="py-0 border-b-6 border-ink bg-cream relative overflow-hidden overflow-x-hidden">
             <SectionDivider text="INNOVACIÓN /// EJECUCIÓN /// RESULTADOS" theme="light" direction="right" />
 
             {/* Background Texture */}
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-ink-grid-40" />
 
-            <div className="py-10 sm:py-12 lg:py-16 max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 relative z-10"
+            <div
+                className="py-10 sm:py-12 lg:py-16 max-w-[1500px] w-full min-w-0 mx-auto px-4 sm:px-6 md:px-12 relative z-10"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
             >
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-8 sm:mb-12 gap-6 sm:gap-8 pointer-events-none">
-                    <div className="max-w-[800px]">
+                <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-ink pb-8 sm:pb-12">
+                    <div className="flex-1 min-w-0 max-w-[900px]">
                         <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">04</div>
                             <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Casos de Éxito</span>
                         </div>
-                        <h2 className="inline-flex items-baseline flex-nowrap whitespace-nowrap text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9]">
-                            <span className="inline-block bg-eng-blue px-2 sm:px-3 mr-2 sm:mr-3 border-3 sm:border-4 border-ink text-cream shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-[0.92em]">
+                        <h2 className="flex flex-wrap items-baseline gap-x-2 gap-y-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9] sm:flex-nowrap sm:whitespace-nowrap">
+                            <span className="inline-block shrink-0 bg-eng-blue px-2 sm:px-3 border-3 sm:border-4 border-ink text-cream shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-[0.92em]">
                                 PROYECTOS
                             </span>
-                            CLAVE
+                            <span className="min-w-0 break-words">CLAVE</span>
                         </h2>
                     </div>
                 </div>
@@ -150,12 +151,12 @@ const Projects: React.FC = () => {
                     </button>
 
                     {/* The Card */}
-                    <div className="relative h-[700px] sm:h-[740px] lg:h-[780px] overflow-hidden md:mx-10">
+                    <div className="relative overflow-hidden md:mx-10">
                         <article
-                            className="bg-white border-4 border-ink shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col h-full relative group overflow-hidden"
+                            className="bg-white border-4 border-ink shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col relative group overflow-hidden"
                         >
                             {/* Barra superior FIJA (sin animación de carrusel) */}
-                            <div className="bg-ink text-cream border-b-4 border-ink">
+                            <div className="bg-ink text-cream border-b-4 border-ink shrink-0">
                                 <div className="p-2 sm:p-1 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                                     {/* Row 1 (mobile): Category + Index */}
                                     <div className="flex items-center justify-between sm:block min-w-0">
@@ -194,41 +195,48 @@ const Projects: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 xl:gap-14 bg-white relative min-h-0">
+                            {/* Contenido principal: flex en mobile, grid en lg */}
+                            <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 xl:gap-14 bg-white relative">
                                 {/* Decorative "Holes" or Screws */}
                                 <div className="absolute top-4 right-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
                                 <div className="absolute bottom-4 left-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
 
-                                {/* Left Col: Image (MARCO FIJO; anima solo la imagen dentro) */}
-                                <div className="lg:col-span-6 flex items-center justify-center relative min-h-0">
-                                    <div className="relative w-full aspect-square bg-gray-100 border-4 border-ink overflow-hidden group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)]">
-                                        {/* Overlay Effects */}
-                                        <div className="absolute inset-0 bg-scanlines opacity-50 pointer-events-none z-20"></div>
+                                {/* Left Col: Image - ALTO FIJO en mobile, aspect-square en desktop */}
+                                <div className="lg:col-span-6 flex items-center justify-center shrink-0">
+                                    <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-none mx-auto">
+                                        {/* Marco exterior */}
+                                        <div className="bg-ink border-4 border-ink p-1 group/image shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)]">
+                                            {/* Contenedor con altura fija en mobile, aspect-square en lg */}
+                                            <div className="relative h-[280px] sm:h-[340px] lg:h-auto lg:aspect-square bg-gray-100 overflow-hidden">
+                                                {/* Overlay Effects */}
+                                                <div className="absolute inset-0 bg-scanlines opacity-50 pointer-events-none z-20"></div>
 
-                                        <div key={currentIndex} className={`absolute inset-0 ${imageAnimationClass}`}>
-                                            {currentProject.image && (
-                                                <img
-                                                    src={currentProject.image}
-                                                    alt={currentProject.title}
-                                                    className="img-stable filter saturate-0 brightness-95 contrast-125 group-hover/image:saturate-100 group-hover/image:brightness-100 group-hover/image:contrast-150 group-hover/image:scale-100 transition-[transform,filter] duration-500 ease-out will-change-transform"
-                                                    width={900}
-                                                    height={900}
-                                                    loading={currentIndex === 0 ? 'eager' : 'lazy'}
-                                                    decoding="async"
-                                                    draggable="false"
-                                                    onContextMenu={(e) => e.preventDefault()}
-                                                />
-                                            )}
+                                                <div key={currentIndex} className={`absolute inset-0 ${imageAnimationClass}`}>
+                                                    {currentProject.image && (
+                                                        <img
+                                                            src={currentProject.image}
+                                                            alt={currentProject.title}
+                                                            className="img-stable filter saturate-0 brightness-95 contrast-125 group-hover/image:saturate-100 group-hover/image:brightness-100 group-hover/image:contrast-150 group-hover/image:scale-100 transition-[transform,filter] duration-500 ease-out will-change-transform"
+                                                            width={900}
+                                                            height={900}
+                                                            loading={currentIndex === 0 ? 'eager' : 'lazy'}
+                                                            decoding="async"
+                                                            draggable="false"
+                                                            onContextMenu={(e) => e.preventDefault()}
+                                                        />
+                                                    )}
 
-                                            {/* Ref Badge */}
-                                            <div className="absolute bottom-4 right-4 bg-eng-blue text-white px-3 py-1 font-mono text-xs font-bold z-30">
-                                                {currentProject.id}
+                                                    {/* Ref Badge */}
+                                                    <div className="absolute bottom-4 right-4 bg-eng-blue text-white px-3 py-1 font-mono text-xs font-bold z-30">
+                                                        {currentProject.id}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Right Col: Info (contenedor fijo; anima solo el contenido) */}
+                                {/* Right Col: Info */}
                                 <div className="lg:col-span-6 flex flex-col min-h-0">
                                     <div key={currentIndex} className={`flex flex-col min-h-0 flex-1 ${textAnimationClass}`}>
                                         {/* Header fijo (sin scroll) */}

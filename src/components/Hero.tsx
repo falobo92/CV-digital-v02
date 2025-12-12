@@ -18,6 +18,12 @@ const Hero: React.FC = () => {
 
                 {/* Text Content */}
                 <div className="flex flex-col order-2 lg:order-1">
+
+                    {/* Section Title (homologado) */}
+                    <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-7">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">00</div>
+                        <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Presentación</span>
+                    </div>
                     
                     {/* Label */}
                     <div className="inline-flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">

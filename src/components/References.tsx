@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { REFERENCES } from '../constants';
 import SectionDivider from './ui/SectionDivider';
 
 const References: React.FC = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const nextRef = useCallback(() => {
+        setCurrentIndex((prev) => (prev + 1) % REFERENCES.length);
+    }, []);
+
+    const prevRef = useCallback(() => {
+        setCurrentIndex((prev) => (prev - 1 + REFERENCES.length) % REFERENCES.length);
+    }, []);
+
+    const currentRef = REFERENCES[currentIndex];
+
     return (
         <section id="referencias" className="border-b-6 border-ink bg-cream-dark relative overflow-hidden pb-14 sm:pb-20 lg:pb-32 pt-0">
             <SectionDivider text="TESTIMONIOS /// COLABORACIÓN /// CONFIANZA" theme="light" direction="right" />
@@ -26,8 +38,104 @@ const References: React.FC = () => {
                     </div>
                 </div>
 
-                {/* References Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-[1200px] mx-auto">
+                {/* ===== MOBILE: Carrusel ===== */}
+                <div className="sm:hidden">
+                    {/* Card actual */}
+                    <div className="relative">
+                        <article 
+                            key={currentRef.id}
+                            className="bg-white border-4 border-ink p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative animate-fade-in"
+                        >
+                            {/* Quote Icon */}
+                            <div className="absolute -top-4 -left-3 bg-accent-yellow border-4 border-ink w-12 h-12 flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                <i className="fa-solid fa-quote-left text-lg"></i>
+                            </div>
+
+                            {/* Quote */}
+                            {currentRef.quote && (
+                                <div className="mb-6 pt-6">
+                                    <p className="font-mono text-sm italic text-gray-600 leading-relaxed">
+                                        "{currentRef.quote}"
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Divider */}
+                            <div className="border-t-4 border-gray-100 pt-5">
+                                {/* Name */}
+                                <div className="font-display text-xl text-eng-blue uppercase">
+                                    {currentRef.name}
+                                </div>
+                                
+                                {/* Role */}
+                                <div className="font-bold text-sm mt-2">
+                                    {currentRef.role}
+                                </div>
+                                
+                                {/* Company */}
+                                <div className="font-mono text-xs text-gray-500 mt-1 flex items-center gap-2">
+                                    <i className="fa-solid fa-building"></i>
+                                    {currentRef.company}
+                                </div>
+
+                                {/* Contact */}
+                                <div className="mt-5 bg-gray-100 border-3 border-gray-200 px-4 py-3 text-xs font-mono text-gray-500 flex items-center gap-2">
+                                    <i className="fa-solid fa-phone"></i>
+                                    Disponible a solicitud
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    {/* Controles del carrusel */}
+                    <div className="mt-6 flex items-center justify-between gap-4">
+                        {/* Botón anterior */}
+                        <button
+                            onClick={prevRef}
+                            className="w-12 h-12 bg-ink text-cream border-3 border-ink flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+                            type="button"
+                            aria-label="Referencia anterior"
+                        >
+                            <i className="fa-solid fa-chevron-left text-lg"></i>
+                        </button>
+
+                        {/* Indicadores */}
+                        <div className="flex gap-2 items-center">
+                            {REFERENCES.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentIndex(idx)}
+                                    className={`w-3 h-3 border-2 border-ink transition-all ${
+                                        idx === currentIndex 
+                                            ? 'bg-accent-yellow scale-125' 
+                                            : 'bg-white hover:bg-gray-200'
+                                    }`}
+                                    aria-label={`Ir a referencia ${idx + 1}`}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Botón siguiente */}
+                        <button
+                            onClick={nextRef}
+                            className="w-12 h-12 bg-ink text-cream border-3 border-ink flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+                            type="button"
+                            aria-label="Referencia siguiente"
+                        >
+                            <i className="fa-solid fa-chevron-right text-lg"></i>
+                        </button>
+                    </div>
+
+                    {/* Contador */}
+                    <div className="mt-4 text-center">
+                        <span className="font-mono text-xs text-gray-500 uppercase tracking-wider">
+                            {String(currentIndex + 1).padStart(2, '0')} / {String(REFERENCES.length).padStart(2, '0')}
+                        </span>
+                    </div>
+                </div>
+
+                {/* ===== DESKTOP: Grid ===== */}
+                <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-[1200px] mx-auto">
                     {REFERENCES.map((ref) => (
                         <article 
                             key={ref.id}
