@@ -37,13 +37,13 @@ const Navbar: React.FC = () => {
     const links = useMemo(() => NAV_LINKS, []);
 
     return (
-        <nav className={`border-b-3 sm:border-b-4 border-ink py-3 sm:py-4 lg:py-5 sticky top-0 z-50 transition-all ${isScrolled ? 'bg-cream/98 backdrop-blur-sm shadow-brutal-sm' : 'bg-cream'
+        <nav className={`border-b-3 sm:border-b-4 border-ink py-2 sm:py-2.5 lg:py-3 sticky top-0 z-50 transition-all ${isScrolled ? 'bg-cream/40 backdrop-blur-2xl shadow-brutal-sm' : 'bg-cream'
             }`}>
             <div className="max-w-[1400px] mx-auto px-3 sm:px-6 md:px-12 flex justify-between items-center">
 
                 {/* Logo - Architectural Style */}
-                <a href="#hero" className="font-display text-lg sm:text-xl lg:text-2xl tracking-tighter uppercase group flex items-center gap-1.5 sm:gap-2">
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink text-cream flex items-center justify-center font-bold text-sm sm:text-lg group-hover:bg-safety-orange transition-colors">
+                <a href="#hero" className="font-display text-base sm:text-lg lg:text-xl tracking-tighter uppercase group flex items-center gap-1.5 sm:gap-2">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 bg-ink text-cream flex items-center justify-center font-bold text-xs sm:text-base group-hover:bg-safety-orange transition-colors">
                         FL
                     </div>
                     <span className="hidden sm:block group-hover:text-safety-orange transition-colors">
@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                     ))}
                     <a
                         href="#contacto"
-                        className="bg-ink text-cream px-6 py-2 font-display uppercase text-sm border-2 border-transparent hover:bg-safety-orange hover:text-ink hover:border-ink transition-all flex items-center gap-2"
+                        className="bg-ink text-cream px-5 py-1.5 font-display uppercase text-xs border-2 border-transparent hover:bg-safety-orange hover:text-ink hover:border-ink transition-all flex items-center gap-2"
                     >
                         <i className="fa-solid fa-paper-plane text-xs"></i>
                         Contactar
@@ -73,12 +73,12 @@ const Navbar: React.FC = () => {
 
                 {/* Mobile Menu Button - Blocky */}
                 <button
-                    className="md:hidden w-9 h-9 sm:w-10 sm:h-10 bg-ink text-cream flex items-center justify-center border-2 border-transparent hover:bg-cream hover:text-ink hover:border-ink transition-all"
+                    className="md:hidden w-8 h-8 sm:w-9 sm:h-9 bg-ink text-cream flex items-center justify-center border-2 border-transparent hover:bg-cream hover:text-ink hover:border-ink transition-all"
                     type="button"
                     onClick={() => setIsMenuOpen((v) => !v)}
                     aria-label="Toggle menu"
                 >
-                    <i className={`fa-solid ${isMenuOpen ? 'fa-xmark' : 'fa-bars'} text-lg sm:text-xl`}></i>
+                    <i className={`fa-solid ${isMenuOpen ? 'fa-xmark' : 'fa-bars'} text-base sm:text-lg`}></i>
                 </button>
             </div>
 
