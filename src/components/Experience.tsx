@@ -7,9 +7,7 @@ const Experience: React.FC = () => {
     // ... state ...
     const [filter, setFilter] = useState<ExperienceCategory>('all');
     const [expandedId, setExpandedId] = useState<string | null>('1');
-    const [activeIndex, setActiveIndex] = useState<number>(0);
     const [scrollProgress, setScrollProgress] = useState<number>(0);
-    const timelineRef = useRef<HTMLDivElement>(null);
     const sectionRef = useRef<HTMLElement>(null);
 
     const filteredExperiences = EXPERIENCES.filter(exp =>
@@ -35,20 +33,11 @@ const Experience: React.FC = () => {
                 const progress = ((current - start) / (end - start)) * 100;
                 setScrollProgress(Math.min(100, Math.max(0, progress)));
             }
-
-            // Update active index
-            const items = timelineRef.current?.querySelectorAll('.timeline-item');
-            items?.forEach((item, index) => {
-                const itemRect = item.getBoundingClientRect();
-                if (itemRect.top < windowHeight * 0.5 && itemRect.bottom > windowHeight * 0.3) {
-                    setActiveIndex(index);
-                }
-            });
         };
         window.addEventListener('scroll', handleScroll);
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [filteredExperiences]);
+    }, []);
 
     const handleToggle = (id: string) => {
         setExpandedId(prev => prev === id ? null : id);
@@ -99,7 +88,7 @@ const Experience: React.FC = () => {
                 </div>
 
                 {/* Timeline Container */}
-                <div ref={timelineRef} className="relative pl-0 md:pl-8">
+                <div className="relative pl-0 md:pl-8">
                     {/* Structural Beam - Solid Black Line */}
                     <div className="absolute left-[1.2rem] md:left-[3.5rem] top-0 bottom-0 w-1 bg-gray-200 z-0">
                         {/* Progress Fill */}
@@ -111,9 +100,8 @@ const Experience: React.FC = () => {
 
                     {/* Timeline Items */}
                     <div className="space-y-12">
-                        {filteredExperiences.map((job, index) => {
+                        {filteredExperiences.map((job) => {
                             const isExpanded = expandedId === job.id;
-                            const isActive = activeIndex === index;
                             const isDigital = job.category === 'digital';
 
                             return (

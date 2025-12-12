@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { TECH_STACK, TECH_CATEGORIES } from '../constants';
 import { TechStackItem } from '../types';
 import SectionDivider from './ui/SectionDivider';
@@ -7,6 +7,45 @@ import SectionDivider from './ui/SectionDivider';
 // ARSENAL DIGITAL - TERMINAL CONSOLE INTERFACE
 // Visualización estilo consola/PowerShell
 // ============================================
+
+// Colores de consola por categoría (clases Tailwind; evita estilos inline)
+const CONSOLE_TEXT_COLOR_CLASS: Record<string, string> = {
+    dev: 'text-[#9CDCFE]', // Azul claro (variables en PS)
+    m365: 'text-[#569CD6]', // Azul (keywords en PS)
+    construction: 'text-[#CE9178]', // Naranja (strings en PS)
+    data: 'text-[#DCDCAA]', // Amarillo (funciones en PS)
+    emerging: 'text-[#4EC9B0]', // Cyan (tipos en PS)
+    other: 'text-[#D4D4D4]'
+};
+
+const CONSOLE_BORDER_COLOR_CLASS: Record<string, string> = {
+    dev: 'border-[#9CDCFE]',
+    m365: 'border-[#569CD6]',
+    construction: 'border-[#CE9178]',
+    data: 'border-[#DCDCAA]',
+    emerging: 'border-[#4EC9B0]',
+    other: 'border-[#D4D4D4]'
+};
+
+// Tinte (hex8) equivalente a `${color}20`
+const CONSOLE_TINT_BG_CLASS: Record<string, string> = {
+    dev: 'bg-[#9CDCFE20]',
+    m365: 'bg-[#569CD620]',
+    construction: 'bg-[#CE917820]',
+    data: 'bg-[#DCDCAA20]',
+    emerging: 'bg-[#4EC9B020]',
+    other: 'bg-[#D4D4D420]'
+};
+
+const CATEGORY_INFO_BY_ID: Record<string, { title: string; icon: string; id: string }> = TECH_CATEGORIES.reduce(
+    (acc, c) => {
+        acc[c.id] = c;
+        return acc;
+    },
+    {} as Record<string, { title: string; icon: string; id: string }>
+);
+
+const FALLBACK_CATEGORY = { title: 'OTROS', icon: 'fa-solid fa-circle', id: 'other' };
 
 const TechStack: React.FC = () => {
     const [activeTech, setActiveTech] = useState<TechStackItem | null>(null);
@@ -25,54 +64,32 @@ const TechStack: React.FC = () => {
         [activeCategory]
     );
 
-    // Colores de consola por categoría (clases Tailwind; evita estilos inline)
-    const consoleTextColorClass: Record<string, string> = {
-        dev: 'text-[#9CDCFE]', // Azul claro (variables en PS)
-        m365: 'text-[#569CD6]', // Azul (keywords en PS)
-        construction: 'text-[#CE9178]', // Naranja (strings en PS)
-        data: 'text-[#DCDCAA]', // Amarillo (funciones en PS)
-        emerging: 'text-[#4EC9B0]', // Cyan (tipos en PS)
-        other: 'text-[#D4D4D4]'
-    };
-
-    const consoleBorderColorClass: Record<string, string> = {
-        dev: 'border-[#9CDCFE]',
-        m365: 'border-[#569CD6]',
-        construction: 'border-[#CE9178]',
-        data: 'border-[#DCDCAA]',
-        emerging: 'border-[#4EC9B0]',
-        other: 'border-[#D4D4D4]'
-    };
-
-    // Tinte (hex8) equivalente a `${color}20`
-    const consoleTintBgClass: Record<string, string> = {
-        dev: 'bg-[#9CDCFE20]',
-        m365: 'bg-[#569CD620]',
-        construction: 'bg-[#CE917820]',
-        data: 'bg-[#DCDCAA20]',
-        emerging: 'bg-[#4EC9B020]',
-        other: 'bg-[#D4D4D420]'
-    };
-
     const getTextColorClass = useCallback(
-        (category: string) => consoleTextColorClass[category] || consoleTextColorClass.other,
+        (category: string) => CONSOLE_TEXT_COLOR_CLASS[category] || CONSOLE_TEXT_COLOR_CLASS.other,
         []
     );
 
     const getBorderColorClass = useCallback(
-        (category: string) => consoleBorderColorClass[category] || consoleBorderColorClass.other,
+        (category: string) => CONSOLE_BORDER_COLOR_CLASS[category] || CONSOLE_BORDER_COLOR_CLASS.other,
         []
     );
 
     const getTintBgClass = useCallback(
-        (category: string) => consoleTintBgClass[category] || consoleTintBgClass.other,
+        (category: string) => CONSOLE_TINT_BG_CLASS[category] || CONSOLE_TINT_BG_CLASS.other,
         []
     );
 
     // Obtener información de categoría
     const getCategoryInfo = useCallback((categoryId: string) => {
-        return TECH_CATEGORIES.find(c => c.id === categoryId) || 
-            { title: 'OTROS', icon: 'fa-solid fa-circle', id: 'other' };
+        return CATEGORY_INFO_BY_ID[categoryId] || FALLBACK_CATEGORY;
+    }, []);
+
+    // Conteos por categoría (evita hacer filter() repetidamente en render)
+    const countsByCategory = useMemo(() => {
+        const counts: Record<string, number> = { all: TECH_STACK.length };
+        for (const cat of TECH_CATEGORIES) counts[cat.id] = 0;
+        for (const t of TECH_STACK) counts[t.category] = (counts[t.category] || 0) + 1;
+        return counts;
     }, []);
 
     // Manejar selección de herramienta
@@ -140,7 +157,7 @@ const TechStack: React.FC = () => {
                             </span>
                         </div>
                         <div className="font-mono text-[10px] text-gray-500">
-                            v5.1.22621
+                            v15.01.1992
                         </div>
                     </div>
 
@@ -155,10 +172,10 @@ const TechStack: React.FC = () => {
                             }`}
                         >
                             <i className="fa-solid fa-layer-group mr-1.5 text-[10px]"></i>
-                            ALL [{TECH_STACK.length}]
+                            ALL [{countsByCategory.all}]
                         </button>
                         {TECH_CATEGORIES.map(cat => {
-                            const count = TECH_STACK.filter(t => t.category === cat.id).length;
+                            const count = countsByCategory[cat.id] ?? 0;
                             return (
                                 <button
                                     key={cat.id}
@@ -331,39 +348,6 @@ const TechStack: React.FC = () => {
                             <span>PowerShell</span>
                         </div>
                     </div>
-                </div>
-
-                {/* Resumen por categoría (mini cards) */}
-                <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
-                    {TECH_CATEGORIES.map(cat => {
-                        const count = TECH_STACK.filter(t => t.category === cat.id).length;
-                        const isActive = activeCategory === cat.id;
-                        const activeBorderClass = getBorderColorClass(cat.id);
-                        const activeTextClass = getTextColorClass(cat.id);
-                        
-                        return (
-                            <button
-                                key={cat.id}
-                                onClick={() => handleCategoryChange(cat.id)}
-                                type="button"
-                                className={`p-2.5 sm:p-3 border text-center rounded-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] focus-visible:ring-[#007ACC] ${
-                                    isActive 
-                                        ? `bg-[#1E1E1E] border-[#3C3C3C] shadow-[0_0_0_1px_rgba(255,255,255,0.06)] ${activeBorderClass}` 
-                                        : 'bg-transparent border-gray-800/30 hover:border-gray-700 hover:-translate-y-[1px]'
-                                }`}
-                            >
-                                <div className="flex items-center justify-between gap-2 mb-1.5">
-                                    <i className={`${cat.icon} text-sm ${isActive ? activeTextClass : 'text-[#666]'}`}></i>
-                                    <div className={`font-display text-2xl sm:text-3xl leading-none ${isActive ? activeTextClass : 'text-[#666]'}`}>
-                                        {count}
-                                    </div>
-                                </div>
-                                <div className="font-mono text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider leading-tight">
-                                    {cat.title}
-                                </div>
-                            </button>
-                        );
-                    })}
                 </div>
             </div>
         </section>

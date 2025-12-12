@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import BrutalButton from './ui/BrutalButton';
 import emailjs from '@emailjs/browser';
-import { getSupabaseClient, isSupabaseConfigured } from '../utils/supabaseClient';
+import { getSupabaseClient } from '../utils/supabaseClient';
 
 const emailConfig = {
     serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -90,12 +90,7 @@ const Contact: React.FC = () => {
             }
 
             if (dbError) {
-                console.error('Error guardando en base de datos:', dbError);
                 // Continuamos aunque falle la BD, para intentar enviar el correo
-            } else if (isSupabaseConfigured()) {
-                console.log('✅ Datos guardados en Supabase correctamente');
-            } else {
-                console.warn('Supabase no configurado: no se guardó en base de datos');
             }
 
             // Enviar correo con EmailJS si está configurado
@@ -107,22 +102,17 @@ const Contact: React.FC = () => {
                         formRef.current,
                         emailConfig.publicKey!
                     );
-                    console.log('✅ Correo enviado con EmailJS');
                 } catch (emailError) {
-                    console.error('Error enviando correo:', emailError);
                     // Si falla el correo pero se guardó en BD, no es crítico
                     if (dbError) {
                         throw new Error('Error en transmisión y almacenamiento. Intente canal alternativo (LinkedIn/Email).');
                     }
                 }
-            } else {
-                console.warn('EmailJS no configurado, solo se guardó en base de datos');
             }
 
             setIsSubmitted(true);
             setFormData({ from_name: '', from_email: '', message: '' });
         } catch (error) {
-            console.error('Error en handleSubmit:', error);
             setSubmitError(
                 error instanceof Error 
                     ? error.message 

@@ -189,7 +189,7 @@ export const EXPERIENCES = [
         category: 'construction' as const,
         highlight: 'Estándares Internacionales',
         details: [
-            'Refuercé el control documental en terreno con trazabilidad completa de planos, RFIs y registros de obra bajo estándares internacionales.',
+            'Reforcé el control documental en terreno con trazabilidad completa de planos, RFIs y registros de obra bajo estándares internacionales.',
             'Acompañé a la inspección técnica: revisión de avances, conformidad de materiales, registro fotográfico y mantenimiento de línea base para auditorías.'
         ],
         tags: ['Control Documental', 'Calidad', 'Inspección Técnica', 'Estándares Internacionales']

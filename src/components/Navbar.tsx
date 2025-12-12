@@ -1,24 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+
+const NAV_LINKS = [
+    { label: 'Perfil', href: '#about' },
+    { label: 'Experiencia', href: '#experiencia' },
+    { label: 'Stack', href: '#stack' },
+    { label: 'Proyectos', href: '#proyectos' },
+    { label: 'Formación', href: '#educacion' },
+] as const;
 
 const Navbar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
+        // Inicializa estado (por si se carga con scroll)
+        setIsScrolled(window.scrollY > 50);
+
+        let rafId: number | null = null;
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            // Throttle con rAF para evitar setState excesivos
+            if (rafId != null) return;
+            rafId = window.requestAnimationFrame(() => {
+                rafId = null;
+                setIsScrolled(window.scrollY > 50);
+            });
         };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            if (rafId != null) window.cancelAnimationFrame(rafId);
+        };
     }, []);
 
-    const links = [
-        { label: 'Perfil', href: '#about' },
-        { label: 'Experiencia', href: '#experiencia' },
-        { label: 'Stack', href: '#stack' },
-        { label: 'Proyectos', href: '#proyectos' },
-        { label: 'Formación', href: '#educacion' },
-    ];
+    const links = useMemo(() => NAV_LINKS, []);
 
     return (
         <nav className={`border-b-3 sm:border-b-4 border-ink py-3 sm:py-4 lg:py-5 sticky top-0 z-50 transition-all ${isScrolled ? 'bg-cream/98 backdrop-blur-sm shadow-brutal-sm' : 'bg-cream'
@@ -31,7 +46,7 @@ const Navbar: React.FC = () => {
                         FL
                     </div>
                     <span className="hidden sm:block group-hover:text-safety-orange transition-colors">
-                        Felipe Lobo<span className="text-safety-orange group-hover:text-ink">.</span>
+                        Felipe Lobo B<span className="text-safety-orange group-hover:text-ink">.</span>
                     </span>
                 </a>
 
@@ -58,7 +73,8 @@ const Navbar: React.FC = () => {
                 {/* Mobile Menu Button - Blocky */}
                 <button
                     className="md:hidden w-9 h-9 sm:w-10 sm:h-10 bg-ink text-cream flex items-center justify-center border-2 border-transparent hover:bg-cream hover:text-ink hover:border-ink transition-all"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    type="button"
+                    onClick={() => setIsMenuOpen((v) => !v)}
                     aria-label="Toggle menu"
                 >
                     <i className={`fa-solid ${isMenuOpen ? 'fa-xmark' : 'fa-bars'} text-lg sm:text-xl`}></i>

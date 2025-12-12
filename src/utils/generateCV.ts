@@ -40,7 +40,6 @@ function joinNonEmpty(parts: Array<string | undefined | null>, sep: string): str
 }
 
 export async function generateCV() {
-    console.log("Generando CV (formato serio/profesional)...");
     try {
         // Carga diferida para no inflar el bundle inicial (solo se necesita al descargar)
         const { jsPDF } = await import('jspdf');
@@ -425,19 +424,15 @@ export async function generateCV() {
         }
 
         // ================= GUARDAR =================
-        console.log("Guardando PDF...");
         try {
             const fileName = `CV_${PROFILE.name.first}_${PROFILE.name.last.replace(' ', '_')}.pdf`;
             doc.save(fileName);
-            console.log(`PDF guardado exitosamente: ${fileName}`);
         } catch (saveError) {
-            console.error("Error guardando PDF:", saveError);
             alert("El navegador bloqueó la descarga automática. Abriendo en nueva pestaña...");
             doc.output('dataurlnewwindow');
         }
 
     } catch (error) {
-        console.error("ERROR FATAL AL GENERAR PDF:", error);
         alert(`Error generando el PDF: ${error instanceof Error ? error.message : 'Error desconocido'}.`);
     }
 }

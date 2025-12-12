@@ -106,6 +106,93 @@ button {
     animation: slideInLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Transición de texto (más sutil y suave) */
+@keyframes textInRight {
+    from {
+        opacity: 0;
+        transform: translateX(18px) translateY(2px);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+        filter: blur(0px);
+    }
+}
+
+@keyframes textInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-18px) translateY(2px);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+        filter: blur(0px);
+    }
+}
+
+.animate-text-in-right {
+    animation: textInRight 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-text-in-left {
+    animation: textInLeft 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Transición de imagen (fade + micro-zoom + blur suave) */
+@keyframes projectImageInRight {
+    from {
+        opacity: 0;
+        transform: translateX(18px) scale(1.035);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+@keyframes projectImageInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-18px) scale(1.035);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+.animate-project-image-in-right {
+    animation: projectImageInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: 50% 50%;
+}
+
+.animate-project-image-in-left {
+    animation: projectImageInLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: 50% 50%;
+}
+
+/* Variante de texto para Projects (ligeramente más estable + delay) */
+.animate-project-text-in-right {
+    animation: textInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 40ms;
+}
+
+.animate-project-text-in-left {
+    animation: textInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: 40ms;
+}
+
 /* Imágenes estables (evita salto/FOUC inicial) */
 .img-stable {
     display: block;
@@ -114,9 +201,13 @@ button {
     object-fit: cover;
 }
 
-/* Imagen perfil: estado inicial - blanco y negro saturado (saturación 2.0 + grayscale completo) */
+
 .img-profile-initial {
-    filter: saturate(2) grayscale(1);
+    filter: grayscale(100%) saturate(200%) brightness(0.95) contrast(1.9);
+}
+
+.group\/image:hover .img-profile-initial {
+    filter: grayscale(0) contrast(1.5);
 }
 
 /* Botones brutales */
@@ -238,6 +329,32 @@ button {
     * {
         box-shadow: none !important;
         border-color: #000 !important;
+    }
+}
+
+/* Scrollbar naranjo para proyectos */
+.projects-scroll::-webkit-scrollbar {
+    width: 12px;
+}
+
+.projects-scroll::-webkit-scrollbar-track {
+    background: #F9F9F7;
+}
+
+.projects-scroll::-webkit-scrollbar-thumb {
+    background: #D35400;
+    border: 2px solid #F9F9F7;
+    border-radius: 6px;
+}
+
+.projects-scroll::-webkit-scrollbar-thumb:hover {
+    background: #E67E22;
+}
+
+@supports (scrollbar-width: thin) {
+    .projects-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #D35400 #F9F9F7;
     }
 }
 

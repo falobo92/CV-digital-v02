@@ -11,7 +11,7 @@ const supabaseAnonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | unde
 
 let cachedClient: SupabaseClient | null | undefined;
 
-export function isSupabaseConfigured(): boolean {
+function isSupabaseConfigured(): boolean {
   if (!supabaseUrl || !supabaseAnonKey) return false;
   return supabaseUrl.startsWith('http://') || supabaseUrl.startsWith('https://');
 }
