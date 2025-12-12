@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import BrutalButton from './ui/BrutalButton';
+import SectionDivider from './ui/SectionDivider';
 import emailjs from '@emailjs/browser';
 import { getSupabaseClient } from '../utils/supabaseClient';
 
@@ -132,16 +133,19 @@ const Contact: React.FC = () => {
     };
 
     return (
-        <section id="contacto" className="py-12 sm:py-16 lg:py-24 xl:py-32 bg-cream border-b-6 border-ink relative overflow-hidden">
+        <section id="contacto" className="bg-cream border-b-6 border-ink relative overflow-hidden pb-12 sm:pb-16 lg:pb-24 xl:pb-32 pt-0">
+            <SectionDivider text="CONTACTO /// CONEXIÓN /// COLABORACIÓN" theme="dark" direction="left" />
+            
             {/* Background: Technical Grid similar to Hero */}
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-tech-grid-40" />
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 sm:pt-16 lg:pt-20">
                 {/* Header Section Homologated */}
                 <div className="flex flex-col md:flex-row gap-4 sm:gap-6 lg:gap-8 justify-between items-start md:items-end mb-10 sm:mb-12 lg:mb-16 border-b-3 sm:border-b-4 border-ink pb-6 sm:pb-8">
                     <div>
-                        <div className="inline-block bg-accent-yellow border sm:border-2 border-ink px-2 py-0.5 sm:px-3 sm:py-1 font-mono text-[10px] sm:text-xs font-bold mb-3 sm:mb-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                            05 //_CONECTAR
+                        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">07</div>
+                            <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Iniciar Contacto</span>
                         </div>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display text-ink uppercase tracking-tight leading-none">
                             INICIAR <span className="text-eng-blue">TRANSMISIÓN</span>

@@ -114,6 +114,10 @@ const Projects: React.FC = () => {
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row justify-between items-end mb-8 sm:mb-12 gap-6 sm:gap-8 pointer-events-none">
                     <div className="max-w-[800px]">
+                        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">04</div>
+                            <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Casos de Éxito</span>
+                        </div>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-3 sm:mb-4 uppercase tracking-tight leading-[0.9]">
                             <span className="inline-block bg-accent-yellow px-1.5 sm:px-2 mr-1.5 sm:mr-2 border-3 sm:border-4 border-ink text-ink shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transform -rotate-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">PROYECTOS</span>
                             CLAVE

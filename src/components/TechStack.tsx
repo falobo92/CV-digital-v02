@@ -132,6 +132,10 @@ const TechStack: React.FC = () => {
                 
                 {/* Header compacto */}
                 <div className="mb-6 sm:mb-8 text-center">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-accent-yellow flex items-center justify-center text-ink font-mono text-[10px] sm:text-xs font-bold">03</div>
+                        <span className="font-mono text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Herramientas Técnicas</span>
+                    </div>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display uppercase tracking-tighter text-white leading-[0.85] mb-2 sm:mb-3">
                         ARSENAL <span className="text-accent-yellow">DIGITAL</span>
                     </h2>

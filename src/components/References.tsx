@@ -1,12 +1,19 @@
 import React from 'react';
 import { REFERENCES } from '../constants';
+import SectionDivider from './ui/SectionDivider';
 
 const References: React.FC = () => {
     return (
-        <section id="referencias" className="py-14 sm:py-20 lg:py-32 border-b-6 border-ink bg-cream-dark">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="referencias" className="border-b-6 border-ink bg-cream-dark relative overflow-hidden pb-14 sm:pb-20 lg:pb-32 pt-0">
+            <SectionDivider text="TESTIMONIOS /// COLABORACIÓN /// CONFIANZA" theme="light" direction="right" />
+            
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-20 lg:pt-24">
                 {/* Header */}
                 <div className="text-center mb-10 sm:mb-14 lg:mb-20">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">06</div>
+                        <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Red Profesional</span>
+                    </div>
                     <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-4 sm:mb-6 uppercase tracking-tight">
                         REFERENCIAS
                     </h2>

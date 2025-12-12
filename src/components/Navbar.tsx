@@ -6,6 +6,7 @@ const NAV_LINKS = [
     { label: 'Stack', href: '#stack' },
     { label: 'Proyectos', href: '#proyectos' },
     { label: 'Formación', href: '#educacion' },
+    { label: 'Referencias', href: '#referencias' },
 ] as const;
 
 const Navbar: React.FC = () => {

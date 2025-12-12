@@ -96,11 +96,14 @@ const Hero: React.FC = () => {
                         {/* Main image container */}
                         <div className="relative w-[260px] h-[325px] sm:w-[300px] sm:h-[380px] md:w-[360px] md:h-[450px] lg:w-[400px] lg:h-[500px] border-4 sm:border-6 border-ink bg-black z-10 overflow-hidden transition-all duration-300 group-hover:-translate-x-0.25 group-hover:-translate-y-0.25  group-hover:bg-slate-800">
                             
+                            {/* Background gradient - behind image on hover */}
+                            <div className="absolute inset-0 bg-transparent group-hover:bg-gradient-to-b group-hover:from-ink/90 group-hover:via-ink/40 group-hover:to-transparent transition-all duration-500 z-0"></div>
+                            
                             {/* The Image */}
                             <img
                                 src="/profile.png"
                                 alt="Felipe Lobo Boric - Constructor Civil"
-                                className="img-stable img-profile-initial transition-all duration-300 ease-out group-hover:[filter:none] group-hover:scale-[1.01] origin-center relative z-0 will-change-transform"
+                                className="img-stable img-profile-initial transition-all duration-300 ease-out group-hover:[filter:none] group-hover:scale-[0.989] origin-center relative z-10 will-change-transform"
                                 width={400}
                                 height={500}
                                 draggable="false"
@@ -108,13 +111,14 @@ const Hero: React.FC = () => {
                             />
 
                             {/* Overlay gradient - fades on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent transition-opacity duration-500 group-hover:opacity-0 z-30"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent group-hover:opacity-0 transition-opacity duration-500 z-20"></div>
 
                             {/* Corner markers - architectural style */}
-                            <div className="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-white group-hover:border-ink opacity-80 z-40"></div>
-                            <div className="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-white group-hover:border-ink opacity-80 z-40"></div>
-                            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-white group-hover:border-ink opacity-80 z-40"></div>
-                            <div className="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-white group-hover:border-ink opacity-80 z-40"></div>
+                            <div className="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
+<div className="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
+<div className="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
+<div className="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
+
 
                             {/* Name tag - brutal label */}
                             <div className="absolute bottom-0 left-0 right-0 bg-ink p-4 transform translate-y-0 transition-transform duration-300 z-40">
