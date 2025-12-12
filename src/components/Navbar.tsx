@@ -103,8 +103,8 @@ const Navbar: React.FC = () => {
             {/* Mobile Menu - BRUTAL Full Screen Overlay (visible hasta lg) */}
             <div
                 className={`lg:hidden fixed inset-0 top-0 bg-ink z-[55] transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${isMenuOpen
-                        ? 'opacity-100 pointer-events-auto translate-y-0'
-                        : 'opacity-0 pointer-events-none -translate-y-4'
+                    ? 'opacity-100 pointer-events-auto translate-y-0'
+                    : 'opacity-0 pointer-events-none -translate-y-4'
                     }`}
             >
                 {/* Background Pattern */}

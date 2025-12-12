@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
 
     return (
         <section id="hero" className="relative min-h-[100vh] flex items-center overflow-hidden border-b-6 border-ink bg-cream">
-            
+
             {/* Background Grid - Blueprint style */}
             <div className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-blueprint-grid-60" />
 
@@ -24,7 +24,7 @@ const Hero: React.FC = () => {
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">00</div>
                         <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Presentación</span>
                     </div>
-                    
+
                     {/* Label */}
                     <div className="inline-flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                         <div className="w-10 sm:w-16 h-1 bg-ink"></div>
@@ -86,43 +86,40 @@ const Hero: React.FC = () => {
 
                 {/* Image - BRUTAL STYLE */}
                 <div className="relative flex justify-center lg:justify-end order-1 lg:order-2">
-                    <div className="relative group cursor-pointer">
-                        
-                        {/* Shadow block - offset brutal */}
-                        <div className="absolute top-3 left-3 sm:top-4 sm:left-4 md:top-6 md:left-6 w-full h-full bg-ink z-0"></div>
-                        
-                        {/* Secondary accent shadow */}
-                        <div className="absolute top-6 left-6 sm:top-8 sm:left-8 md:top-12 md:left-12 w-full h-full bg-accent-yellow z-0 opacity-60"></div>
+                    <div className="relative group cursor-pointer inline-block">
 
-                        {/* Main image container */}
-                        <div className="relative w-[260px] h-[325px] sm:w-[300px] sm:h-[380px] md:w-[360px] md:h-[450px] lg:w-[400px] lg:h-[500px] border-4 sm:border-6 border-ink bg-black z-10 overflow-hidden transition-all duration-300 group-hover:-translate-x-0.25 group-hover:-translate-y-0.25  group-hover:bg-slate-800">
-                            
-                            {/* Background gradient - behind image on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
-                            
+                        {/* Architectural Grid Background - Subtle */}
+                        <div className="absolute -inset-4 bg-blueprint-grid-60 opacity-20 z-0"></div>
+
+                        {/* Main Frame Shadow - Sharp Offset */}
+                        <div className="absolute top-0 left-0 w-full h-full bg-ink translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 transition-transform duration-300 group-hover:translate-x-2 group-hover:translate-y-2 z-0"></div>
+
+                        {/* Secondary Accent Line - Electric Orange */}
+                        <div className="absolute -top-1 -right-1 w-24 h-24 border-t-4 border-r-4 border-safety-orange z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute -bottom-1 -left-1 w-24 h-24 border-b-4 border-l-4 border-eng-blue z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                        {/* Main Image Container */}
+                        <div className="relative w-[260px] h-[325px] sm:w-[300px] sm:h-[380px] md:w-[360px] md:h-[450px] lg:w-[400px] lg:h-[500px] border-4 border-ink bg-gray-100 z-10 overflow-hidden">
+
                             {/* The Image */}
                             <img
                                 src="/profile.png"
                                 alt="Felipe Lobo Boric - Constructor Civil"
-                                className="img-stable img-profile-initial transition-all duration-300 ease-out group-hover:[filter:contrast(1.25)] group-hover:scale-[0.995] origin-center relative z-10 will-change-transform contrast-125"
+                                className="img-stable object-cover w-full h-full filter grayscale contrast-125 brightness-110 transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
                                 width={400}
                                 height={500}
                                 draggable="false"
                                 onContextMenu={(e) => e.preventDefault()}
                             />
 
-                            {/* Overlay gradient - fades on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent group-hover:opacity-0 transition-opacity duration-500 z-20"></div>
+                            {/* Tech overlay scanlines */}
+                            <div className="absolute inset-0 bg-scanlines opacity-10 pointer-events-none z-20"></div>
 
-                            {/* Corner markers - architectural style */}
-                            <div className="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
-<div className="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
-<div className="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
-<div className="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-white group-hover:border-accent-yellow opacity-80 z-40"></div>
+                            {/* Hover info overlay */}
+                            <div className="absolute inset-0 bg-ink/80 opacity-0 group-hover:opacity-20 transition-opacity duration-300 z-30"></div>
 
-
-                            {/* Name tag - brutal label */}
-                            <div className="absolute bottom-0 left-0 right-0 bg-ink p-4 transform translate-y-0 transition-transform duration-300 z-40">
+                            {/* Name Label - Modern & Sharp */}
+                            <div className="absolute bottom-0 left-0 right-0 bg-ink/85 backdrop-blur-sm p-4 transform translate-y-0 transition-transform duration-300 z-40">
                                 <div className="flex justify-between items-end">
                                     <div>
                                         <div className="font-mono text-[10px] text-gray-400 uppercase tracking-widest mb-1">2025 // SANTIAGO</div>
@@ -134,11 +131,6 @@ const Hero: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        {/* Single floating tag to evitar sobrecarga visual */}
-                        <div className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 md:-top-4 md:-right-4 bg-safety-orange border-3 sm:border-4 border-ink px-3 py-1.5 sm:px-4 sm:py-2 z-20 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform rotate-0 group-hover:rotate-0 transition-transform">
-                            <span className="font-mono text-xs sm:text-sm md:text-base font-bold text-ink uppercase">+{yearsExp} años</span>
                         </div>
                     </div>
                 </div>

@@ -7,23 +7,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'cream': '#F5F5F0',       // Slightly cleaner white/stone
-        'cream-dark': '#E0E0DB',
+        'cream': '#F2F2F0',       // Concrete White - Cleaner, more modern
+        'cream-dark': '#E6E6E3',
         'ink': '#0A0A0A',         // Jet Black
 
-        // Accents - "International Style" (Professional, High Contrast)
-        'eng-blue': '#002147',    // Deep Navy (Professional, Architecture)
-        'eng-blue-light': '#003366',
+        // Accents - "Modern Architectural"
+        'eng-blue': '#0047AB',    // Cobalt Blue - Vibrant & Professional
+        'eng-blue-light': '#0055CC',
 
-        'safety-orange': '#FF5722', // Deep Industrial Orange (High vis but not neon)
-        'safety-orange-light': '#FF7043',
+        'safety-orange': '#FF4D00', // International Orange - Electric/Vibrant
+        'safety-orange-light': '#FF6A00',
 
-        'accent-yellow': '#FFC107', // Warning Amber (Standard signal color)
-        'accent-yellow-light': '#FFD54F',
+        'accent-yellow': '#FFD600', // Bright Yellow - High visibility, sharp
+        'accent-yellow-light': '#FFE54F',
 
-        'digital-cyan': '#607D8B',  // Slate Blue Grey (Structural steel, no longer cyan)
-        'term-green': '#43A047',    // Safety Green (Standard signal green)
-        'alert-red': '#D32F2F',     // Engineering Red (Standard signal red)
+        'digital-cyan': '#607D8B',  // Slate Blue Grey
+        'term-green': '#00C853',    // Vibrant Signal Green
+        'alert-red': '#D50000',     // Vivid Red
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', '"Space Mono"', 'monospace'],

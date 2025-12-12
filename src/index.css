@@ -43,7 +43,8 @@ main {
 }
 
 ::selection {
-    background: #F1C40F;
+    background: #FFD600;
+    /* New accent-yellow */
     color: #121212;
 }
 
@@ -67,7 +68,8 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #D35400;
+    background: #FF4D00;
+    /* New safety-orange */
 }
 
 @supports (scrollbar-width: thin) {
