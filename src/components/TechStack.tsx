@@ -57,7 +57,7 @@ const TechStack: React.FC = () => {
     ]);
 
     // Filtrar tecnologías
-    const filteredTech = useMemo(() => 
+    const filteredTech = useMemo(() =>
         activeCategory === 'all'
             ? TECH_STACK
             : TECH_STACK.filter(t => t.category === activeCategory),
@@ -128,8 +128,8 @@ const TechStack: React.FC = () => {
         <section id="stack" className="bg-[#0a0a0a] text-cream border-b-6 border-ink relative overflow-hidden pt-0 pb-20">
             <SectionDivider text="FULL STACK /// HERRAMIENTAS DIGITALES /// AUTOMATIZACIÓN" theme="accent" direction="left" />
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 w-full mt-10 sm:mt-16">
-                
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 w-full pt-12 sm:pt-16 lg:pt-20">
+
                 {/* Header (homologado con el resto de secciones) */}
                 <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-[#3C3C3C] pb-8 sm:pb-12">
                     <div className="flex-1 min-w-0">
@@ -149,7 +149,7 @@ const TechStack: React.FC = () => {
 
                 {/* Consola Principal */}
                 <div className="bg-[#1E1E1E] border border-[#3C3C3C] rounded-sm overflow-hidden shadow-2xl">
-                    
+
                     {/* Barra de título de ventana */}
                     <div className="bg-[#323233] px-4 py-2 flex items-center justify-between border-b border-[#3C3C3C]">
                         <div className="flex items-center gap-3">
@@ -171,11 +171,10 @@ const TechStack: React.FC = () => {
                     <div className="bg-[#252526] border-b border-[#3C3C3C] px-2 py-1 flex items-center gap-1 overflow-x-auto">
                         <button
                             onClick={() => handleCategoryChange('all')}
-                            className={`px-3 py-1.5 font-mono text-xs transition-colors whitespace-nowrap ${
-                                activeCategory === 'all'
+                            className={`px-3 py-1.5 font-mono text-xs transition-colors whitespace-nowrap ${activeCategory === 'all'
                                     ? 'bg-[#1E1E1E] text-white border-t-2 border-[#007ACC]'
                                     : 'text-gray-400 hover:text-white hover:bg-[#2D2D2D]'
-                            }`}
+                                }`}
                         >
                             <i className="fa-solid fa-layer-group mr-1.5 text-[10px]"></i>
                             ALL [{countsByCategory.all}]
@@ -186,11 +185,10 @@ const TechStack: React.FC = () => {
                                 <button
                                     key={cat.id}
                                     onClick={() => handleCategoryChange(cat.id)}
-                                    className={`px-3 py-1.5 font-mono text-xs transition-colors whitespace-nowrap ${
-                                        activeCategory === cat.id
+                                    className={`px-3 py-1.5 font-mono text-xs transition-colors whitespace-nowrap ${activeCategory === cat.id
                                             ? `bg-[#1E1E1E] text-white border-t-2 ${getBorderColorClass(cat.id)}`
                                             : 'text-gray-400 hover:text-white hover:bg-[#2D2D2D]'
-                                    }`}
+                                        }`}
                                 >
                                     <i className={`${cat.icon} mr-1.5 text-[10px] ${getTextColorClass(cat.id)}`}></i>
                                     {cat.title.split(' ')[0].toUpperCase()} [{count}]
@@ -201,7 +199,7 @@ const TechStack: React.FC = () => {
 
                     {/* Contenido de la consola */}
                     <div className="p-3 sm:p-4 font-mono text-xs sm:text-sm min-h-[350px] sm:min-h-[400px] max-h-[500px] sm:max-h-[600px] overflow-y-auto">
-                        
+
                         {/* Historial de comandos */}
                         <div className="mb-4 text-gray-500 text-xs">
                             {commandHistory.slice(-5).map((line, i) => (
@@ -224,52 +222,51 @@ const TechStack: React.FC = () => {
                                     const tintBgClass = getTintBgClass(tech.category);
                                     const borderClass = getBorderColorClass(tech.category);
                                     const catInfo = getCategoryInfo(tech.category);
-                                    
+
                                     return (
                                         <div key={tech.key}>
                                             {/* Línea principal del módulo */}
                                             <button
                                                 onClick={() => handleSelectTech(tech)}
-                                                className={`w-full text-left px-2 py-1.5 transition-colors flex items-center gap-3 group ${
-                                                    isActive 
-                                                        ? 'bg-[#264F78]' 
+                                                className={`w-full text-left px-2 py-1.5 transition-colors flex items-center gap-3 group ${isActive
+                                                        ? 'bg-[#264F78]'
                                                         : 'hover:bg-[#2D2D2D]'
-                                                }`}
+                                                    }`}
                                             >
                                                 {/* Número de línea */}
                                                 <span className="text-[#858585] text-xs w-6 text-right shrink-0">
                                                     {String(idx + 1).padStart(2, '0')}
                                                 </span>
-                                                
+
                                                 {/* Indicador de estado */}
                                                 <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? 'bg-[#27CA40]' : 'bg-gray-600'}`}></span>
-                                                
+
                                                 {/* Icono */}
                                                 <i className={`${tech.icon} w-5 text-center ${colorClass}`}></i>
-                                                
+
                                                 {/* Nombre */}
                                                 <span className="text-white font-medium min-w-[100px] sm:min-w-[140px] text-xs sm:text-sm">
                                                     {tech.name}
                                                 </span>
-                                                
+
                                                 {/* Categoría tag */}
-                                                <span 
+                                                <span
                                                     className={`text-[10px] px-1.5 py-0.5 rounded-sm shrink-0 ${tintBgClass} ${colorClass}`}
                                                 >
                                                     {catInfo.title.substring(0, 3)}
                                                 </span>
-                                                
+
                                                 {/* Descripción */}
                                                 <span className="text-gray-500 text-xs truncate flex-1 hidden sm:block">
                                                     {tech.description}
                                                 </span>
-                                                
+
                                                 {/* Flecha expandir */}
                                                 <span className={`text-gray-500 text-xs transition-transform ${isActive ? 'rotate-90' : ''}`}>
                                                     ▶
                                                 </span>
                                             </button>
-                                            
+
                                             {/* Panel de detalle expandido */}
                                             {isActive && (
                                                 <div className={`bg-[#1A1A1A] border-l-2 ml-8 py-3 px-4 my-1 ${borderClass}`}>
@@ -289,7 +286,7 @@ const TechStack: React.FC = () => {
                                                     <div className="text-[#6A9955] text-xs mb-3">
                                                         {' */'}
                                                     </div>
-                                                    
+
                                                     {/* Caso de uso */}
                                                     <div className="text-[#C586C0] text-xs mb-1">
                                                         <span className="text-[#569CD6]">function</span> <span className="text-[#DCDCAA]">useCase</span><span className="text-[#D4D4D4]">() {'{'}</span>
@@ -300,16 +297,16 @@ const TechStack: React.FC = () => {
                                                     <div className="text-[#D4D4D4] text-xs mb-3">
                                                         {'}'}
                                                     </div>
-                                                    
+
                                                     {/* Stats como objeto */}
                                                     <div className="text-[#569CD6] text-xs">
                                                         const <span className="text-[#9CDCFE]">stats</span> = {'{'}
                                                     </div>
                                                     <div className="text-xs pl-4">
                                                         <span className="text-[#9CDCFE]">experience</span>: <span className="text-[#B5CEA8]">
-                                                            {tech.category === 'dev' ? '3' : 
-                                                             tech.category === 'm365' ? '4' : 
-                                                             tech.category === 'construction' ? '5' : '2'}
+                                                            {tech.category === 'dev' ? '3' :
+                                                                tech.category === 'm365' ? '4' :
+                                                                    tech.category === 'construction' ? '5' : '2'}
                                                         </span>,
                                                     </div>
                                                     <div className="text-xs pl-4">

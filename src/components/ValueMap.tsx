@@ -29,7 +29,7 @@ const ValueMap: React.FC = () => {
 
             <SectionDivider text="METODOLOGÍA /// SISTEMAS /// CONSTRUCCIÓN" theme="light" direction="left" />
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 mt-10 sm:mt-16 lg:mt-20">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 pt-12 sm:pt-16 lg:pt-20">
                 {/* Header */}
                 <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-ink pb-8 sm:pb-12">
                     <div className="flex-1">

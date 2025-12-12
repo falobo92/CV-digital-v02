@@ -115,8 +115,8 @@ const Contact: React.FC = () => {
             setFormData({ from_name: '', from_email: '', message: '' });
         } catch (error) {
             setSubmitError(
-                error instanceof Error 
-                    ? error.message 
+                error instanceof Error
+                    ? error.message
                     : 'Error en transmisión. Intente canal alternativo (LinkedIn/Email).'
             );
         } finally {
@@ -135,11 +135,11 @@ const Contact: React.FC = () => {
     return (
         <section id="contacto" className="bg-cream border-b-6 border-ink relative overflow-hidden pb-12 sm:pb-16 lg:pb-24 xl:pb-32 pt-0">
             <SectionDivider text="CONTACTO /// CONEXIÓN /// COLABORACIÓN" theme="dark" direction="left" />
-            
+
             {/* Background: Technical Grid similar to Hero */}
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-tech-grid-40" />
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-12 sm:pt-16 lg:pt-20">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 pt-12 sm:pt-16 lg:pt-20">
                 {/* Header Section Homologated */}
                 <div className="flex flex-col md:flex-row gap-4 sm:gap-6 lg:gap-8 justify-between items-start md:items-end mb-10 sm:mb-12 lg:mb-16 border-b-3 sm:border-b-4 border-ink pb-6 sm:pb-8">
                     <div>

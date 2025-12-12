@@ -18,8 +18,8 @@ const References: React.FC = () => {
     return (
         <section id="referencias" className="border-b-6 border-ink bg-cream-dark relative overflow-hidden pb-14 sm:pb-20 lg:pb-32 pt-0">
             <SectionDivider text="TESTIMONIOS /// COLABORACIÓN /// CONFIANZA" theme="light" direction="right" />
-            
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-20 lg:pt-24">
+
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pt-12 sm:pt-16 lg:pt-20">
                 {/* Header */}
                 <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-ink pb-8 sm:pb-12">
                     <div className="flex-1">
@@ -42,7 +42,7 @@ const References: React.FC = () => {
                 <div className="sm:hidden">
                     {/* Card actual */}
                     <div className="relative">
-                        <article 
+                        <article
                             key={currentRef.id}
                             className="bg-white border-4 border-ink p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] relative animate-fade-in"
                         >
@@ -66,12 +66,12 @@ const References: React.FC = () => {
                                 <div className="font-display text-xl text-eng-blue uppercase">
                                     {currentRef.name}
                                 </div>
-                                
+
                                 {/* Role */}
                                 <div className="font-bold text-sm mt-2">
                                     {currentRef.role}
                                 </div>
-                                
+
                                 {/* Company */}
                                 <div className="font-mono text-xs text-gray-500 mt-1 flex items-center gap-2">
                                     <i className="fa-solid fa-building"></i>
@@ -105,11 +105,10 @@ const References: React.FC = () => {
                                 <button
                                     key={idx}
                                     onClick={() => setCurrentIndex(idx)}
-                                    className={`w-3 h-3 border-2 border-ink transition-all ${
-                                        idx === currentIndex 
-                                            ? 'bg-accent-yellow scale-125' 
+                                    className={`w-3 h-3 border-2 border-ink transition-all ${idx === currentIndex
+                                            ? 'bg-accent-yellow scale-125'
                                             : 'bg-white hover:bg-gray-200'
-                                    }`}
+                                        }`}
                                     aria-label={`Ir a referencia ${idx + 1}`}
                                 />
                             ))}
@@ -137,7 +136,7 @@ const References: React.FC = () => {
                 {/* ===== DESKTOP: Grid ===== */}
                 <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-[1200px] mx-auto">
                     {REFERENCES.map((ref) => (
-                        <article 
+                        <article
                             key={ref.id}
                             className="bg-white border-3 sm:border-4 border-ink p-5 sm:p-6 lg:p-8 shadow-brutal hover:-translate-y-2 hover:shadow-brutal-xl transition-all relative"
                         >
@@ -161,12 +160,12 @@ const References: React.FC = () => {
                                 <div className="font-display text-lg sm:text-xl text-eng-blue uppercase">
                                     {ref.name}
                                 </div>
-                                
+
                                 {/* Role */}
                                 <div className="font-bold text-xs sm:text-sm mt-1 sm:mt-2">
                                     {ref.role}
                                 </div>
-                                
+
                                 {/* Company */}
                                 <div className="font-mono text-[10px] sm:text-xs text-gray-500 mt-1 flex items-center gap-2">
                                     <i className="fa-solid fa-building"></i>

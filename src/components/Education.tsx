@@ -8,7 +8,7 @@ const Education: React.FC = () => {
             <SectionDivider text="ACADÉMICO /// APRENDIZAJE CONTINUO /// HABILIDADES" theme="light" direction="left" />
             {/* Background Grid */}
             <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none z-0"></div>
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 lg:py-24 relative z-10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-24 relative z-10">
                 {/* Header */}
                 <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-ink pb-8 sm:pb-12">
                     <div>

@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
             {/* Diagonal accent stripe */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-yellow opacity-10 transform rotate-45 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
-            <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-16 lg:py-0">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-16 lg:py-0">
 
                 {/* Text Content */}
                 <div className="flex flex-col order-2 lg:order-1">

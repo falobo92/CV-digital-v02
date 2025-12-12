@@ -54,7 +54,7 @@ const Experience: React.FC = () => {
             {/* Background Grid - Minimal opacity */}
             <div className="absolute inset-0 opacity-[0.2] bg-grid pointer-events-none mt-12"></div>
 
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 pt-10 sm:pt-16 lg:pt-20">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-12 relative z-10 pt-12 sm:pt-16 lg:pt-20">
                 {/* Header - Sober & Architectural */}
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 lg:mb-24 gap-6 sm:gap-8 lg:gap-12">
                     <div>

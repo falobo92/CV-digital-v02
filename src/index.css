@@ -34,7 +34,17 @@ body {
 }
 
 main {
-    zoom: 0.9;
+    zoom: 1;
+}
+
+:root .ios-scroll {
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 1024px) {
+    main {
+        zoom: 0.9;
+    }
 }
 
 :focus-visible {
@@ -205,14 +215,38 @@ button {
     transform-origin: 50% 50%;
 }
 
-/* Variante de texto para Projects (ligeramente más estable + delay) */
+/* Texto de Projects: sin blur, solo desplazamiento + opacidad */
+@keyframes projectTextInRight {
+    from {
+        opacity: 0;
+        transform: translateX(18px) translateY(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+}
+
+@keyframes projectTextInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-18px) translateY(2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+}
+
 .animate-project-text-in-right {
-    animation: textInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: projectTextInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: 40ms;
 }
 
 .animate-project-text-in-left {
-    animation: textInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: projectTextInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: 40ms;
 }
 
@@ -365,19 +399,19 @@ button {
 }
 
 .projects-scroll::-webkit-scrollbar-thumb {
-    background: #D35400;
+    background: #FF4D00; /* safety-orange (VER TRAYECTORIA) */
     border: 2px solid #F9F9F7;
     border-radius: 6px;
 }
 
 .projects-scroll::-webkit-scrollbar-thumb:hover {
-    background: #E67E22;
+    background: #FF6A00; /* safety-orange-light */
 }
 
 @supports (scrollbar-width: thin) {
     .projects-scroll {
         scrollbar-width: thin;
-        scrollbar-color: #D35400 #F9F9F7;
+        scrollbar-color: #FF4D00 #F9F9F7;
     }
 }
 

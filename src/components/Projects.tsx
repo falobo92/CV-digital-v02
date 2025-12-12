@@ -107,7 +107,7 @@ const Projects: React.FC = () => {
             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none bg-ink-grid-40" />
 
             <div
-                className="py-10 sm:py-12 lg:py-16 max-w-[1500px] w-full min-w-0 mx-auto px-4 sm:px-6 md:px-12 relative z-10"
+                className="pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-12 lg:pb-16 max-w-[1400px] w-full min-w-0 mx-auto px-4 sm:px-6 md:px-12 relative z-10"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -153,7 +153,7 @@ const Projects: React.FC = () => {
                     {/* The Card */}
                     <div className="relative overflow-hidden md:mx-10">
                         <article
-                            className="bg-white border-4 border-ink shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col relative group overflow-hidden"
+                            className="bg-white border-4 border-ink shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col relative group overflow-hidden h-[920px] sm:h-[960px] md:h-[860px] lg:h-[760px]"
                         >
                             {/* Barra superior FIJA (sin animación de carrusel) */}
                             <div className="bg-ink text-cream border-b-4 border-ink shrink-0">
@@ -181,9 +181,8 @@ const Projects: React.FC = () => {
                                             {PROJECTS.map((_, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className={`h-2.5 sm:h-2 flex-1 transition-colors duration-300 ${
-                                                        idx === currentIndex ? 'bg-accent-yellow' : idx < currentIndex ? 'bg-gray-600' : 'bg-gray-800'
-                                                    }`}
+                                                    className={`h-2.5 sm:h-2 flex-1 transition-colors duration-300 ${idx === currentIndex ? 'bg-accent-yellow' : idx < currentIndex ? 'bg-gray-600' : 'bg-gray-800'
+                                                        }`}
                                                 />
                                             ))}
                                         </div>
@@ -196,7 +195,7 @@ const Projects: React.FC = () => {
                             </div>
 
                             {/* Contenido principal: flex en mobile, grid en lg */}
-                            <div className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 xl:gap-14 bg-white relative">
+                            <div className="flex-1 min-h-0 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col lg:grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 xl:gap-14 bg-white relative overflow-hidden">
                                 {/* Decorative "Holes" or Screws */}
                                 <div className="absolute top-4 right-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
                                 <div className="absolute bottom-4 left-4 text-gray-200"><i className="fa-solid fa-plus"></i></div>
@@ -237,7 +236,7 @@ const Projects: React.FC = () => {
                                 </div>
 
                                 {/* Right Col: Info */}
-                                <div className="lg:col-span-6 flex flex-col min-h-0">
+                                <div className="lg:col-span-6 flex flex-col min-h-0 flex-1">
                                     <div key={currentIndex} className={`flex flex-col min-h-0 flex-1 ${textAnimationClass}`}>
                                         {/* Header fijo (sin scroll) */}
                                         <div className="shrink-0">
@@ -250,8 +249,8 @@ const Projects: React.FC = () => {
                                             </div>
                                         </div>
 
-                                        {/* Contenido con scroll */}
-                                        <div className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-5 sm:space-y-8 projects-scroll">
+                                        {/* Contenido con scroll (incluye "El Desafío" y "Resultados clave") */}
+                                        <div className="flex-1 min-h-0 overflow-y-auto pr-2 flex flex-col gap-5 sm:gap-8 projects-scroll">
                                             {/* Challenge Section */}
                                             <div className="relative pl-4 sm:pl-6 border-l-3 sm:border-l-4 border-gray-300">
                                                 <h4 className="font-bold text-xs sm:text-sm uppercase tracking-widest text-gray-400 mb-2 sm:mb-3">El Desafío</h4>
