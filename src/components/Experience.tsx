@@ -49,7 +49,7 @@ const Experience: React.FC = () => {
             id="experiencia"
             className="border-b-6 border-ink bg-white relative overflow-hidden pb-32 pt-0"
         >
-            <SectionDivider text="CAREER HISTORY  ///  TRAYECTORIA  ///  EVOLUTION" theme="dark" direction="right" />
+            <SectionDivider text="EXPERIENCIAS  ///  TRAYECTORIA  ///  LÍNEA DE TIEMPO" theme="dark" direction="right" />
 
             {/* Background Grid - Minimal opacity */}
             <div className="absolute inset-0 opacity-[0.2] bg-grid pointer-events-none mt-12"></div>
