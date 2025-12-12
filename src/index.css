@@ -207,7 +207,7 @@ button {
 
 
 .img-profile-initial {
-    filter: grayscale(100%) saturate(200%) brightness(0.95) contrast(1.9);
+    filter: grayscale(0%) saturate(0%) brightness(0.95) contrast(1.2);
 }
 
 .group\/image:hover .img-profile-initial {

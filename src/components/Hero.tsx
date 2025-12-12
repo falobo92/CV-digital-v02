@@ -97,13 +97,13 @@ const Hero: React.FC = () => {
                         <div className="relative w-[260px] h-[325px] sm:w-[300px] sm:h-[380px] md:w-[360px] md:h-[450px] lg:w-[400px] lg:h-[500px] border-4 sm:border-6 border-ink bg-black z-10 overflow-hidden transition-all duration-300 group-hover:-translate-x-0.25 group-hover:-translate-y-0.25  group-hover:bg-slate-800">
                             
                             {/* Background gradient - behind image on hover */}
-                            <div className="absolute inset-0 bg-transparent group-hover:bg-gradient-to-b group-hover:from-ink/90 group-hover:via-ink/40 group-hover:to-transparent transition-all duration-500 z-0"></div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-ink/90 via-ink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
                             
                             {/* The Image */}
                             <img
                                 src="/profile.png"
                                 alt="Felipe Lobo Boric - Constructor Civil"
-                                className="img-stable img-profile-initial transition-all duration-300 ease-out group-hover:[filter:none] group-hover:scale-[0.989] origin-center relative z-10 will-change-transform"
+                                className="img-stable img-profile-initial transition-all duration-300 ease-out group-hover:[filter:contrast(1.25)] group-hover:scale-[0.995] origin-center relative z-10 will-change-transform contrast-125"
                                 width={400}
                                 height={500}
                                 draggable="false"

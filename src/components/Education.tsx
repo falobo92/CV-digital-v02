@@ -10,9 +10,15 @@ const Education: React.FC = () => {
             <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
             <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 lg:py-24">
                 {/* Header */}
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-10 sm:mb-14 lg:mb-20 text-center uppercase tracking-tight">
-                    FORMACIÓN
-                </h2>
+                <div className="text-center mb-10 sm:mb-14 lg:mb-20">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">05</div>
+                        <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Formación & Aprendizaje</span>
+                    </div>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display uppercase tracking-tight">
+                        FORMACIÓN
+                    </h2>
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 lg:gap-20 max-w-[1400px] mx-auto">
                     {/* Education */}

@@ -208,7 +208,7 @@ const Projects: React.FC = () => {
                                                 <img
                                                     src={currentProject.image}
                                                     alt={currentProject.title}
-                                                    className="img-stable img-profile-initial group-hover/image:scale-105 group-hover/image:grayscale-0 group-hover/image:contrast-[1.5] transition-all duration-300 will-change-transform"
+                                                    className="img-stable filter saturate-0 brightness-95 contrast-125 group-hover/image:saturate-100 group-hover/image:brightness-100 group-hover/image:contrast-150 group-hover/image:scale-100 transition-[transform,filter] duration-500 ease-out will-change-transform"
                                                     width={900}
                                                     height={900}
                                                     loading={currentIndex === 0 ? 'eager' : 'lazy'}
