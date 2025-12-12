@@ -1,13 +1,8 @@
 import React from 'react';
 import BrutalButton from './ui/BrutalButton';
-import { generateCV } from '../utils/generateCV';
 import { PROFILE, PROJECTS, TECH_STACK } from '../constants';
 
 const Hero: React.FC = () => {
-    const handleDownloadCV = () => {
-        void generateCV();
-    };
-
     const yearsExp = PROFILE.yearsExperience;
 
     return (
@@ -76,7 +71,7 @@ const Hero: React.FC = () => {
                             <i className="fa-solid fa-arrow-down mr-2"></i>
                             VER TRAYECTORIA
                         </BrutalButton>
-                        <BrutalButton as="button" onClick={handleDownloadCV} size="lg">
+                        <BrutalButton as="a" href="/CV_Felipe_Lobo.pdf" download="CV_Felipe_Lobo.pdf" size="lg">
                             <i className="fa-solid fa-file-pdf mr-2"></i>
                             DESCARGAR CV
                         </BrutalButton>

@@ -118,8 +118,10 @@ const Projects: React.FC = () => {
                             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">04</div>
                             <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Casos de Éxito</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-3 sm:mb-4 uppercase tracking-tight leading-[0.9]">
-                            <span className="inline-block bg-accent-yellow px-1.5 sm:px-2 mr-1.5 sm:mr-2 border-3 sm:border-4 border-ink text-ink shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transform -rotate-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">PROYECTOS</span>
+                        <h2 className="inline-flex items-baseline flex-nowrap whitespace-nowrap text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display mb-2 text-ink tracking-tighter uppercase leading-[0.9]">
+                            <span className="inline-block bg-eng-blue px-2 sm:px-3 mr-2 sm:mr-3 border-3 sm:border-4 border-ink text-cream shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-[0.92em]">
+                                PROYECTOS
+                            </span>
                             CLAVE
                         </h2>
                     </div>

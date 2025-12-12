@@ -9,17 +9,21 @@ const References: React.FC = () => {
             
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-14 sm:pt-20 lg:pt-24">
                 {/* Header */}
-                <div className="text-center mb-10 sm:mb-14 lg:mb-20">
-                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                        <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">06</div>
-                        <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Red Profesional</span>
+                <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-ink pb-8 sm:pb-12">
+                    <div className="flex-1">
+                        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">06</div>
+                            <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Red Profesional</span>
+                        </div>
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-1 text-ink tracking-tighter uppercase leading-[0.9]">
+                            REFERENCIAS
+                        </h2>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display mb-4 sm:mb-6 uppercase tracking-tight">
-                        REFERENCIAS
-                    </h2>
-                    <p className="font-mono text-gray-600 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto px-4">
-                        Personas con las que he trabajado codo a codo y pueden contar cómo ordeno equipos, información y plazos.
-                    </p>
+                    <div className="flex-1">
+                        <p className="font-mono text-gray-700 text-base sm:text-lg lg:text-xl leading-relaxed">
+                            Personas con las que he trabajado codo a codo y pueden contar cómo ordeno equipos, información y plazos.
+                        </p>
+                    </div>
                 </div>
 
                 {/* References Grid */}

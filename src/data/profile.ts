@@ -120,27 +120,39 @@ export const PROFILE = {
         ]
     },
 
-    // Referencias profesionales
-    references: [
-        {
-            name: 'Ricardo Glade C.',
-            role: 'Gerente General',
-            company: 'Tractebel',
-            quote: 'Felipe estructuró un sistema de información claro y mantenible; gracias a eso pudimos responder al SEIA con evidencia al día y sin sobresaltos.'
-        },
-        {
-            name: 'Andrés Navarro V.',
-            role: 'Gerente de Proyectos',
-            company: 'WSP Chile',
-            quote: 'Su control documental y criterio técnico permitieron sostener estándares internacionales en un proyecto tan exigente como el GMT.'
-        },
-        {
-            name: 'Reinaldo Gutiérrez J.',
-            role: 'Gerente de Proyectos',
-            company: 'Constructora FGS S.A.',
-            quote: 'Felipe trajo orden y método a la obra. Con sus rutinas de seguimiento y coordinación redujimos atrasos y retrabajos.'
-        }
-    ]
+// Referencias profesionales
+references: [
+    {
+      name: 'Ricardo Glade C.',
+      role: 'Gerente General',
+      company: 'Tractebel',
+      phone: '(+56 9) 7829 2391',
+      email: 'ricardo.glade@tractebel.engie.com',
+      quote:
+        'En el proyecto Aguas Marítimas, Felipe apoyó de manera consistente la gestión del EIA desde la organización y control de la información. Su trabajo permitió ordenar criterios, mantener trazabilidad y facilitar la coordinación entre los distintos equipos técnicos, lo que fue especialmente valioso durante la interacción con el SEIA.'
+    },
+    {
+      name: 'Andrés Navarro V.',
+      role: 'Gerente de Proyectos',
+      company: 'WSP Chile',
+      phone: '(+56 9) 7768 2114',
+      email: 'andres.navarro@wsp.com',
+      quote:
+        'Conocí el trabajo de Felipe en el proyecto Giant Magellan Telescope, donde se desempeñó en control documental en terreno. Destacó por su forma estructurada de trabajar y por cumplir de manera confiable con los procesos definidos, aportando orden y continuidad en un entorno técnico exigente.'
+    },
+    {
+      name: 'Reinaldo Gutiérrez J.',
+      role: 'Gerente de Proyectos',
+      company: 'Constructora FGS',
+      phone: '(+56 9) 7191 0419',
+      email: 'rgutierrez@fgs.cl',
+      quote:
+        'Durante su etapa en obra, Felipe fue un apoyo directo para el control del avance y la coordinación diaria. Mantenía claridad sobre el estado real del proyecto, tanto en lo físico como en lo financiero, lo que ayudó a anticipar ajustes y a ordenar el trabajo con subcontratos.'
+    }
+  ]
+  
+  
+  
 };
 
 // Experiencia profesional
@@ -151,7 +163,7 @@ export const EXPERIENCES = [
         company: 'CRAMSA S.A.',
         project: 'Proyecto Aguas Marítimas',
         period: '2021 — Actual',
-        location: 'Santiago — Modalidad Presencial',
+        location: 'Santiago',
         category: 'digital' as const,
         highlight: 'Proyecto Emblemático',
         details: [

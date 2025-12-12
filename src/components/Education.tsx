@@ -7,17 +7,19 @@ const Education: React.FC = () => {
         <section id="educacion" className="border-b-6 border-ink bg-white relative overflow-hidden pb-24 lg:pb-32">
             <SectionDivider text="ACADÉMICO /// APRENDIZAJE CONTINUO /// HABILIDADES" theme="light" direction="left" />
             {/* Background Grid */}
-            <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 lg:py-24">
+            <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none z-0"></div>
+            <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 lg:py-24 relative z-10">
                 {/* Header */}
-                <div className="text-center mb-10 sm:mb-14 lg:mb-20">
-                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="mb-10 sm:mb-16 lg:mb-20 flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12 items-start lg:items-end border-b-3 sm:border-b-4 border-ink pb-8 sm:pb-12">
+                    <div>
+                    <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                         <div className="w-7 h-7 sm:w-8 sm:h-8 bg-ink flex items-center justify-center text-white font-mono text-[10px] sm:text-xs font-bold">05</div>
                         <span className="font-mono text-xs sm:text-sm font-bold text-ink uppercase tracking-widest">Formación & Aprendizaje</span>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display uppercase tracking-tight">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display uppercase tracking-tighter text-ink leading-[0.9]">
                         FORMACIÓN
                     </h2>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-14 lg:gap-20 max-w-[1400px] mx-auto">
